@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>📊 Quiz – Modelos de Administração Pública</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--pri:#667eea;--txt:#2d3748;--mut:#718096;--bg:#f7fafc;--bd:#e2e8f0;--ok:#38a169;--err:#e53e3e;--card:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;padding:16px;display:flex;justify-content:center;color:var(--txt);font-size:16px}
+body.contraste{--card:#000;--txt:#fff;--mut:#ffe600;--bg:#111;--bd:#fff;--pri:#ffe600}
+body.contraste .btn{color:#000}
+.wrap{max-width:850px;width:100%;background:var(--card);border-radius:24px;padding:28px 30px;box-shadow:0 25px 60px rgba(0,0,0,.6);margin:10px 0;height:fit-content}
+.head{text-align:center;border-bottom:3px solid var(--pri);padding-bottom:14px;margin-bottom:16px}
+.head h1{font-size:1.5em}.head p{color:var(--mut);font-size:.9em;margin-top:4px}
+.autoria{background:linear-gradient(135deg,#ebf4ff,#e0e7ff);border:2px solid #667eea;border-radius:14px;padding:10px 14px;text-align:center;margin-bottom:14px;color:#2d3748;font-size:.9em}
+.autoria b span{color:#667eea}
+.bar{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-bottom:12px}
+.bar button{background:var(--bg);color:var(--txt);border:2px solid var(--bd);border-radius:20px;padding:6px 12px;cursor:pointer;font-size:.85em}
+.steps{display:flex;gap:8px;margin-bottom:16px}
+.step{flex:1;text-align:center;padding:8px;border-radius:12px;border:2px solid var(--bd);font-size:.85em;color:var(--mut)}
+.step.on{border-color:var(--pri);background:var(--pri);color:#fff;font-weight:700}.step.done{border-color:var(--ok);color:var(--ok);font-weight:700}
+label.f{display:block;font-weight:600;font-size:.9em;margin:10px 0 4px}
+input[type=text],input[type=email]{width:100%;padding:12px;border:2px solid var(--bd);border-radius:12px;font-size:1em;background:var(--bg);color:var(--txt)}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:14px;padding:13px 22px;font-size:1em;font-weight:700;cursor:pointer;margin:6px 6px 0 0}
+.btn.sec{background:#718096}.btn.ok{background:var(--ok);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
+.prog{height:10px;background:var(--bd);border-radius:8px;overflow:hidden;margin:6px 0 16px}.prog i{display:block;height:100%;background:var(--pri)}
+.q{font-size:1.1em;font-weight:700;line-height:1.5;margin-bottom:14px}
+.op{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:10px;cursor:pointer;background:var(--bg)}
+.op.sel{border-color:var(--pri);background:#e0e7ff;color:#2d3748}
+.dica{display:none;background:#fffbea;border-left:4px solid #ecc94b;padding:10px 12px;border-radius:8px;margin:8px 0;font-size:.9em;color:#744210}
+.cartao{border:3px solid var(--pri);border-radius:18px;padding:20px;background:#fff;color:#2d3748;margin:14px 0}
+.cartao h2{text-align:center;font-size:1.15em;margin-bottom:10px}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;color:#fff;font-weight:700;font-size:.85em}
+.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed #cbd5e0;font-size:.95em}.row b{text-align:right;word-break:break-word}
+.gab{border:2px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:.93em}
+.gab.c{border-color:var(--ok)}.gab.e{border-color:var(--err)}
+.gab .ex{color:var(--mut);margin-top:6px}
+.msg{background:var(--bg);border:2px dashed var(--pri);border-radius:14px;padding:14px;margin-top:12px;font-size:.92em;line-height:1.6}
+.msg img{max-width:100%;border-radius:10px;border:1px solid var(--bd);margin:8px 0}
+h3{margin:18px 0 8px}
+@media(max-width:560px){.wrap{padding:18px 14px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="root">
+  <div class="head"><h1>📊 Modelos de Administração Pública</h1><p>Patrimonialista · Burocrático · Gerencial</p></div>
+  <div class="autoria"><b>✍️ Criado por <span>Professor Antonio Marques</span></b><br>♿ Tecnologia Assistiva · feedback imediato e autonomia para o aluno</div>
+  <div class="bar" id="bar">
+    <a href="../" style="background:var(--bg);color:var(--txt);border:2px solid var(--bd);border-radius:20px;padding:6px 12px;font-size:.85em;text-decoration:none;margin-right:auto">← Voltar ao portal</a>
+    <button onclick="fonte(1)">A+</button><button onclick="fonte(-1)">A−</button>
+    <button onclick="document.body.classList.toggle('contraste')">◐ Alto contraste</button>
+    <button onclick="ler()">🔊 Ler em voz alta</button>
+  </div>
+  <div id="app"></div>
+</div>
+<script>
+var API="https://script.google.com/macros/s/AKfycbxrGWs-65aKCTS83NwSPVH_z_lgg3Z0T0pmf3zjVDzZv9ouhtibQGVfcs9NwmsjkwvJ/exec";
+var DRIVE="";
+var NQ=8, MODS=["Gerencial","Burocrático","Patrimonialista","Nenhum dos modelos"];
+function caso(t,m,d,e){var w=MODS.filter(function(x){return x!==m});return [t,m,w,d,e]}
+var BANCO={
+1:[
+["O modelo gerencial surgiu como resposta às limitações de qual modelo?","Burocrático",["Patrimonialista","Colonial","Liberal"],"Pense no modelo baseado em normas e hierarquia rígida.","O gerencial nasceu no fim do século XX para superar as limitações do modelo burocrático."],
+["Outro nome do modelo gerencial é:","Nova Gestão Pública (NGP)",["Administração Patrimonial","Estado Legal-Racional","Gestão Imperial"],"A sigla tem três letras.","A NGP traz ao setor público práticas eficientes do setor privado."],
+["Qual órgão foi criado no Brasil, nos anos 1990, para conduzir a reforma gerencial?","MARE",["IBGE","TCU","BNDES"],"Ministério da Administração Federal e Reforma do Estado.","O MARE foi liderado pelo ministro Bresser-Pereira."],
+["Quem liderou o MARE, ministério da reforma gerencial brasileira?","Luiz Carlos Bresser-Pereira",["Max Weber","Getúlio Vargas","Henry Fayol"],"Ele aparece nas referências do material.","Bresser-Pereira liderou o MARE nos anos 1990."],
+["É um princípio fundamental do modelo gerencial:","Foco nos resultados e não apenas nos processos",["Nomeação por indicação familiar","Cumprimento de regras como fim em si mesmo","Concentração total das decisões"],"Gerencial = resultados e metas.","Também são princípios: descentralização, flexibilidade, controle por resultados e satisfação do cidadão-cliente."],
+["Qual modelo predominou no Brasil Colonial e Imperial?","Patrimonialista",["Burocrático","Gerencial","Híbrido"],"O Estado era visto como propriedade pessoal.","No patrimonialismo, o governante trata o Estado como patrimônio seu."],
+["Qual é a forma de nomeação típica do modelo burocrático?","Concurso público",["Indicação política","Indicação familiar","Sorteio"],"Valoriza a competência técnica.","O burocrático seleciona por mérito, por meio de concurso público."],
+["No modelo gerencial, o cidadão é tratado como:","Cliente/usuário",["Súdito","Administrado","Servo"],"Foco na satisfação.","Súdito = patrimonialista; administrado = burocrático; cliente/usuário = gerencial."],
+["Quais são as três etapas do ciclo da gestão gerencial?","Planejamento, execução e avaliação",["Indicação, controle e punição","Nomeação, hierarquia e arquivo","Cobrança, fiscalização e repressão"],"Começa com metas e termina com monitoramento.","Define-se objetivos, executa-se com autonomia e avalia-se continuamente."],
+["Qual é o foco principal do modelo burocrático?","Cumprimento de regras",["Interesses pessoais","Resultados e metas","Lucro"],"Normas e regulamentos.","No burocrático, o foco está nas normas; no gerencial, nos resultados."]
+],
+2:[
+caso("Uma prefeitura abre concurso para professores; todos fazem a mesma prova e os aprovados são nomeados por classificação. Qual modelo?","Burocrático","Há impessoalidade e mérito.","Concurso público com critérios iguais é típico do modelo burocrático."),
+caso("Um posto de saúde estabelece metas de atendimento, mede a satisfação dos usuários e reorganiza processos para reduzir filas. Qual modelo?","Gerencial","Metas + satisfação do usuário.","Metas, indicadores e foco no usuário caracterizam o modelo gerencial."),
+caso("Um prefeito nomeia seu irmão como secretário de obras, sem qualificação técnica. Qual modelo?","Patrimonialista","Pessoalidade e favorecimento.","Nomear parentes sem qualificação é prática patrimonialista."),
+caso("Uma secretaria de educação usa aplicativo para monitorar a frequência dos alunos em tempo real. Qual modelo?","Gerencial","Monitoramento contínuo de resultados.","Acompanhar resultados em tempo real é prática gerencial."),
+caso("Um servidor segue rigorosamente um manual de procedimentos para emitir uma certidão. Qual modelo?","Burocrático","Ênfase em normas e processos.","Seguir regras e procedimentos formais é característica burocrática."),
+caso("Um vereador contrata sua esposa para trabalhar em seu gabinete. Qual modelo?","Patrimonialista","Confunde o público com o pessoal.","Contratar familiar por laço pessoal é exemplo patrimonialista."),
+caso("Uma prefeitura cria indicadores de qualidade para avaliar a limpeza urbana. Qual modelo?","Gerencial","Indicadores mensuráveis.","Criar indicadores de desempenho é prática gerencial."),
+caso("O programa Bolsa Família, com metas claras, indicadores mensuráveis e avaliação contínua, é exemplo de qual modelo?","Gerencial","Controle por resultados.","O material o cita como exemplo de gestão gerencial."),
+["Quantos municípios o Brasil possui, segundo o material?","5.570",["3.200","4.800","6.100"],"Cada um tem administração local própria.","O Brasil tem 5.570 municípios, além de 27 unidades federativas (26 estados e o DF)."],
+["Como é descrita a administração pública brasileira atual?","Híbrida, combinando elementos dos três modelos",["Totalmente gerencial","Exclusivamente burocrática","Apenas patrimonialista"],"Os modelos coexistem.","A realidade atual mistura traços patrimonialistas, burocráticos e gerenciais."]
+]};
+var S={nome:"",email:"",n:1,q:[],r:[],i:0,res:{1:null,2:null},ativo:false,sai:0,pend:false,cum:{1:0,2:0}};
+function $(i){return document.getElementById(i)}
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
+function emb(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function steps(){var h='<div class="steps">';[1,2].forEach(function(n){var c=S.res[n]?"done":(S.n===n?"on":"");h+='<div class="step '+c+'">'+(S.res[n]?"✅ ":"")+"Quiz "+n+" · "+(n===1?"Conceitos":"Casos práticos")+"</div>"});return h+"</div>"}
+function inicio(){$("app").innerHTML='<label class="f">👤 Nome completo</label><input type="text" id="nm" placeholder="Digite seu nome completo"><label class="f">📧 E-mail</label><input type="email" id="em" placeholder="seu.email@exemplo.com"><div class="msg">📋 São <b>2 quizzes de 8 questões</b>, sorteadas e embaralhadas a cada tentativa. O <b>Quiz 2 só libera após concluir o Quiz 1</b>. Ao final de cada quiz você vê o gabarito comentado, pode refazer e enviar o print do resultado (parcial ou total).<br>⚠️ <b>Não saia da página durante o quiz:</b> na 1ª saída você recebe um aviso; na 2ª o quiz reinicia com novas questões.</div><button class="btn" onclick="comecar()">▶ Iniciar Quiz 1</button>'}
+function comecar(){var n=$("nm").value.trim(),e=$("em").value.trim();if(n.length<3||e.indexOf("@")<1){alert("Preencha nome completo e e-mail válido.");return}S.nome=n;S.email=e;S.cum={1:0,2:0};iniciar(1)}
+function iniciar(n){S.n=n;S.q=emb(BANCO[n]).slice(0,NQ).map(function(x){return{t:x[0],o:emb([x[1]].concat(x[2])),c:x[1],d:x[3],e:x[4]}});S.r=[];S.i=0;S.sai=0;S.pend=false;S.ativo=true;quest()}
+function quest(){var q=S.q[S.i],p=Math.round(S.i/NQ*100);var h=steps()+'<div style="color:var(--mut);font-size:.9em">Quiz '+S.n+' · Questão '+(S.i+1)+' de '+NQ+'</div><div class="prog"><i style="width:'+p+'%"></i></div><div class="q" id="qt">'+esc(q.t)+"</div>";
+q.o.forEach(function(o,k){h+='<div class="op'+(S.r[S.i]===o?" sel":"")+'" onclick="esc_(\''+k+'\')"><b>'+"ABCD"[k]+")</b><span>"+esc(o)+"</span></div>"});
+h+='<div class="dica" id="dc">💡 '+esc(q.d)+'</div><button class="btn sec" onclick="$(\'dc\').style.display=\'block\'">💡 Dica</button> ';
+if(S.i>0)h+='<button class="btn sec" onclick="S.i--;quest()">← Anterior</button> ';
+h+='<button class="btn" '+(S.r[S.i]===undefined?"disabled":"")+' onclick="prox()">'+(S.i===NQ-1?"Finalizar ✔":"Próxima →")+"</button>";$("app").innerHTML=h}
+function esc_(k){S.r[S.i]=S.q[S.i].o[+k];quest()}
+function prox(){if(S.i<NQ-1){S.i++;quest()}else fim()}
+function status(p){return p>=70?["Meta atingida","#38a169"]:p>=50?["Quase lá – revise e refaça","#dd6b20"]:["Refazer recomendado","#e53e3e"]}
+function fim(){S.ativo=false;var a=0,it=S.q.map(function(q,i){var ok=S.r[i]===q.c;if(ok)a++;return{t:q.t,r:S.r[i],c:q.c,e:q.e,ok:ok}});S.res[S.n]={a:a,t:NQ,p:Math.round(a/NQ*100),it:it,dt:new Date().toLocaleString("pt-BR")};resultado(S.n)}
+function resultado(n){S.n=n;var r=S.res[n],st=status(r.p);var h=steps()+'<h3>🏁 Quiz '+n+' concluído: '+r.a+" / "+r.t+" ("+r.p+'%) <span class="tag" style="background:'+st[1]+'">'+st[0]+"</span></h3><h3>📖 Gabarito comentado</h3>";
+r.it.forEach(function(x,i){h+='<div class="gab '+(x.ok?"c":"e")+'"><b>'+(x.ok?"✅":"❌")+" "+(i+1)+". "+esc(x.t)+"</b><br>Sua resposta: "+esc(x.r)+(x.ok?"":"<br>Resposta correta: <b>"+esc(x.c)+"</b>")+'<div class="ex">📌 '+esc(x.e)+"</div></div>"});
+h+='<button class="btn sec" onclick="iniciar('+n+')">🔄 Refazer Quiz '+n+" (novas questões)</button> ";
+if(n===1)h+='<button class="btn ok" onclick="iniciar(2)">➡ Ir para o Quiz 2</button>';
+h+='<h3>📤 Enviar resultado</h3><button class="btn" onclick="envio(\'PARCIAL\')">📸 Enviar PARCIAL (Quiz 1)</button> ';
+h+=S.res[1]&&S.res[2]?'<button class="btn ok" onclick="envio(\'TOTAL\')">📸 Enviar TOTAL (Quiz 1 + 2)</button>':'<button class="btn" disabled>📸 Enviar TOTAL (conclua os 2 quizzes)</button>';
+h+='<div id="envio"></div>';$("app").innerHTML=h;window.scrollTo(0,0)}
+function linha(k,v){return '<div class="row"><span>'+k+"</span><b>"+v+"</b></div>"}
+function envio(tipo){var r1=S.res[1],r2=S.res[2],tot=tipo==="TOTAL",a=tot?r1.a+r2.a:r1.a,t=tot?16:8,p=Math.round(a/t*100),st=status(p),sd=tot?"Quiz 1: "+S.cum[1]+" · Quiz 2: "+S.cum[2]:"Quiz 1: "+S.cum[1];S.pl={tipo:tipo,aluno:S.nome,email:S.email,dt:new Date().toLocaleString("pt-BR"),q1:r1.a+" / 8",q2:tot?r2.a+" / 8":"—",total:a+" / "+t,perc:p+"%",status:st[0],saidas:sd};
+var h='<div class="cartao" id="cartao"><h2>📊 Modelos de Administração Pública<br><span class="tag" style="background:'+(tot?"#38a169":"#dd6b20")+'">ENVIO '+tipo+(tot?" · Quiz 1 + Quiz 2":" · somente Quiz 1")+"</span></h2>"+linha("👤 Aluno",esc(S.nome))+linha("📧 E-mail",esc(S.email))+linha("📅 Data/hora",new Date().toLocaleString("pt-BR"))+linha("Quiz 1 – Conceitos",r1.a+" / 8 ("+r1.p+"%)")+linha("Quiz 2 – Casos práticos",tot?r2.a+" / 8 ("+r2.p+"%)":"não enviado neste envio")+linha("🏆 Nota "+(tot?"total":"parcial"),"<b>"+a+" / "+t+" ("+p+"%)</b>")+linha("Status",st[0])+linha("🚪 Saídas da página",sd)+"</div>";
+h+='<button class="btn ok" id="bt" onclick="enviar_(\''+tipo+'\')">📤 Enviar para a pasta do Drive ('+tipo+')</button><div id="img"></div><div class="msg">O envio é feito automaticamente para a pasta do professor, com o nome <b>'+tipo+'_'+esc(S.nome.replace(/\s+/g,"_"))+'</b>. Se falhar, a imagem será exibida para você salvar.<br>'+(DRIVE?'<a href="'+DRIVE+'" target="_blank" rel="noopener"><button class="btn sec" type="button">📁 Abrir pasta do Drive (alternativa manual)</button></a>':"")+'</div>';
+$("envio").innerHTML=h;$("cartao").scrollIntoView({behavior:"smooth"})}
+function enviar_(tipo){var b=$("img"),bt=$("bt");bt.disabled=true;b.innerHTML="⏳ Gerando imagem e enviando…";
+if(!window.html2canvas){b.innerHTML="Não foi possível gerar a imagem. Tire um print da tela e envie pela pasta do Drive.";bt.disabled=false;return}
+html2canvas($("cartao"),{scale:2,backgroundColor:"#ffffff"}).then(function(c){var u=c.toDataURL("image/png"),nome=tipo+"_"+S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+var pre='<img src="'+u+'" alt="Resultado" style="max-width:100%;border-radius:10px;border:1px solid var(--bd);margin-top:8px">';
+fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({nome:nome,imagem:u},S.pl))}).then(function(){b.innerHTML='<div class="msg">✅ <b>Envio '+tipo+' realizado!</b> O resultado foi enviado para a pasta do professor como <b>'+esc(nome)+'.png</b>.'+pre+"</div>";bt.disabled=false;bt.textContent="📤 Reenviar ("+tipo+")"}).catch(function(){b.innerHTML='<div class="msg">⚠️ Não foi possível enviar automaticamente. Salve a imagem abaixo (segure/botão direito) e envie pela pasta do Drive.'+pre+"</div>";bt.disabled=false})
+}).catch(function(){b.innerHTML="Falha ao gerar a imagem. Tire um print da tela.";bt.disabled=false})}
+function fonte(d){var s=parseFloat(getComputedStyle(document.body).fontSize);document.body.style.fontSize=Math.min(26,Math.max(13,s+d*2))+"px"}
+function ler(){if(!window.speechSynthesis)return;speechSynthesis.cancel();var q=S.q[S.i],t=$("qt")&&q?q.t+". "+q.o.map(function(o,k){return "Alternativa "+"ABCD"[k]+": "+o}).join(". "):$("app").innerText;var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}
+function aviso(m){var a=$("av");if(!a){a=document.createElement("div");a.id="av";a.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99";document.body.appendChild(a)}a.innerHTML='<div class="wrap" style="max-width:420px;text-align:center"><p style="font-size:1.1em;line-height:1.5">'+m+'</p><button class="btn" onclick="document.getElementById(\'av\').remove()">Entendi</button></div>'}
+document.addEventListener("visibilitychange",function(){if(document.hidden){if(S.ativo){S.sai++;S.cum[S.n]++;S.pend=true}}else if(S.pend){S.pend=false;if(!S.ativo)return;if(S.sai>=2){var n=S.n;iniciar(n);aviso("🔄 Você saiu da página novamente. O <b>Quiz "+n+"</b> foi reiniciado com novas questões sorteadas.")}else aviso("⚠️ Você saiu da página. <b>Na próxima saída o quiz será reiniciado.</b>")}});
+inicio();
+</script>
+</body>
+</html>
