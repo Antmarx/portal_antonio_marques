@@ -1,0 +1,69 @@
+// ÁREA DO PROFESSOR: edite aqui as turmas (botões) e os materiais de cada uma.
+// Você pode ter QUANTAS turmas quiser: copie um bloco { icone... } inteiro, cole embaixo
+// e ponha vírgula no bloco de cima (o último bloco fica sem vírgula).
+//
+// Cada material fica em links: [ ... ] e tem:  icone (opcional), texto, url
+// O site reconhece o tipo sozinho pelo endereço:
+//   vídeo  (.mp4 .webm)   -> toca dentro da página   url: "materiais/aula1.mp4"
+//   áudio  (.mp3 .wav)    -> toca dentro da página
+//   PDF    (.pdf)         -> abre para ler na página, com botão de baixar
+//   imagem (.jpg .png)    -> mostra na página, com botão de baixar
+//   YouTube / Google Drive (link) -> abre dentro da página
+//   Word, PowerPoint, Excel, ZIP... -> baixa o arquivo
+//   outra página (https://... ou outra-pagina.html) -> abre em nova aba (seus outros sites)
+// Opções extras:  baixar: true  (força o download)   legenda: "materiais/aula1.vtt" (legenda do vídeo)
+//
+// Arquivos próprios: suba na pasta "materiais" do GitHub e use o caminho, ex.: "materiais/apostila.pdf".
+// Use nomes sem espaços e sem acentos. Link com url: "" (vazio) não aparece.
+const TURMAS = [
+  { icone: "📊", nome: "Turma A", tema: "Planejamento e organização",
+    links: [
+      { texto: "Página da turma",   url: "" },
+      { texto: "Vídeo aula",        url: "" },
+      { texto: "Apostila em PDF",   url: "" },
+      { texto: "Slides da aula",    url: "" },
+      { texto: "Quiz",              url: "" }
+    ] },
+  { icone: "🤝", nome: "Turma B", tema: "Liderança e trabalho em equipe",
+    links: [
+      { texto: "Página da turma",   url: "" },
+      { texto: "Vídeo aula",        url: "" },
+      { texto: "Material em PDF",   url: "" }
+    ] },
+  { icone: "💡", nome: "Turma C", tema: "Inovação e tecnologia na gestão",
+    links: [
+      { texto: "Página da turma",   url: "" },
+      { texto: "Vídeo aula",        url: "" },
+      { texto: "Material em PDF",   url: "" },
+      { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
+    ] },
+  { icone: "🚀", nome: "Turma D", tema: "Empreendedorismo e carreira",
+    links: [
+      { texto: "Página da turma",   url: "" },
+      { texto: "Vídeo aula",        url: "" },
+      { texto: "Material em PDF",   url: "" }
+    ] }
+];
+
+// ================= BIBLIOTECA DE MATERIAIS (links ilimitados) =================
+// Uma linha por material. O portal reconhece o tipo pelo endereço (vídeo, PDF, imagem, YouTube, Drive...).
+// Campos:  texto (nome)  url (endereço)  area (ex.: "Contabilidade")  descricao (opcional)
+//          imagem (capa opcional, ex.: "imagens/capa1.jpg")  destaque: true (aparece em Destaques)
+//          categoria: "Quiz" (opcional, cria um filtro com esse nome)  promo: true (marca como Indicação)
+//          baixar: true (força download)  legenda: "materiais/aula.vtt" (vídeo)
+// Capa automática: YouTube e Google Drive. Nos demais, use "imagem" ou fica o ícone.
+// Linha com url: "" não aparece. Para adicionar: copie uma linha, cole embaixo, vírgula na anterior.
+const BIBLIOTECA = [
+  { texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html",
+    area: "Administração Pública", categoria: "Quiz", destaque: true, icone: "🧠",
+    descricao: "Patrimonialista, burocrático e gerencial." },
+  { texto: "Vídeo aula (exemplo)",   url: "", area: "Administração" },
+  { texto: "Apostila em PDF (exemplo)", url: "", area: "Contabilidade" },
+  { texto: "Indicação de livro ou produto (exemplo)", url: "", area: "Administração", promo: true }
+];
+
+// Aviso mostrado quando houver links marcados com promo: true
+const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de terceiros, podem conter publicidade e não são de responsabilidade do professor. Confira preços e condições no site de destino.";
+
+// Texto da seção "Sobre o professor" (apague as aspas internas se quiser esconder a seção)
+const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio.";
