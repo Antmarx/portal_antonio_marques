@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Prof. Antonio Marques">
+<title>🍔 Simulador de Decisões – Cantina Escolar</title>
+<!--
+  Simulador de Decisões: A Cantina do Técnico
+  Componente: Empreendedorismo · 1º Ano Integral · Turma A · Curso Técnico em Administração
+  Autoria: Prof. Antonio Marques · Escola Monsenhor Paiva · Vera Cruz/RN · 2026
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--bg:#0f1a2e;--card:#18284a;--txt:#fff;--bd:#5b78b8;--ac:#ffb020}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;font-family:Verdana,Arial,sans-serif;font-size:17px;background:var(--bg);color:var(--txt)}
+body.contraste{--bg:#000;--card:#000;--bd:#fff}
+.wrap{max-width:780px;margin:0 auto}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.bar a,.bar button{min-height:42px;padding:0 14px;font:inherit;font-size:.85em;color:var(--txt);background:var(--card);border:2px solid var(--bd);border-radius:20px;text-decoration:none;display:inline-flex;align-items:center;cursor:pointer}
+.bar a:first-child{margin-right:auto}
+h1{font-size:1.4em;margin:6px 0 10px}
+h2{font-size:1.15em;margin:0 0 8px}
+.painel{background:var(--card);border:2px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:14px}
+.hero{text-align:center;padding:18px;border-radius:16px;background:linear-gradient(135deg,#7c2d12,#b45309);margin-bottom:12px}
+.hero .big{font-size:3em;letter-spacing:6px}
+.regras{padding-left:22px;line-height:1.5}.regras li{margin-bottom:6px}
+.nota{font-size:.88em;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:10px 0;line-height:1.5}
+input{width:100%;min-height:46px;margin:6px 0 12px;padding:0 12px;font:inherit;border-radius:10px;border:2px solid var(--bd)}
+.btn{min-height:50px;padding:0 22px;font:inherit;font-weight:700;color:#12102e;background:var(--ac);border:0;border-radius:14px;cursor:pointer;margin:4px 6px 4px 0}
+.btn.sec{color:var(--txt);background:transparent;border:2px solid var(--bd)}
+.info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:700}
+.meter{height:14px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;margin:6px 0}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ef4444,#eab308,#22c55e);transition:width .5s}
+.prog{display:flex;gap:3px;margin:8px 0}.prog u{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.18);text-decoration:none}.prog u.f{background:var(--ac)}
+.cena{border-radius:18px;padding:16px;text-align:center;margin-bottom:12px}
+.emo{font-size:3.2em;letter-spacing:8px;animation:fl 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.emo{animation:none}}
+.tag{display:inline-block;font-size:.8em;font-weight:800;background:#ef4444;color:#fff;border-radius:99px;padding:3px 12px;margin-bottom:6px}
+.sit{margin:0 0 12px;padding:12px;border-left:6px solid var(--ac);background:rgba(255,255,255,.07);border-radius:8px;line-height:1.5}
+.op{display:flex;gap:10px;align-items:center;width:100%;text-align:left;min-height:64px;padding:10px 12px;margin:0 0 10px;font:inherit;color:var(--txt);background:var(--card);border:3px solid var(--bd);border-radius:14px;cursor:pointer;transition:transform .12s}
+.op b.l{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ac);color:#12102e;display:grid;place-items:center}
+.op:hover:not(:disabled){border-color:var(--ac);transform:translateX(4px)}
+.op:disabled{cursor:default}
+.op.p10{border-color:#22c55e;background:#14532d}.op.p5{border-color:#eab308;background:#52420a}.op.p0{border-color:#ef4444;background:#5b1414}
+.op.best{outline:3px dashed #22c55e}
+body.contraste .op.p10,body.contraste .op.p5,body.contraste .op.p0{background:#000}
+#fb{min-height:3em;margin:10px 0;line-height:1.5}
+#cartao{background:#18284a;border:2px solid #5b78b8;border-radius:14px;padding:16px;color:#fff}
+#cartao p{margin:5px 0}
+.hide{display:none}
+:focus-visible{outline:4px solid var(--ac);outline-offset:2px}
+.autor{margin:0 0 12px;font-size:.85em;opacity:.9}
+.rodape{text-align:center;font-size:.82em;opacity:.85;line-height:1.5;margin:6px 0 20px}
+.aviso{border:2px solid #f59e0b;background:rgba(245,158,11,.15)}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="bar">
+  <a href="../">← Voltar ao portal</a>
+  <button onclick="fonte(1)" aria-label="Aumentar letra">A+</button><button onclick="fonte(-1)" aria-label="Diminuir letra">A−</button>
+  <button onclick="document.body.classList.toggle('contraste')">◐ Alto contraste</button>
+  <button onclick="ler()">🔊 Ouvir</button>
+  <button id="bAuto" onclick="autoL()" aria-pressed="false">🗣️ Leitura automática: desligada</button>
+  <button id="bSom" onclick="som()" aria-pressed="true">🎵 Som: ligado</button>
+  <button id="bMus" onclick="trilha()" aria-pressed="false">🎶 Trilha sonora: desligada</button>
+ </div>
+ <h1>🍔 Simulador de Decisões: A Cantina do Técnico</h1>
+ <p class="autor">✍️ Autoria: <b>Prof. Antonio Marques</b> · Escola Monsenhor Paiva · Vera Cruz/RN</p>
+
+ <section id="tInicio" class="painel">
+  <div id="aviso" class="nota aviso hide" role="alert"></div>
+  <div class="hero"><div class="big" aria-hidden="true">🏫🍔🧾</div><b>Empreendedorismo · 1º Ano Integral · Turma A</b><br>Curso Técnico em Administração<br><small>Autoria: Prof. Antonio Marques</small></div>
+  <h2>🚀 Sua missão</h2>
+  <p>Vocês são os <b>sócios da Cantina do Técnico</b>, um negócio de verdade dentro da escola. Em cada questão aparece um <b>problema real</b> do plano de negócios. Analise a situação e escolha a <b>melhor decisão</b>. Suas escolhas mudam a <b>saúde da cantina</b>.</p>
+  <h2>📖 Como jogar</h2>
+  <ol class="regras">
+   <li><b>16 situações</b> em <b>3 níveis</b>: 1) A Ideia e a Lei (5), 2) Mercado e Marketing (5), 3) Operação e Finanças (6).</li>
+   <li>Leia (ou ouça) a situação e escolha entre <b>3 decisões</b>. Teclas <b>1, 2 e 3</b> também funcionam.</li>
+   <li>Cada decisão vale <b>10</b> (excelente), <b>5</b> (parcial) ou <b>0</b> (arriscada) pontos. Máximo: <b>160</b>.</li>
+   <li>Depois de responder você vê o <b>porquê</b> e qual era o melhor caminho. Não há tempo limite nem eliminação.</li>
+   <li>A <b>💡 Dica</b> ajuda, mas <b>custa 2 pontos</b> naquela questão.</li>
+   <li>No final, envie o resultado ao professor.</li>
+  </ol>
+  <div class="nota"><b>♿ Método dual (texto + áudio):</b> todo o conteúdo aparece em <b>texto e imagem</b> e também pode ser <b>ouvido</b>. Use <b>🔊 Ouvir</b> ou ative a <b>Leitura automática</b>. Há ainda <b>A+/A−</b>, <b>alto contraste</b> e navegação por teclado. O resultado de cada decisão usa <b>ícones e texto</b>, nunca só cor. Todos os sons têm equivalente visual.</div>
+  <label for="nm">Nome completo</label><input id="nm" autocomplete="name">
+  <label for="em">E-mail</label><input id="em" type="email" autocomplete="email">
+  <button class="btn" onclick="iniciar()">▶ Abrir a cantina</button>
+ </section>
+
+ <section id="tJogo" class="painel hide">
+  <div class="info"><span id="iRod"></span><span id="iPts">0 pontos</span></div>
+  <div class="prog" id="prog" aria-hidden="true"></div>
+  <div>🏪 Saúde da cantina: <b id="iSau">100%</b><div class="meter"><i id="mt"></i></div></div>
+  <div class="cena" id="cena"><div class="emo" id="emo" aria-hidden="true"></div><div><span class="tag">🚨 SITUAÇÃO REAL</span></div><b id="nivT"></b></div>
+  <h2 id="qt"></h2>
+  <p class="sit" id="sit"></p>
+  <div id="ops"></div>
+  <div id="fb" aria-live="polite"></div>
+  <button class="btn sec" id="bDica" onclick="dica()">💡 Dica (−2 pontos)</button>
+  <button class="btn hide" id="bCont" onclick="cont()">Continuar ▶</button>
+ </section>
+
+ <section id="tNivel" class="painel hide" style="text-align:center">
+  <div class="emo" id="nE" aria-hidden="true" style="font-size:3.5em"></div>
+  <h2 id="nT"></h2><p id="nX" aria-live="polite"></p>
+  <button class="btn" onclick="seguir()" id="bSeg">Próximo nível ▶</button>
+ </section>
+
+ <section id="tFim" class="painel hide">
+  <div id="cartao"></div>
+  <div id="rev" class="nota hide"></div>
+  <p><button class="btn" id="bEnv" onclick="enviar()">📤 Enviar resultado ao professor</button>
+  <button class="btn sec" onclick="location.reload()">↻ Jogar de novo</button></p>
+  <div id="envMsg" aria-live="polite"></div>
+ </section>
+ <p class="rodape">✍️ Autoria: Prof. Antonio Marques · Empreendedorismo · 1º Ano Integral · Turma A<br>Curso Técnico em Administração · Escola Monsenhor Paiva · Vera Cruz/RN · 2026</p>
+</div>
+<script>
+// ===== CONFIGURAÇÃO (muda em cada atividade) =====
+var API="https://script.google.com/macros/s/AKfycbxrGWs-65aKCTS83NwSPVH_z_lgg3Z0T0pmf3zjVDzZv9ouhtibQGVfcs9NwmsjkwvJ/exec";
+var TURMA="Turma A";
+var ATIVIDADE="Simulador de Decisões Cantina Escolar";
+// =================================================
+var NIV=[{n:"Nível 1 · A Ideia e a Lei",g:"linear-gradient(135deg,#1e3a8a,#2563eb)",max:50,e:"🌱"},{n:"Nível 2 · Mercado e Marketing",g:"linear-gradient(135deg,#9a3412,#d97706)",max:50,e:"📣"},{n:"Nível 3 · Operação e Finanças",g:"linear-gradient(135deg,#065f46,#059669)",max:60,e:"📊"}];
+var FIM=[5,10,16], NQ=16, MAXP=160;
+// [nível, imagem, título, situação, [[decisão, pontos, explicação]...], dica]
+var Q=[
+[0,"🏫💡🙋","A ideia é boa ou só parece boa?","No integral faltam lanches saudáveis e baratos. Um colega anima a turma: “Vamos comprar tudo hoje e vender amanhã, a ideia é ótima!”. Vocês ainda não ouviram ninguém. O que fazer primeiro?",[["Comprar os ingredientes hoje e vender amanhã para testar na prática.",0,"Gastar antes de validar pode gerar prejuízo e desperdício."],["Pesquisar com os colegas o que querem, quanto pagam e quando compram.",10,"Validar a necessidade do cliente reduz o risco antes de investir."],["Copiar o cardápio da cantina da esquina.",5,"Copiar ajuda como referência, mas não mostra o que o seu público quer."]],"Todo plano começa pelo cliente."],
+[0,"📝👨‍👩‍👧🧾","Quem assina o negócio?","A turma tem menos de 18 anos e prevê vender cerca de R$ 4.000 por mês. Como formalizar a cantina?",[["Vender sem registro nenhum, já que é na escola.",0,"Vender sem formalização expõe todos a riscos legais e fiscais."],["Formalizar em nome de um responsável adulto (professor ou associação de pais), com termo de parceria.",10,"O termo de parceria divide responsabilidades e resultados com segurança."],["Abrir uma empresa grande, com contador caro, para impressionar.",5,"É exagero para o porte: gera custos que o faturamento não sustenta."]],"Lembre da parceria Aluno–Escola."],
+[0,"🍳🧼📋","Salgado seguro","Vocês querem vender salgados e sucos. Antes da primeira venda, qual norma de alimentos precisa ser observada?",[["A RDC 216/2004 da ANVISA, de boas práticas para serviços de alimentação.",10,"É a norma que orienta higiene, manipulação e armazenamento de alimentos."],["Nenhuma, porque é uma escola e não um restaurante.",0,"Quem vende alimentos precisa seguir regras sanitárias em qualquer lugar."],["Só lavar as mãos, sem seguir norma específica.",5,"Higiene é essencial, mas não basta: há exigências formais."]],"Tem sigla de agência sanitária."],
+[0,"🎯📈✅","Objetivo que se mede","O grupo precisa escrever um objetivo SMART (específico, mensurável, atingível, relevante e com prazo). Qual está certo?",[["“Vender muito e ficar famosos na escola.”",0,"Não tem número nem prazo, então não dá para medir."],["“Vender 80 lanches por dia, com margem de 30%, até o fim do 2º bimestre.”",10,"Tem meta, número, margem e prazo: é SMART."],["“Aumentar as vendas em breve.”",0,"‘Em breve’ não é prazo e ‘aumentar’ não tem valor."]],"Procure número + prazo."],
+[0,"🧭⭐🍎","Por que a cantina existe?","Vocês vão redigir a missão. Qual texto expressa por que o negócio existe hoje?",[["“Ser a maior cantina do estado.”",5,"Isso é uma visão (onde se quer chegar), não a missão."],["“Oferecer lanches saudáveis, acessíveis e seguros aos estudantes do integral, aprendendo a empreender.”",10,"Diz o que faz, para quem e com qual propósito."],["“Ganhar o máximo de dinheiro possível.”",0,"Lucro é consequência, mas não define o propósito."]],"Missão = existência hoje; visão = futuro."],
+[1,"🔍👥📊","O que a pesquisa revelou","A pesquisa com 100 alunos mostrou: 70% querem lanche de até R$ 6 e 20% pedem opção vegetariana. Qual decisão usa melhor esses dados?",[["Cardápio premium com preços altos, para parecer sofisticado.",0,"Vai contra o que o público disse que pode pagar."],["Lanches até R$ 6, com pelo menos uma opção vegetariana.",10,"Atende a maioria e ainda abre um nicho."],["Ignorar a pesquisa e vender o que o grupo mais gosta.",0,"O gosto do grupo não representa o do cliente."]],"Os dados da pesquisa já dizem."],
+[1,"🏪🥪🛵","A concorrência na esquina","A cantina da esquina vende barato, mas sem nota fiscal e com fila de 15 minutos. Há também um ambulante na porta. Como competir?",[["Vender abaixo do custo para quebrar a concorrência.",0,"Vender com prejuízo quebra você primeiro."],["Diferenciar: atendimento rápido com pré-pedido, higiene e opções saudáveis.",10,"Competir por diferencial é mais sustentável que competir só por preço."],["Pedir à direção que proíba os concorrentes.",0,"Não resolve o problema e não gera vantagem real."]],"Ache o ponto fraco do concorrente."],
+[1,"🚚📦💬","Qual fornecedor escolher?","Cotação do pão: Fornecedor 1 é o mais barato, mas sem NF e só à vista. Fornecedor 2 é 5% mais caro, emite NF e dá 15 dias para pagar. Fornecedor 3 é o mais caro, com entrega rápida.",[["Fornecedor 1, pelo menor preço.",0,"Sem NF não há comprovação de custo, e pagar à vista pesa no caixa."],["Fornecedor 2: nota fiscal e prazo de 15 dias melhoram o caixa.",10,"O custo total inclui prazo e documentação, não só o preço."],["Fornecedor 3, pela entrega rápida.",5,"É bom em agilidade, mas o preço alto reduz a margem."]],"Pense em prazo de pagamento e NF."],
+[1,"📣📱🎟️","Divulgar sem dinheiro","O orçamento para divulgação é R$ 0. Como atrair clientes?",[["Esperar que os alunos descubram sozinhos.",0,"Sem divulgação, o cliente não sabe que você existe."],["Pagar anúncio em rede social com o dinheiro do estoque.",5,"Anúncio pago pode ajudar, mas tira capital de giro."],["Cartazes feitos pela turma, divulgação nas redes da escola e cartão fidelidade.",10,"Comunicação de baixo custo e fidelização."]],"Criatividade vale mais que verba."],
+[1,"💲🥪🧮","Quanto cobrar?","Cada sanduíche custa R$ 3,20 para ser feito. O concorrente vende por R$ 5,00. Qual preço adotar?",[["R$ 3,20, para ninguém reclamar.",0,"Sem margem você não paga custos fixos nem tem lucro."],["R$ 7,50, para parecer premium.",5,"Pode afastar o público que quer pagar até R$ 6."],["R$ 5,00: margem para cobrir custos e preço competitivo.",10,"Equilibra custo, margem e mercado."]],"Preço = custo + margem, olhando o mercado."],
+[2,"👩‍🍳🧑‍🍳⏱️","A fila do recreio","No recreio de 15 minutos a fila fica enorme e alunos desistem de comprar. Como resolver?",[["Dividir funções: pedido, pagamento e entrega, com rodízio.",10,"Fluxo em etapas e equipe organizada aumentam a velocidade."],["Um aluno faz tudo para evitar confusão.",0,"Cria gargalo e aumenta a fila."],["Reduzir o cardápio no recreio e deixar o resto para depois.",5,"Ajuda, mas sem organizar a equipe o problema volta."]],"Veja o fluxo de atendimento do plano."],
+[2,"💰🧊🧺","Capital que não cobre tudo","O capital é R$ 1.500. Orçado: geladeira usada R$ 900, estoque R$ 400 e utensílios R$ 300 (total R$ 1.600). O que fazer?",[["Comprar tudo no cartão e pagar depois.",0,"Cria dívida antes de vender qualquer coisa."],["Priorizar: geladeira usada, estoque enxuto e pedir utensílios emprestados à escola.",10,"Priorizar e negociar mantém o negócio viável dentro do capital."],["Cancelar o projeto.",0,"É possível ajustar o plano antes de desistir."]],"A conta não fecha: o que dá para cortar?"],
+[2,"📉🧮🎯","Quanto precisa vender?","Os custos fixos são R$ 1.200 por mês e a margem de contribuição é 40%. Qual o ponto de equilíbrio em faturamento mensal?",[["R$ 1.200",0,"Isso é só o custo fixo, sem considerar a margem."],["R$ 3.000",10,"1.200 ÷ 0,40 = R$ 3.000. Abaixo disso há prejuízo."],["R$ 4.800",0,"Resulta de multiplicar por 4, não de dividir pela margem."]],"Custos fixos ÷ margem de contribuição."],
+[2,"📊😟📒","A semana fraca","Na primeira semana vocês venderam metade do previsto. O que fazer?",[["Esperar mais um mês sem mudar nada.",0,"Sem ação, os custos seguem e o caixa encolhe."],["Culpar os colegas por não comprarem.",0,"O cliente é quem decide: é preciso entender o motivo."],["Analisar os registros de vendas, ajustar cardápio e preço e rever o cenário pessimista.",10,"Decisão baseada em dados e plano de contingência."]],"Dados antes de achismo."],
+[2,"🧾👛🏦","Dinheiro misturado","O dinheiro da cantina está misturado com o dinheiro pessoal de um sócio. Qual a atitude correta?",[["Separar o caixa do negócio, registrar entradas e saídas e pagar o DAS no vencimento.",10,"Controle financeiro e obrigações em dia evitam multas."],["Usar o lucro para lanchar com a turma.",0,"Retirar sem controle compromete o capital de giro."],["Anotar as vendas só quando lembrar.",5,"Registro incompleto impede saber o resultado real."]],"Negócio e pessoa são coisas separadas."],
+[2,"🌍📜📈","Mudanças lá fora","Uma nova regra incentiva alimentação saudável nas escolas e o preço dos insumos sobe. Como reagir (PESTEL)?",[["Ignorar: o que acontece fora não afeta a cantina.",0,"O macroambiente influencia custos e regras do negócio."],["Repassar todo o aumento ao preço, sem mudar nada.",5,"Pode afastar clientes."],["Adaptar o cardápio à nova regra, renegociar com fornecedores e planejar o estoque.",10,"Transforma a mudança em oportunidade e controla o custo."]],"Veja a regra como oportunidade."]
+];
+var S={},$=function(i){return document.getElementById(i)},ac=null,somOn=true,auto=false,fs=17;
+function emb(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function fonte(d){fs=Math.max(14,Math.min(30,fs+d*2));document.body.style.fontSize=fs+"px"}
+function som(){somOn=!somOn;$("bSom").textContent="🎵 Som: "+(somOn?"ligado":"desligado");$("bSom").setAttribute("aria-pressed",somOn)}
+function autoL(){auto=!auto;$("bAuto").textContent="🗣️ Leitura automática: "+(auto?"ligada":"desligada");$("bAuto").setAttribute("aria-pressed",auto);if(auto)ler()}
+function fala(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}
+function ler(){
+  if(!$("tJogo").classList.contains("hide")&&S.q){var t=NIV[S.q[0]].n+". "+S.q[2]+". "+S.q[3];
+    if(S.fase==="q")S.ops.forEach(function(o,i){t+=" Opção "+"ABC"[i]+": "+o[0]});else t+=" "+$("fb").textContent;fala(t)}
+  else if(!$("tNivel").classList.contains("hide"))fala($("nT").textContent+". "+$("nX").textContent);
+  else if(!$("tFim").classList.contains("hide"))fala($("cartao").textContent);
+  else fala("Simulador de decisões da cantina escolar, turma A, empreendedorismo. Autoria do professor Antonio Marques. Leia as regras, preencha nome e e-mail e toque em abrir a cantina.")
+}
+function bip(f,d){if(!somOn)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.12;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+(d||.25))}catch(e){}}
+function placar(){
+  var fe=S.i+(S.fase==="fb"?1:0),r=fe?Math.round(S.p/(fe*10)*100):100;
+  $("iRod").textContent="Questão "+(S.i+1)+" de "+NQ;$("iPts").textContent=S.p+" pontos";
+  $("iSau").textContent=r+"%";$("mt").style.width=r+"%";
+  var h="";for(var k=0;k<NQ;k++)h+='<u class="'+(k<fe?"f":"")+'"></u>';$("prog").innerHTML=h
+}
+function iniciar(){
+  var n=$("nm").value.trim(),e=$("em").value.trim();
+  if(n.length<3||e.indexOf("@")<1){alert("Preencha o nome completo e um e-mail válido.");return}
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.resume)ac.resume()}catch(x){}
+  S={nome:n,email:e,i:0,p:0,ot:0,dc:0,lv:[0,0,0],rev:[],fase:""};
+  $("tInicio").classList.add("hide");$("tJogo").classList.remove("hide");perg()
+}
+function perg(){
+  var q=S.q=Q[S.i];S.ops=emb(q[4]);S.fase="q";S.dica=false;
+  $("cena").style.background=NIV[q[0]].g;$("emo").textContent=q[1];$("nivT").textContent=NIV[q[0]].n;
+  $("qt").textContent=(S.i+1)+". "+q[2];$("sit").textContent=q[3];$("fb").textContent="";
+  var h="";S.ops.forEach(function(o,i){h+='<button class="op" onclick="esc('+i+')"><b class="l">'+"ABC"[i]+'</b><span>'+o[0]+'</span></button>'});
+  $("ops").innerHTML=h;$("bDica").classList.remove("hide");$("bCont").classList.add("hide");
+  placar();window.scrollTo(0,0);if(auto)ler()
+}
+function esc(i){
+  if(S.fase!=="q")return;S.fase="fb";var o=S.ops[i],pts=S.dica?Math.max(0,o[1]-2):o[1],best;
+  S.p+=pts;S.lv[S.q[0]]+=pts;if(o[1]===10)S.ot++;else S.rev.push(S.q[2]);
+  var b=document.querySelectorAll("#ops .op");
+  S.ops.forEach(function(x,j){b[j].disabled=true;if(x[1]===10){best=x;b[j].classList.add("best")}});
+  b[i].classList.add("p"+o[1]);b[i].lastChild.textContent+=o[1]===10?"  ✅":o[1]===5?"  ⚠️":"  ❌";
+  var tit=o[1]===10?"✅ Excelente decisão!":o[1]===5?"⚠️ Decisão parcial.":"❌ Decisão arriscada.";
+  $("fb").textContent=tit+" "+o[2]+(o[1]<10?" Melhor caminho: "+best[0]:"")+" (+"+pts+" pontos)";
+  if(o[1]===10){bip(523,.15);setTimeout(function(){bip(784,.25)},170)}else if(o[1]===5)bip(330,.3);else bip(180,.45);
+  $("bDica").classList.add("hide");$("bCont").textContent=S.i+1===FIM[S.q[0]]?"Concluir nível ▶":"Continuar ▶";
+  $("bCont").classList.remove("hide");$("bCont").focus();placar();if(auto)fala($("fb").textContent)
+}
+function dica(){if(S.fase!=="q"||S.dica)return;S.dica=true;S.dc++;$("fb").textContent="💡 Dica: "+S.q[5]+" (−2 pontos nesta questão)";if(auto)fala($("fb").textContent)}
+function cont(){
+  var l=S.q[0];
+  if(S.i+1===FIM[l]){
+    var pc=Math.round(S.lv[l]/NIV[l].max*100);
+    $("tJogo").classList.add("hide");$("tNivel").classList.remove("hide");$("nE").textContent=NIV[l].e+(pc>=70?"🏅":"📘");
+    $("nT").textContent="🎉 "+NIV[l].n+" concluído!";
+    $("nX").textContent="Você fez "+S.lv[l]+" de "+NIV[l].max+" pontos ("+pc+"%). "+(pc>=85?"Decisões de empreendedor!":pc>=60?"Bom caminho, continue!":"Vale revisar os pontos fracos no próximo nível.");
+    $("bSeg").textContent=l<2?"Próximo nível ▶":"Ver resultado final ▶";bip(660,.3);if(auto)ler()
+  }else{S.i++;perg()}
+}
+function seguir(){$("tNivel").classList.add("hide");S.i++;if(S.i>=NQ){fim()}else{$("tJogo").classList.remove("hide");perg()}}
+document.addEventListener("keydown",function(e){var k=+e.key;if(k>=1&&k<=3&&S.fase==="q"&&!$("tJogo").classList.contains("hide")&&!document.activeElement.matches("input"))esc(k-1)});
+function fim(){
+  var perc=Math.round(S.p/MAXP*100),st=perc>=85?"Excelente":perc>=70?"Bom":perc>=50?"Em desenvolvimento":"Precisa revisar";
+  S.res={perc:perc,st:st,dt:new Date().toLocaleString("pt-BR")};
+  $("tFim").classList.remove("hide");
+  var l=[["👤 Aluno",S.nome],["📧 E-mail",S.email],["🏫 Turma",TURMA+" · Empreendedorismo (1º ano integral)"],["📅 Data/hora",S.res.dt],["📋 Questões respondidas",NQ+" / "+NQ],["✅ Decisões excelentes",S.ot+" / "+NQ],["🌱 Nível 1",S.lv[0]+" / 50"],["📣 Nível 2",S.lv[1]+" / 50"],["📊 Nível 3",S.lv[2]+" / 60"],["💡 Dicas usadas",""+S.dc],["🏆 Pontos",S.p+" / "+MAXP+" ("+perc+"%)"],["Status",st],["✍️ Autoria","Prof. Antonio Marques · Escola Monsenhor Paiva · Vera Cruz/RN"]];
+  var c=$("cartao");c.textContent="";var h=document.createElement("h2");h.textContent="🍔 Simulador de Decisões: Cantina Escolar";c.appendChild(h);
+  l.forEach(function(x){var p=document.createElement("p"),b=document.createElement("b");b.textContent=x[0]+": ";p.appendChild(b);p.appendChild(document.createTextNode(x[1]));c.appendChild(p)});
+  if(S.rev.length){$("rev").classList.remove("hide");$("rev").textContent="📚 Para revisar: "+S.rev.join("; ")+"."}
+  if(auto)ler()
+}
+function enviar(){
+  var b=$("bEnv"),m=$("envMsg"),r=S.res;b.disabled=true;m.textContent="Enviando…";
+  html2canvas($("cartao"),{scale:2}).then(function(cv){
+    var u=cv.toDataURL("image/png"),nome=S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+    return fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({turma:TURMA,atividade:ATIVIDADE,nome:nome,imagem:u,aluno:S.nome,email:S.email,dt:r.dt,tipo:"FINAL",q1:S.ot+" / "+NQ,q2:"N1 "+S.lv[0]+"/50 | N2 "+S.lv[1]+"/50 | N3 "+S.lv[2]+"/60",total:S.p+" / "+MAXP,perc:r.perc+"%",status:r.st,saidas:"Dicas: "+S.dc})
+    }).then(function(){m.textContent="✅ Resultado enviado ao professor como "+nome+".png";b.disabled=false;b.textContent="📤 Reenviar"})
+  }).catch(function(){m.textContent="⚠️ Não foi possível enviar. Tire um print do cartão acima e entregue ao professor.";b.disabled=false})
+}
+
+// ===== TRILHA SONORA OPCIONAL =====
+// Vazio = trilha suave gerada pelo próprio navegador. Para usar uma música sua, coloque o arquivo na mesma pasta e escreva aqui, ex.: "trilha.mp3"
+var MUSICA_URL="";
+var mOn=false,mTm=null,mPasso=0,mGain=null,mAud=null;
+var ACORDES=[[130.81,164.81,196,246.94],[110,130.81,164.81,196],[87.31,110,130.81,164.81],[98,123.47,146.83,164.81]];
+function ctxA(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended"&&ac.resume)ac.resume();return ac}catch(e){return null}}
+function mNota(f,t,d,tipo,v,atk){var o=ac.createOscillator(),g=ac.createGain();o.type=tipo;o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(v,t+atk);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(mGain);o.start(t);o.stop(t+d+.05)}
+function mTick(){if(!ac||!mGain)return;var b=mPasso%16,c=ACORDES[Math.floor(b/4)],t=ac.currentTime+.05;
+  if(b%4===0)c.forEach(function(f){mNota(f,t,3.6,"sine",.045,1)});
+  if(b%8!==7)mNota(c[[0,2,1,3,2,3,1,2][b%8]]*2,t,1.1,"triangle",.06,.03);
+  mPasso++}
+function mIniciar(){
+  if(MUSICA_URL){mAud=mAud||new Audio(MUSICA_URL);mAud.loop=true;mAud.volume=.4;mAud.play().catch(function(){});return true}
+  if(!ctxA())return false;mGain=ac.createGain();mGain.gain.value=.6;mGain.connect(ac.destination);mPasso=0;mTick();mTm=setInterval(mTick,750);return true}
+function mParar(){
+  if(mAud)mAud.pause();if(mTm){clearInterval(mTm);mTm=null}
+  if(mGain){var g=mGain;mGain=null;try{g.gain.setTargetAtTime(0,ac.currentTime,.2)}catch(e){}setTimeout(function(){try{g.disconnect()}catch(e){}},1500)}}
+function trilha(){
+  mOn=!mOn;if(mOn&&!mIniciar())mOn=false;if(!mOn)mParar();
+  var b=$("bMus");b.textContent="🎶 Trilha sonora: "+(mOn?"tocando":"desligada");b.setAttribute("aria-pressed",mOn)}
+
+// ===== DISPOSITIVO DE SEGURANÇA: sair da página reinicia o jogo =====
+function emJogo(){return !$("tJogo").classList.contains("hide")||!$("tNivel").classList.contains("hide")}
+function reiniciarPorSaida(){
+  if(!emJogo())return;
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  if(mOn)trilha();
+  S={};
+  $("tJogo").classList.add("hide");$("tNivel").classList.add("hide");$("tInicio").classList.remove("hide");
+  $("nm").value="";$("em").value="";
+  var a=$("aviso");a.textContent="⚠️ Você saiu da página do jogo, por isso a partida foi reiniciada. Preencha seus dados para entrar novamente e começar do início.";a.classList.remove("hide")}
+document.addEventListener("visibilitychange",function(){if(document.hidden)reiniciarPorSaida()});
+window.addEventListener("pagehide",reiniciarPorSaida);
+window.addEventListener("beforeunload",function(e){if(emJogo()){e.preventDefault();e.returnValue=""}});
+var _iniciar=iniciar;iniciar=function(){_iniciar();if(S&&S.nome)$("aviso").classList.add("hide")};
+</script>
+</body>
+</html>

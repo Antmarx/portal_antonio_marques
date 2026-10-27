@@ -22,13 +22,15 @@ const TURMAS = [
       { texto: "Vídeo aula",        url: "" },
       { texto: "Apostila em PDF",   url: "" },
       { texto: "Slides da aula",    url: "" },
-      { texto: "Quiz",              url: "" }
+      { texto: "Quiz",              url: "" },
+      { icone: "🍔", texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html" }
     ] },
   { icone: "🤝", nome: "Turma B", tema: "Liderança e trabalho em equipe",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "" }
+      { texto: "Material em PDF",   url: "" },
+      { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
   { icone: "💡", nome: "Turma C", tema: "Inovação e tecnologia na gestão",
     links: [
@@ -57,6 +59,12 @@ const BIBLIOTECA = [
   { texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html",
     area: "Administração Pública", categoria: "Quiz", destaque: true, icone: "🧠",
     descricao: "Patrimonialista, burocrático e gerencial." },
+  { texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html",
+    area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "🍔",
+    descricao: "16 decisões em 3 níveis sobre o plano de negócios da cantina. 1º ano integral." },
+  { texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html",
+    area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "♻️",
+    descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." },
   { texto: "Vídeo aula (exemplo)",   url: "", area: "Administração" },
   { texto: "Apostila em PDF (exemplo)", url: "", area: "Contabilidade" },
   { texto: "Indicação de livro ou produto (exemplo)", url: "", area: "Administração", promo: true }

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Prof. Antonio Marques">
+<title>♻️ Simulador de Decisões – Cooperativa Escolar de Recicláveis</title>
+<!--
+  Simulador de Decisões: Cooperativa Escolar de Recicláveis
+  Componente: Empreendedorismo · 2º Ano Integral · Curso Técnico em Administração
+  Autoria: Prof. Antonio Marques · Escola Monsenhor Paiva · Vera Cruz/RN · 2026
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--bg:#0f1a2e;--card:#18284a;--txt:#fff;--bd:#5b78b8;--ac:#7bd88f}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;font-family:Verdana,Arial,sans-serif;font-size:17px;background:var(--bg);color:var(--txt)}
+body.contraste{--bg:#000;--card:#000;--bd:#fff}
+.wrap{max-width:780px;margin:0 auto}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.bar a,.bar button{min-height:42px;padding:0 14px;font:inherit;font-size:.85em;color:var(--txt);background:var(--card);border:2px solid var(--bd);border-radius:20px;text-decoration:none;display:inline-flex;align-items:center;cursor:pointer}
+.bar a:first-child{margin-right:auto}
+h1{font-size:1.4em;margin:6px 0 4px}
+h2{font-size:1.15em;margin:0 0 8px}
+.autor{margin:0 0 12px;font-size:.85em;opacity:.9}
+.painel{background:var(--card);border:2px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:14px}
+.hero{text-align:center;padding:18px;border-radius:16px;background:linear-gradient(135deg,#14532d,#15803d);margin-bottom:12px;line-height:1.5}
+.hero .big{font-size:3em;letter-spacing:6px}
+.regras{padding-left:22px;line-height:1.5}.regras li{margin-bottom:6px}
+.nota{font-size:.88em;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:10px 0;line-height:1.5}
+input{width:100%;min-height:46px;margin:6px 0 12px;padding:0 12px;font:inherit;border-radius:10px;border:2px solid var(--bd)}
+.btn{min-height:50px;padding:0 22px;font:inherit;font-weight:700;color:#12102e;background:var(--ac);border:0;border-radius:14px;cursor:pointer;margin:4px 6px 4px 0}
+.btn.sec{color:var(--txt);background:transparent;border:2px solid var(--bd)}
+.info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:700}
+.meter{height:14px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;margin:6px 0}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ef4444,#eab308,#22c55e);transition:width .5s}
+.prog{display:flex;gap:3px;margin:8px 0}.prog u{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.18);text-decoration:none}.prog u.f{background:var(--ac)}
+.cena{border-radius:18px;padding:16px;text-align:center;margin-bottom:12px}
+.emo{font-size:3.2em;letter-spacing:8px;animation:fl 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.emo{animation:none}}
+.tag{display:inline-block;font-size:.8em;font-weight:800;background:#ef4444;color:#fff;border-radius:99px;padding:3px 12px;margin-bottom:6px}
+.secao{font-size:.85em;margin-top:4px;opacity:.95}
+.sit{margin:0 0 12px;padding:12px;border-left:6px solid var(--ac);background:rgba(255,255,255,.07);border-radius:8px;line-height:1.5}
+.op{display:flex;gap:10px;align-items:center;width:100%;text-align:left;min-height:64px;padding:10px 12px;margin:0 0 10px;font:inherit;color:var(--txt);background:var(--card);border:3px solid var(--bd);border-radius:14px;cursor:pointer;transition:transform .12s}
+.op b.l{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ac);color:#12102e;display:grid;place-items:center}
+.op:hover:not(:disabled){border-color:var(--ac);transform:translateX(4px)}
+.op:disabled{cursor:default}
+.op.p10{border-color:#22c55e;background:#14532d}.op.p5{border-color:#eab308;background:#52420a}.op.p0{border-color:#ef4444;background:#5b1414}
+.op.best{outline:3px dashed #22c55e}
+body.contraste .op.p10,body.contraste .op.p5,body.contraste .op.p0{background:#000}
+#fb{min-height:3em;margin:10px 0;line-height:1.5}
+#cartao{background:#18284a;border:2px solid #5b78b8;border-radius:14px;padding:16px;color:#fff}
+#cartao p{margin:5px 0}
+.rodape{text-align:center;font-size:.82em;opacity:.85;line-height:1.5;margin:6px 0 20px}
+.hide{display:none}
+:focus-visible{outline:4px solid var(--ac);outline-offset:2px}
+.aviso{border:2px solid #f59e0b;background:rgba(245,158,11,.15)}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="bar">
+  <a href="../">← Voltar ao portal</a>
+  <button onclick="fonte(1)" aria-label="Aumentar letra">A+</button><button onclick="fonte(-1)" aria-label="Diminuir letra">A−</button>
+  <button onclick="document.body.classList.toggle('contraste')">◐ Alto contraste</button>
+  <button onclick="ler()">🔊 Ouvir</button>
+  <button id="bAuto" onclick="autoL()" aria-pressed="false">🗣️ Leitura automática: desligada</button>
+  <button id="bSom" onclick="som()" aria-pressed="true">🎵 Som: ligado</button>
+  <button id="bMus" onclick="trilha()" aria-pressed="false">🎶 Trilha sonora: desligada</button>
+ </div>
+ <h1>♻️ Simulador de Decisões: Cooperativa Escolar de Recicláveis</h1>
+ <p class="autor">✍️ Autoria: <b>Prof. Antonio Marques</b> · Escola Monsenhor Paiva · Vera Cruz/RN</p>
+
+ <section id="tInicio" class="painel">
+  <div id="aviso" class="nota aviso hide" role="alert"></div>
+  <div class="hero"><div class="big" aria-hidden="true">🏫♻️🤝</div><b>Empreendedorismo · 2º Ano Integral</b><br>Curso Técnico em Administração<br><small>Autoria: Prof. Antonio Marques</small></div>
+  <h2>🚀 Sua missão</h2>
+  <p>Vocês são os <b>cooperados da Cooperativa Escolar de Recicláveis</b>, um negócio de verdade dentro da escola. Em cada questão aparece um <b>problema real</b> do Plano de Negócios Simplificado (missão, objetivos, mercado, marketing, operação e finanças). Analise a situação e escolha a <b>melhor decisão</b>. Suas escolhas mudam a <b>saúde da cooperativa</b>.</p>
+  <h2>📖 Como jogar</h2>
+  <ol class="regras">
+   <li><b>16 situações</b> em <b>3 níveis</b>: 1) Problema, Missão e Mercado (5), 2) Serviço, Marketing e Operação (5), 3) Organização, Parceria e Finanças (6).</li>
+   <li>Leia (ou ouça) a situação e escolha entre <b>3 decisões</b>. Teclas <b>1, 2 e 3</b> também funcionam.</li>
+   <li>Cada decisão vale <b>10</b> (excelente), <b>5</b> (parcial) ou <b>0</b> (arriscada) pontos. Máximo: <b>160</b>.</li>
+   <li>Depois de responder você vê o <b>porquê</b> e qual era o melhor caminho. Não há tempo limite nem eliminação.</li>
+   <li>A <b>💡 Dica</b> ajuda, mas <b>custa 2 pontos</b> naquela questão.</li>
+   <li>Cada situação indica a <b>seção do template</b> do plano de negócios que ela problematiza. Use o template para consultar e preencher o plano da sua equipe.</li>
+   <li>No final, envie o resultado ao professor.</li>
+  </ol>
+  <div class="nota"><b>📌 Atenção:</b> os números das situações (quantidades, preços e orçamentos) são <b>fictícios</b>, criados para o exercício. No plano real da equipe, os valores devem vir de pesquisa na escola e na região.</div>
+  <div class="nota"><b>♿ Método dual (texto + áudio):</b> todo o conteúdo aparece em <b>texto e imagem</b> e também pode ser <b>ouvido</b>. Use <b>🔊 Ouvir</b> ou ative a <b>Leitura automática</b>. Há ainda <b>A+/A−</b>, <b>alto contraste</b> e navegação por teclado. O resultado de cada decisão usa <b>ícones e texto</b>, nunca só cor. Todos os sons têm equivalente visual.</div>
+  <label for="nm">Nome completo</label><input id="nm" autocomplete="name">
+  <label for="em">E-mail</label><input id="em" type="email" autocomplete="email">
+  <button class="btn" onclick="iniciar()">▶ Abrir a cooperativa</button>
+ </section>
+
+ <section id="tJogo" class="painel hide">
+  <div class="info"><span id="iRod"></span><span id="iPts">0 pontos</span></div>
+  <div class="prog" id="prog" aria-hidden="true"></div>
+  <div>♻️ Saúde da cooperativa: <b id="iSau">100%</b><div class="meter"><i id="mt"></i></div></div>
+  <div class="cena" id="cena"><div class="emo" id="emo" aria-hidden="true"></div><div><span class="tag">🚨 SITUAÇÃO REAL</span></div><b id="nivT"></b><div class="secao" id="secT"></div></div>
+  <h2 id="qt"></h2>
+  <p class="sit" id="sit"></p>
+  <div id="ops"></div>
+  <div id="fb" aria-live="polite"></div>
+  <button class="btn sec" id="bDica" onclick="dica()">💡 Dica (−2 pontos)</button>
+  <button class="btn hide" id="bCont" onclick="cont()">Continuar ▶</button>
+ </section>
+
+ <section id="tNivel" class="painel hide" style="text-align:center">
+  <div class="emo" id="nE" aria-hidden="true" style="font-size:3.5em"></div>
+  <h2 id="nT"></h2><p id="nX" aria-live="polite"></p>
+  <button class="btn" onclick="seguir()" id="bSeg">Próximo nível ▶</button>
+ </section>
+
+ <section id="tFim" class="painel hide">
+  <div id="cartao"></div>
+  <div id="rev" class="nota hide"></div>
+  <p><button class="btn" id="bEnv" onclick="enviar()">📤 Enviar resultado ao professor</button>
+  <button class="btn sec" onclick="location.reload()">↻ Jogar de novo</button></p>
+  <div id="envMsg" aria-live="polite"></div>
+ </section>
+
+ <p class="rodape">✍️ Autoria: Prof. Antonio Marques · Empreendedorismo · 2º Ano Integral<br>Curso Técnico em Administração · Escola Monsenhor Paiva · Vera Cruz/RN · 2026</p>
+</div>
+<script>
+// ===== CONFIGURAÇÃO (muda em cada atividade) =====
+var API="https://script.google.com/macros/s/AKfycbxrGWs-65aKCTS83NwSPVH_z_lgg3Z0T0pmf3zjVDzZv9ouhtibQGVfcs9NwmsjkwvJ/exec";
+var TURMA="Turma B";
+var ATIVIDADE="Simulador de Decisões Cooperativa Escolar de Recicláveis";
+var AUTORIA="Prof. Antonio Marques · Escola Monsenhor Paiva · Vera Cruz/RN";
+// =================================================
+var NIV=[{n:"Nível 1 · Problema, Missão e Mercado",g:"linear-gradient(135deg,#065f46,#059669)",max:50,e:"🌱"},{n:"Nível 2 · Serviço, Marketing e Operação",g:"linear-gradient(135deg,#0e7490,#0891b2)",max:50,e:"📣"},{n:"Nível 3 · Organização, Parceria e Finanças",g:"linear-gradient(135deg,#5b21b6,#7c3aed)",max:60,e:"📊"}];
+var FIM=[5,10,16], NQ=16, MAXP=160;
+// [nível, imagem, título, situação, [[decisão, pontos, explicação]...], dica, seção do template]
+var Q=[
+[0,"🗑️🏫🔎","O que vai parar no lixo?","Na Escola Monsenhor Paiva, papel, plástico e latinhas vão juntos para o mesmo lixo. Um colega anima a turma: “Vamos montar a cooperativa e vender tudo já na próxima semana; depois a gente descobre quanto tem!”. Qual deve ser o primeiro passo?",[["Observar os locais de descarte, estimar o que é jogado fora e conversar com a direção.",10,"Entender o problema real da escola é a base da Apresentação do plano."],["Pedir lixeiras coloridas e começar a coleta sem medir nada.",5,"Lixeiras ajudam, mas sem diagnóstico não se sabe o que nem quanto há para coletar."],["Procurar um comprador e prometer um volume que ninguém conferiu.",0,"Prometer sem conhecer o volume gera descumprimento e perda de credibilidade."]],"Todo plano começa conhecendo o problema.","Seção 1 · Apresentação"],
+[0,"🧭⭐♻️","Missão ou visão?","A equipe vai escrever a missão da cooperativa. Qual texto responde para que ela existe hoje?",[["“Ser reconhecida como a maior cooperativa de reciclagem do Brasil.”",5,"Isso é uma visão (aonde se quer chegar) e, para o ano letivo, não é realista."],["“Promover a coleta seletiva e a destinação correta dos resíduos da escola, gerando aprendizado e renda coletiva para a turma.”",10,"Diz o que faz, para quem e qual benefício entrega."],["“Ganhar dinheiro vendendo o lixo da escola.”",0,"Renda é consequência; não expressa o propósito nem o benefício social."]],"Missão = o que faz, para quem, com qual benefício.","Seção 2 · Missão, Visão e Valores"],
+[0,"🎯📆✅","Objetivo que se mede","O plano pede objetivos específicos com meta mensurável, prazo e setor responsável. Qual deles está bem escrito?",[["“Reduzir o lixo da escola.”",5,"Tem verbo e direção, mas faltam número, prazo e responsável."],["“Instalar 4 pontos de coleta seletiva em até 60 dias, sob responsabilidade do setor de Operações.”",10,"Tem ação, número, prazo e setor responsável."],["“Conscientizar todo mundo em breve.”",0,"‘Todo mundo’ e ‘em breve’ não podem ser medidos."]],"Procure número + prazo + setor.","Seção 3 · Objetivos"],
+[0,"📞⚖️🚚","Quem vai comprar o material?","A cooperativa precisa de compradores para papel, plástico, metal e vidro. Na região há um sucateiro que paga à vista e uma cooperativa de catadores que paga mais por quilo, mas exige um volume mínimo. O que fazer?",[["Pesquisar pelo menos dois compradores e comparar preço por kg, volume mínimo, transporte e forma de pagamento.",10,"Comparar o custo total e as exigências evita surpresas e revela o melhor parceiro."],["Fechar com o primeiro que responder, para ganhar tempo.",5,"Pode funcionar, mas sem comparar a equipe pode perder renda ou não cumprir exigências."],["Supor que alguém vai buscar tudo de graça, sem combinar nada.",0,"Sem acordo prévio, o material acumula e o plano para."]],"Pesquise ao menos duas opções.","Seção 4 · Análise de Mercado"],
+[0,"🧩🌦️📋","Dentro ou fora da cooperativa?","Na análise SWOT, a equipe precisa listar uma AMEAÇA (fator externo e negativo). Qual item é uma ameaça?",[["A queda do preço do papel pago pelos compradores da região.",10,"É externo (mercado) e negativo para a receita: ameaça."],["A equipe ainda tem pouca experiência em triagem.",5,"É um fator negativo, mas interno: fraqueza."],["A direção cede um espaço para a triagem.",0,"É interno e positivo: uma força."]],"Ameaça = vem de fora e atrapalha.","Seção 5 · Análise SWOT"],
+[1,"🧺♻️🏫","Qual é o produto?","Um colega diz: “O produto da cooperativa são as latinhas e os papéis que a gente vende”. Como o plano define o serviço principal?",[["Um serviço ambiental: coleta seletiva e destinação correta; a venda dos materiais é consequência.",10,"O valor entregue à escola é o serviço; a receita vem depois da triagem."],["O material triado e pesado, vendido por quilo.",5,"É parte do negócio, mas esquece o serviço prestado à comunidade escolar."],["O lixo da escola, que ninguém quer.",0,"Ver só como lixo faz perder o propósito ambiental e educativo."]],"Pense no benefício que a escola recebe.","Seção 6 · Produtos e Serviços"],
+[1,"📦🌧️🍾","Papel molhado, vidro quebrado","Depois de uma semana de chuva, o papel guardado no pátio ficou molhado (e perde valor), e um vidro quebrou durante a triagem. Como organizar o armazenamento?",[["Separar por tipo, guardar o papel em local coberto e seco, o vidro em caixa resistente e identificada, e usar luvas.",10,"Armazenar por tipo protege o valor do material e a segurança da equipe."],["Juntar tudo em sacos grandes no mesmo canto.",5,"Economiza espaço, mas mistura materiais e mantém o risco."],["Deixar ao ar livre, pois vai ser vendido logo.",0,"A exposição estraga o material e mantém o risco de acidentes."]],"Cada material pede um cuidado diferente.","Seção 6 · Produtos e Serviços"],
+[1,"💰🧮♻️","De onde vem o dinheiro?","Os alunos não pagam pela coleta. No plano de marketing (4 Ps), como definir o Preço?",[["Não há cobrança dos alunos; a receita vem da venda dos materiais triados aos compradores parceiros.",10,"Mantém a adesão da escola e liga a receita ao volume e ao preço por kg."],["Cobrar R$ 2 por mês de cada aluno para garantir o caixa.",5,"Gera caixa, mas contraria o modelo e pode afastar participantes."],["Não definir preço, porque cooperativa não tem receita.",0,"Sem previsão de receita não há como cobrir custos nem prestar contas."]],"Quem paga é o comprador do material.","Seção 7 · Plano de Marketing (Preço)"],
+[1,"📢🖼️♻️","Ninguém separa direito","Os pontos de coleta foram instalados, mas muitos alunos continuam misturando os resíduos. Qual campanha de Promoção é mais eficaz?",[["Cartazes e identificação clara dos pontos, ações nos intervalos e mural com os quilos arrecadados por turma.",10,"Orientação clara, presença no intervalo e resultados visíveis engajam o público."],["Um único cartaz no portão no início do ano.",5,"Ajuda, mas sem repetição e sem resultados a mensagem se perde."],["Advertir publicamente quem errar na separação.",0,"Constrange e afasta; campanha educativa funciona melhor que punição."]],"Mostre o resultado e repita a mensagem.","Seção 7 · Plano de Marketing (Promoção)"],
+[1,"🔄⚖️🗓️","O caminho do material","A coleta acontece quando os sacos enchem, sem horário fixo; um só aluno faz tudo e a pesagem não é registrada. Como organizar o Plano Operacional?",[["Definir o fluxo (separar, coletar, triar, pesar, armazenar), pontos com responsáveis e escala semanal, com pesagem registrada.",10,"Etapas, responsáveis e frequência dão regularidade e dados para o Financeiro."],["Manter a coleta por demanda, mas pedir que todos ajudem quando possível.",5,"Sem escala fixa, a tarefa recai sobre poucos e falha."],["Deixar o aluno mais dedicado resolver sozinho.",0,"Cria gargalo, sobrecarga e nenhum controle."]],"Quem faz, onde, quando e como se registra?","Seção 8 · Plano Operacional"],
+[2,"🧑‍🤝‍🧑🏢📋","Quem faz o quê?","A turma tem 28 alunos, mas o plano de referência foi pensado para 25 (Diretoria 3, Financeiro 4, Marketing 5, Operações 8 e Sustentabilidade 5). Como adaptar a estrutura?",[["Manter os cinco setores, redistribuir os alunos a mais conforme a carga de trabalho e definir um líder para cada setor.",10,"O plano orienta ajustar à turma real mantendo setores, líderes e supervisão do professor."],["Criar dez setores novos para cada aluno ter um cargo.",5,"Dá cargo para todos, mas fragmenta e dificulta a coordenação."],["Colocar todos em um único grupo, sem líderes.",0,"Sem setores e líderes, as responsabilidades se perdem."]],"Ajuste à turma real, mantendo os setores.","Seção 9 · Estrutura Organizacional"],
+[2,"🤝🗳️📝","Decidir juntos","O setor de Operações quer vender o vidro a um comprador novo, mas o Financeiro discorda do preço. O presidente diz: “Eu decido e pronto”. Qual atitude é coerente com a cooperativa?",[["Levar o assunto à reunião semanal com todos os setores e o professor orientador, decidir em conjunto e registrar em ata.",10,"Gestão democrática e transparência são valores do cooperativismo, e a ata registra a decisão."],["Decidir por votação no grupo de mensagens, sem registro formal.",5,"Há participação, mas sem ata a decisão não fica documentada."],["Deixar o presidente decidir, pois ele é o líder.",0,"Na cooperativa as decisões são coletivas; o líder coordena, não decide sozinho."]],"Na cooperativa, as decisões são coletivas.","Seção 9 · Reuniões semanais e Valores"],
+[2,"🏫🤝✍️","O combinado com a escola","Para formalizar a parceria com a escola, qual proposta de termo está mais completa?",[["Compromissos de cada lado, uso da receita definido (ex.: fundo coletivo da turma), prestação de contas periódica e assinatura da direção, do professor orientador e do presidente.",10,"Cobre responsabilidades, destino da receita, transparência e formalização."],["Um acordo verbal com a direção, para não burocratizar.",5,"É rápido, mas sem registro cada um lembra de um jeito."],["Nenhum documento, porque é um projeto escolar.",0,"Sem regras claras surgem conflitos sobre espaço, horários e dinheiro."]],"Pense em compromissos, dinheiro e prestação de contas.","Seção 10 · Parceria com a Escola"],
+[2,"🧾🛒⚖️","O orçamento não fecha","As cotações pesquisadas somam R$ 740: balança R$ 180, luvas e sacos R$ 90, caixas/tambores R$ 250, material de divulgação R$ 120 e reserva para imprevistos R$ 100. A turma dispõe de R$ 600. O que fazer?",[["Priorizar balança, luvas, sacos e caixas; fazer os cartazes na própria turma, pedir tambores doados e manter uma reserva menor.",10,"Priorizar o essencial e reduzir custos mantém o projeto viável sem dívida."],["Cortar toda a reserva para imprevistos e comprar o resto.",5,"Fecha a conta, mas deixa a cooperativa sem proteção para imprevistos."],["Comprar tudo e pagar a diferença no cartão de alguém.",0,"Cria dívida antes de qualquer receita."]],"Faltam R$ 140: o que é essencial e o que dá para economizar?","Seção 11 · Investimento inicial"],
+[2,"⚖️🧮💵","Quanto vai render?","Estimativa mensal (valores fictícios): papel 120 kg a R$ 0,40/kg, plástico 60 kg a R$ 1,20/kg e metal 20 kg a R$ 3,00/kg. Qual é a receita mensal prevista?",[["R$ 180,00",10,"48 + 72 + 60 = R$ 180: quantidade × preço de cada material, somados."],["R$ 120,00",5,"É a soma de papel e plástico (48 + 72); faltou incluir o metal."],["R$ 200,00",0,"Soma apenas os quilos (120 + 60 + 20), sem multiplicar pelos preços."]],"Receita = kg × preço por kg, de cada material.","Seção 11 · Receita prevista"],
+[2,"📉📒🔧","O segundo mês decepciona","No 2º mês a cooperativa vendeu metade do previsto. O registro mostra que o plástico foi misturado com resíduos sujos e o papel ficou molhado. O que fazer?",[["Analisar os registros de pesagem e vendas, ouvir os setores, corrigir a identificação e o armazenamento e anotar no plano o que mudou e por quê.",10,"O plano é vivo: dados, ajuste e registro da mudança."],["Reduzir a meta do plano sem investigar as causas.",5,"Baixar a meta esconde o problema; é preciso tratar a causa."],["Esperar mais um mês para ver se melhora sozinho.",0,"Sem ação, o problema se repete e o caixa não cresce."]],"Dados primeiro, ajuste depois, registro sempre.","Seção 12 · Considerações Finais"]
+];
+var S={},$=function(i){return document.getElementById(i)},ac=null,somOn=true,auto=false,fs=17;
+function emb(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function fonte(d){fs=Math.max(14,Math.min(30,fs+d*2));document.body.style.fontSize=fs+"px"}
+function som(){somOn=!somOn;$("bSom").textContent="🎵 Som: "+(somOn?"ligado":"desligado");$("bSom").setAttribute("aria-pressed",somOn)}
+function autoL(){auto=!auto;$("bAuto").textContent="🗣️ Leitura automática: "+(auto?"ligada":"desligada");$("bAuto").setAttribute("aria-pressed",auto);if(auto)ler()}
+function fala(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}
+function ler(){
+  if(!$("tJogo").classList.contains("hide")&&S.q){var t=NIV[S.q[0]].n+". "+S.q[6]+". "+S.q[2]+". "+S.q[3];
+    if(S.fase==="q")S.ops.forEach(function(o,i){t+=" Opção "+"ABC"[i]+": "+o[0]});else t+=" "+$("fb").textContent;fala(t)}
+  else if(!$("tNivel").classList.contains("hide"))fala($("nT").textContent+". "+$("nX").textContent);
+  else if(!$("tFim").classList.contains("hide"))fala($("cartao").textContent);
+  else fala("Simulador de decisões da cooperativa escolar de recicláveis, empreendedorismo, segundo ano integral. Autoria do professor Antonio Marques. Leia as regras, preencha nome e e-mail e toque em abrir a cooperativa.")
+}
+function bip(f,d){if(!somOn)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.12;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+(d||.25))}catch(e){}}
+function placar(){
+  var fe=S.i+(S.fase==="fb"?1:0),r=fe?Math.round(S.p/(fe*10)*100):100;
+  $("iRod").textContent="Questão "+(S.i+1)+" de "+NQ;$("iPts").textContent=S.p+" pontos";
+  $("iSau").textContent=r+"%";$("mt").style.width=r+"%";
+  var h="";for(var k=0;k<NQ;k++)h+='<u class="'+(k<fe?"f":"")+'"></u>';$("prog").innerHTML=h
+}
+function iniciar(){
+  var n=$("nm").value.trim(),e=$("em").value.trim();
+  if(n.length<3||e.indexOf("@")<1){alert("Preencha o nome completo e um e-mail válido.");return}
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.resume)ac.resume()}catch(x){}
+  S={nome:n,email:e,i:0,p:0,ot:0,dc:0,lv:[0,0,0],rev:[],fase:""};
+  $("tInicio").classList.add("hide");$("tJogo").classList.remove("hide");perg()
+}
+function perg(){
+  var q=S.q=Q[S.i];S.ops=emb(q[4]);S.fase="q";S.dica=false;
+  $("cena").style.background=NIV[q[0]].g;$("emo").textContent=q[1];$("nivT").textContent=NIV[q[0]].n;$("secT").textContent="📄 "+q[6];
+  $("qt").textContent=(S.i+1)+". "+q[2];$("sit").textContent=q[3];$("fb").textContent="";
+  var h="";S.ops.forEach(function(o,i){h+='<button class="op" onclick="esc('+i+')"><b class="l">'+"ABC"[i]+'</b><span>'+o[0]+'</span></button>'});
+  $("ops").innerHTML=h;$("bDica").classList.remove("hide");$("bCont").classList.add("hide");
+  placar();window.scrollTo(0,0);if(auto)ler()
+}
+function esc(i){
+  if(S.fase!=="q")return;S.fase="fb";var o=S.ops[i],pts=S.dica?Math.max(0,o[1]-2):o[1],best;
+  S.p+=pts;S.lv[S.q[0]]+=pts;if(o[1]===10)S.ot++;else S.rev.push(S.q[2]+" ("+S.q[6]+")");
+  var b=document.querySelectorAll("#ops .op");
+  S.ops.forEach(function(x,j){b[j].disabled=true;if(x[1]===10){best=x;b[j].classList.add("best")}});
+  b[i].classList.add("p"+o[1]);b[i].lastChild.textContent+=o[1]===10?"  ✅":o[1]===5?"  ⚠️":"  ❌";
+  var tit=o[1]===10?"✅ Excelente decisão!":o[1]===5?"⚠️ Decisão parcial.":"❌ Decisão arriscada.";
+  $("fb").textContent=tit+" "+o[2]+(o[1]<10?" Melhor caminho: "+best[0]:"")+" (+"+pts+" pontos)";
+  if(o[1]===10){bip(523,.15);setTimeout(function(){bip(784,.25)},170)}else if(o[1]===5)bip(330,.3);else bip(180,.45);
+  $("bDica").classList.add("hide");$("bCont").textContent=S.i+1===FIM[S.q[0]]?"Concluir nível ▶":"Continuar ▶";
+  $("bCont").classList.remove("hide");$("bCont").focus();placar();if(auto)fala($("fb").textContent)
+}
+function dica(){if(S.fase!=="q"||S.dica)return;S.dica=true;S.dc++;$("fb").textContent="💡 Dica: "+S.q[5]+" (−2 pontos nesta questão)";if(auto)fala($("fb").textContent)}
+function cont(){
+  var l=S.q[0];
+  if(S.i+1===FIM[l]){
+    var pc=Math.round(S.lv[l]/NIV[l].max*100);
+    $("tJogo").classList.add("hide");$("tNivel").classList.remove("hide");$("nE").textContent=NIV[l].e+(pc>=70?"🏅":"📘");
+    $("nT").textContent="🎉 "+NIV[l].n+" concluído!";
+    $("nX").textContent="Você fez "+S.lv[l]+" de "+NIV[l].max+" pontos ("+pc+"%). "+(pc>=85?"Decisões de empreendedor cooperativista!":pc>=60?"Bom caminho, continue!":"Vale revisar os pontos fracos no próximo nível.");
+    $("bSeg").textContent=l<2?"Próximo nível ▶":"Ver resultado final ▶";bip(660,.3);if(auto)ler()
+  }else{S.i++;perg()}
+}
+function seguir(){$("tNivel").classList.add("hide");S.i++;if(S.i>=NQ){fim()}else{$("tJogo").classList.remove("hide");perg()}}
+document.addEventListener("keydown",function(e){var k=+e.key;if(k>=1&&k<=3&&S.fase==="q"&&!$("tJogo").classList.contains("hide")&&!document.activeElement.matches("input"))esc(k-1)});
+function fim(){
+  var perc=Math.round(S.p/MAXP*100),st=perc>=85?"Excelente":perc>=70?"Bom":perc>=50?"Em desenvolvimento":"Precisa revisar";
+  S.res={perc:perc,st:st,dt:new Date().toLocaleString("pt-BR")};
+  $("tFim").classList.remove("hide");
+  var l=[["👤 Aluno",S.nome],["📧 E-mail",S.email],["🏫 Turma",TURMA+" · Empreendedorismo (2º ano integral)"],["📅 Data/hora",S.res.dt],["📋 Questões respondidas",NQ+" / "+NQ],["✅ Decisões excelentes",S.ot+" / "+NQ],["🌱 Nível 1",S.lv[0]+" / 50"],["📣 Nível 2",S.lv[1]+" / 50"],["📊 Nível 3",S.lv[2]+" / 60"],["💡 Dicas usadas",""+S.dc],["🏆 Pontos",S.p+" / "+MAXP+" ("+perc+"%)"],["Status",st],["✍️ Autoria",AUTORIA]];
+  var c=$("cartao");c.textContent="";var h=document.createElement("h2");h.textContent="♻️ Simulador de Decisões: Cooperativa Escolar de Recicláveis";c.appendChild(h);
+  l.forEach(function(x){var p=document.createElement("p"),b=document.createElement("b");b.textContent=x[0]+": ";p.appendChild(b);p.appendChild(document.createTextNode(x[1]));c.appendChild(p)});
+  if(S.rev.length){$("rev").classList.remove("hide");$("rev").textContent="📚 Para revisar no template do plano: "+S.rev.join("; ")+"."}
+  if(auto)ler()
+}
+function enviar(){
+  var b=$("bEnv"),m=$("envMsg"),r=S.res;b.disabled=true;m.textContent="Enviando…";
+  html2canvas($("cartao"),{scale:2}).then(function(cv){
+    var u=cv.toDataURL("image/png"),nome=S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+    return fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({turma:TURMA,atividade:ATIVIDADE,nome:nome,imagem:u,aluno:S.nome,email:S.email,dt:r.dt,tipo:"FINAL",q1:S.ot+" / "+NQ,q2:"N1 "+S.lv[0]+"/50 | N2 "+S.lv[1]+"/50 | N3 "+S.lv[2]+"/60",total:S.p+" / "+MAXP,perc:r.perc+"%",status:r.st,saidas:"Dicas: "+S.dc})
+    }).then(function(){m.textContent="✅ Resultado enviado ao professor como "+nome+".png";b.disabled=false;b.textContent="📤 Reenviar"})
+  }).catch(function(){m.textContent="⚠️ Não foi possível enviar. Tire um print do cartão acima e entregue ao professor.";b.disabled=false})
+}
+
+// ===== TRILHA SONORA OPCIONAL =====
+// Vazio = trilha suave gerada pelo próprio navegador. Para usar uma música sua, coloque o arquivo na mesma pasta e escreva aqui, ex.: "trilha.mp3"
+var MUSICA_URL="";
+var mOn=false,mTm=null,mPasso=0,mGain=null,mAud=null;
+var ACORDES=[[130.81,164.81,196,246.94],[110,130.81,164.81,196],[87.31,110,130.81,164.81],[98,123.47,146.83,164.81]];
+function ctxA(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended"&&ac.resume)ac.resume();return ac}catch(e){return null}}
+function mNota(f,t,d,tipo,v,atk){var o=ac.createOscillator(),g=ac.createGain();o.type=tipo;o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(v,t+atk);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(mGain);o.start(t);o.stop(t+d+.05)}
+function mTick(){if(!ac||!mGain)return;var b=mPasso%16,c=ACORDES[Math.floor(b/4)],t=ac.currentTime+.05;
+  if(b%4===0)c.forEach(function(f){mNota(f,t,3.6,"sine",.045,1)});
+  if(b%8!==7)mNota(c[[0,2,1,3,2,3,1,2][b%8]]*2,t,1.1,"triangle",.06,.03);
+  mPasso++}
+function mIniciar(){
+  if(MUSICA_URL){mAud=mAud||new Audio(MUSICA_URL);mAud.loop=true;mAud.volume=.4;mAud.play().catch(function(){});return true}
+  if(!ctxA())return false;mGain=ac.createGain();mGain.gain.value=.6;mGain.connect(ac.destination);mPasso=0;mTick();mTm=setInterval(mTick,750);return true}
+function mParar(){
+  if(mAud)mAud.pause();if(mTm){clearInterval(mTm);mTm=null}
+  if(mGain){var g=mGain;mGain=null;try{g.gain.setTargetAtTime(0,ac.currentTime,.2)}catch(e){}setTimeout(function(){try{g.disconnect()}catch(e){}},1500)}}
+function trilha(){
+  mOn=!mOn;if(mOn&&!mIniciar())mOn=false;if(!mOn)mParar();
+  var b=$("bMus");b.textContent="🎶 Trilha sonora: "+(mOn?"tocando":"desligada");b.setAttribute("aria-pressed",mOn)}
+
+// ===== DISPOSITIVO DE SEGURANÇA: sair da página reinicia o jogo =====
+function emJogo(){return !$("tJogo").classList.contains("hide")||!$("tNivel").classList.contains("hide")}
+function reiniciarPorSaida(){
+  if(!emJogo())return;
+  if(window.speechSynthesis)speechSynthesis.cancel();
+  if(mOn)trilha();
+  S={};
+  $("tJogo").classList.add("hide");$("tNivel").classList.add("hide");$("tInicio").classList.remove("hide");
+  $("nm").value="";$("em").value="";
+  var a=$("aviso");a.textContent="⚠️ Você saiu da página do jogo, por isso a partida foi reiniciada. Preencha seus dados para entrar novamente e começar do início.";a.classList.remove("hide")}
+document.addEventListener("visibilitychange",function(){if(document.hidden)reiniciarPorSaida()});
+window.addEventListener("pagehide",reiniciarPorSaida);
+window.addEventListener("beforeunload",function(e){if(emJogo()){e.preventDefault();e.returnValue=""}});
+var _iniciar=iniciar;iniciar=function(){_iniciar();if(S&&S.nome)$("aviso").classList.add("hide")};
+</script>
+</body>
+</html>
