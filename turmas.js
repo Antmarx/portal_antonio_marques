@@ -36,7 +36,7 @@ const TURMAS = [
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" },
+      { texto: "Material em PDF",   url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" }, url: "turma-c/curso-de-administracao-publica_1.pdf" }, url: "turma-c/terceiro-setor_curso-tecnico-de-admin.pdf" }, url: "turma-c/gestao-de-pessoas.pdf" },url: "turma-c/disciplina-empreendedorismo-1.pdf" },url: "turma-c/disciplina-empreendedorismo-2.pdf" },
       { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
     ] },
   { icone: "🚀", nome: "Turma D", tema: "Empreendedorismo e carreira",
