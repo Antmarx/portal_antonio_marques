@@ -24,7 +24,7 @@ const TURMAS = [
       { Icone: "📘", Texto: "Fundamentos da Administração (Parte 2)", URL: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
         { Icone: "📗", Texto: "Curso de Administração Pública", URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
       { Icone: "📗", Texto: "Terceiro Setor (Curso Técnico de Administração)", URL: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
-         { Icone: "💡", Texto: "Empreendedorismo 1", URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
+   { Icone: "💡", Texto: "Empreendedorismo 1", URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
       { Icone: "💡", Texto: "Empreendedorismo 2", URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
       { Icone: "⚖️", Texto: "Direito Empresarial, Trabalhista e Tributário", URL: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
       { Texto: "Slides da aula", URL: "" },
