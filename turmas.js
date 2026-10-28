@@ -16,27 +16,27 @@
 // Arquivos próprios: suba na pasta "materiais" do GitHub e use o caminho, ex.: "materiais/apostila.pdf".
 // Use nomes sem espaços e sem acentos. Link com url: "" (vazio) não aparece.
 const TURMAS = [
-   { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
-    links: [
-           { Texto: "Página da turma",   URL: "" },
+   { Icone: "📊", Nome: "Turma A", Tema: "1º ano ADM Integral",
+    Links: [
+      { Texto: "Página da turma", URL: "" },
       { Icone: "🎬", Texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", URL: "Turma-A/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
       { Icone: "📘", Texto: "Fundamentos da Administração (Parte 1)", URL: "Turma-A/fundamentos-da-administracao.pdf" },
       { Icone: "📘", Texto: "Fundamentos da Administração (Parte 2)", URL: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
-      { Icone: "📗", Texto: "Curso de Administração Pública",         URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
+      { Icone: "📗", Texto: "Curso de Administração Pública", URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
       { Icone: "📗", Texto: "Terceiro Setor (Curso Técnico de Administração)", URL: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
-      { Icone: "💡", Texto: "Empreendedorismo 1",                      URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
-      { Icone: "💡", Texto: "Empreendedorismo 2",                      URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
+      { Icone: "💡", Texto: "Empreendedorismo 1", URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
+      { Icone: "💡", Texto: "Empreendedorismo 2", URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
       { Icone: "⚖️", Texto: "Direito Empresarial, Trabalhista e Tributário", URL: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
-      { Texto: "Slides da aula",    URL: "" },
-      { Texto: "Quiz",              URL: "" },
+      { Texto: "Slides da aula", URL: "" },
+      { Texto: "Quiz", URL: "" },
       { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" }
     ] },
-  { icone: "🤝", nome: "Turma B", tema: "2º ano ADM Integral",
-    links: [
-      { texto: "Página da turma",   url: "" },
-      { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "" },
-      { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
+  { Icone: "🤝", Nome: "Turma B", Tema: "2º ano ADM Integral",
+    Links: [
+      { Texto: "Página da turma", URL: "" },
+      { Texto: "Vídeo aula", URL: "" },
+      { Texto: "Material em PDF", URL: "" },
+      { Icone: "♻️", Texto: "Simulador: Cooperativa Escolar de Recicláveis", URL: "Turma-B/simulador-cooperativa.html" }
     ] },
     { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
     links: [
