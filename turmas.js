@@ -22,7 +22,7 @@ const TURMAS = [
       { Icone: "🎬", Texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", URL: "Turma-A/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
       { Icone: "📘", Texto: "Fundamentos da Administração (Parte 1)", URL: "Turma-A/fundamentos-da-administracao.pdf" },
       { Icone: "📘", Texto: "Fundamentos da Administração (Parte 2)", URL: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
-           { Icone: "📗", Texto: "Curso de Administração Pública", URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
+        { Icone: "📗", Texto: "Curso de Administração Pública", URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
       { Icone: "📗", Texto: "Terceiro Setor (Curso Técnico de Administração)", URL: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
          { Icone: "💡", Texto: "Empreendedorismo 1", URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
       { Icone: "💡", Texto: "Empreendedorismo 2", URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
