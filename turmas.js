@@ -36,7 +36,7 @@ const TURMAS = [
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "" },
+      { texto: "Material em PDF",   url: "turma-c/Direito-Empresarial-Trabalhista-e-Tributario.pdf" },
       { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
     ] },
   { icone: "🚀", nome: "Turma D", tema: "Empreendedorismo e carreira",
