@@ -18,12 +18,18 @@
 const TURMAS = [
    { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
     links: [
-      { texto: "Página da turma",   url: "" },
-      { texto: "Vídeo aula",        url: "" },
-      { texto: "Apostila em PDF",   url: "" },
-      { texto: "Slides da aula",    url: "" },
-      { texto: "Quiz",              url: "" },
-      { icone: "🍔", texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html" }
+           { Texto: "Página da turma",   URL: "" },
+      { Icone: "🎬", Texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", URL: "Turma-A/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
+      { Icone: "📘", Texto: "Fundamentos da Administração (Parte 1)", URL: "Turma-A/fundamentos-da-administracao.pdf" },
+      { Icone: "📘", Texto: "Fundamentos da Administração (Parte 2)", URL: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
+      { Icone: "📗", Texto: "Curso de Administração Pública",         URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
+      { Icone: "📗", Texto: "Terceiro Setor (Curso Técnico de Administração)", URL: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
+      { Icone: "💡", Texto: "Empreendedorismo 1",                      URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
+      { Icone: "💡", Texto: "Empreendedorismo 2",                      URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
+      { Icone: "⚖️", Texto: "Direito Empresarial, Trabalhista e Tributário", URL: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
+      { Texto: "Slides da aula",    URL: "" },
+      { Texto: "Quiz",              URL: "" },
+      { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" }
     ] },
   { icone: "🤝", nome: "Turma B", tema: "2º ano ADM Integral",
     links: [
