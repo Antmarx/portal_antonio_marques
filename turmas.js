@@ -32,7 +32,7 @@ const TURMAS = [
       { texto: "Material em PDF",   url: "" },
       { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
-  { icone: "💡", nome: "Turma C", tema: "Inovação e tecnologia na gestão",
+  { icone: "💡", nome: "Turma C", "💡", tema: "2º e 3º Mod. EJATEC",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
