@@ -16,38 +16,38 @@
 // Arquivos próprios: suba na pasta "materiais" do GitHub e use o caminho, ex.: "materiais/apostila.pdf".
 // Use nomes sem espaços e sem acentos. Link com url: "" (vazio) não aparece.
 const TURMAS = [
-    { Icone: "📊", Nome: "Turma A", Tema: "1º ano ADM Integral",
-    Links: [
-          { Texto: "Página da turma", URL: "" },
-      { Icone: "🎬", Texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", URL: "Turma-A/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
-      { Icone: "📘", Texto: "Fundamentos da Administração (Parte 1)", URL: "Turma-A/fundamentos-da-administracao.pdf" },
-      { Icone: "📘", Texto: "Fundamentos da Administração (Parte 2)", URL: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
-        { Icone: "📗", Texto: "Curso de Administração Pública", URL: "Turma-A/curso-de-administracao-publica_1.pdf" },
-      { Icone: "📗", Texto: "Terceiro Setor (Curso Técnico de Administração)", URL: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
-   { Icone: "💡", Texto: "Empreendedorismo 1", URL: "Turma-A/disciplina-empreendedorismo-1.pdf" },
-      { Icone: "💡", Texto: "Empreendedorismo 2", URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
-      { Icone: "⚖️", Texto: "Direito Empresarial, Trabalhista e Tributário", URL: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
-      { Texto: "Slides da aula", URL: "" },
-        { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" } 
-        ]},
-  { Icone: "🤝", Nome: "Turma B", Tema: "2º ano ADM Integral",
-    Links: [
-        { Texto: "Página da turma", URL: "" },
-        { Texto: "Vídeo aula", URL: "" },
-        { Texto: "Material em PDF", URL: "" },
-         { Icone: "♻️", Texto: "Simulador: Cooperativa Escolar de Recicláveis", URL: "Turma-B/simulador-cooperativa.html" }
+  { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
+    links: [
+      { texto: "Página da turma", url: "" },
+      { icone: "🎬", texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", url: "Turma-A/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
+      { icone: "📘", texto: "Fundamentos da Administração (Parte 1)", url: "Turma-A/fundamentos-da-administracao.pdf" },
+      { icone: "📘", texto: "Fundamentos da Administração (Parte 2)", url: "Turma-A/parte-2-fundamentos-da-administracao.pdf" },
+      { icone: "📗", texto: "Curso de Administração Pública", url: "Turma-A/curso-de-administracao-publica_1.pdf" },
+      { icone: "📗", texto: "Terceiro Setor (Curso Técnico de Administração)", url: "Turma-A/terceiro-setor_curso-tecnico-de-administracao.pdf" },
+      { icone: "💡", texto: "Empreendedorismo 1", url: "Turma-A/disciplina-empreendedorismo-1.pdf" },
+      { icone: "💡", texto: "Empreendedorismo 2", url: "Turma-A/disciplina-empreendedorismo-2.pdf" },
+      { icone: "⚖️", texto: "Direito Empresarial, Trabalhista e Tributário", url: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
+      { texto: "Slides da aula", url: "" },
+      { icone: "🍔", texto: "Simulador: A Cantina do Técnico", url: "Turma-A/simulador-cantina.html" }
     ] },
-    { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
+  { icone: "🤝", nome: "Turma B", tema: "2º ano ADM Integral",
+    links: [
+      { texto: "Página da turma", url: "" },
+      { texto: "Vídeo aula", url: "" },
+      { texto: "Material em PDF", url: "" },
+      { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "Turma-B/simulador-cooperativa.html" }
+    ] },
+  { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { icone: "📘", texto: "Direito Empresarial, Trabalhista e Tributário", url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" },
-      { icone: "📘", texto: "Curso de Administração Pública", url: "turma-c/curso-de-administracao-publica_1.pdf" },
-      { icone: "📘", texto: "Disciplina Empreendedorismo 1", url: "turma-c/disciplina-empreendedorismo-1.pdf" },
-      { icone: "📘", texto: "Disciplina Empreendedorismo 2", url: "turma-c/disciplina-empreendedorismo-2.pdf" },
-      { icone: "📘", texto: "Gestão de Pessoas", url: "turma-c/gestao-de-pessoas.pdf" },
-      { icone: "📘", texto: "Terceiro Setor", url: "turma-c/terceiro-setor_curso-tecnico-de-administracao.pdf" },
-      { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
+      { icone: "📘", texto: "Direito Empresarial, Trabalhista e Tributário", url: "Turma-C/direito-empresarial-trabalhista-e-tributario.pdf" },
+      { icone: "📘", texto: "Curso de Administração Pública", url: "Turma-C/curso-de-administracao-publica_1.pdf" },
+      { icone: "📘", texto: "Disciplina Empreendedorismo 1", url: "Turma-C/disciplina-empreendedorismo-1.pdf" },
+      { icone: "📘", texto: "Disciplina Empreendedorismo 2", url: "Turma-C/disciplina-empreendedorismo-2.pdf" },
+      { icone: "📘", texto: "Gestão de Pessoas", url: "Turma-C/gestao-de-pessoas.pdf" },
+      { icone: "📘", texto: "Terceiro Setor", url: "Turma-C/terceiro-setor_curso-tecnico-de-administracao.pdf" },
+      { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "Turma-C/quiz-modelos-adm.html" }
     ] },
   { icone: "🚀", nome: "Turma D", tema: "4º Mod. ADM. EJATEC",
     links: [
@@ -66,13 +66,13 @@ const TURMAS = [
 // Capa automática: YouTube e Google Drive. Nos demais, use "imagem" ou fica o ícone.
 // Linha com url: "" não aparece. Para adicionar: copie uma linha, cole embaixo, vírgula na anterior.
 const BIBLIOTECA = [
-  { texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html",
+  { texto: "Quiz: Modelos de Administração Pública", url: "Turma-C/quiz-modelos-adm.html",
     area: "Administração Pública", categoria: "Quiz", destaque: true, icone: "🧠",
     descricao: "Patrimonialista, burocrático e gerencial." },
-  { texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html",
+  { texto: "Simulador: A Cantina do Técnico", url: "Turma-A/simulador-cantina.html",
     area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "🍔",
     descricao: "16 decisões em 3 níveis sobre o plano de negócios da cantina. 1º ano integral." },
-  { texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html",
+  { texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "Turma-B/simulador-cooperativa.html",
     area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "♻️",
     descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." },
   { texto: "Vídeo aula (exemplo)",   url: "", area: "Administração" },
