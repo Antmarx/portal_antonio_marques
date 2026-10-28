@@ -16,7 +16,7 @@
 // Arquivos próprios: suba na pasta "materiais" do GitHub e use o caminho, ex.: "materiais/apostila.pdf".
 // Use nomes sem espaços e sem acentos. Link com url: "" (vazio) não aparece.
 const TURMAS = [
-  // { icone: "📊", nome: "Turma A: 1º ano ADM Integral",
+   { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
