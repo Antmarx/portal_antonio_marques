@@ -36,7 +36,12 @@ const TURMAS = [
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" }, url: "turma-c/curso-de-administracao-publica_1.pdf" }, url: "turma-c/terceiro-setor_curso-tecnico-de-admin.pdf" }, url: "turma-c/gestao-de-pessoas.pdf" },url: "turma-c/disciplina-empreendedorismo-1.pdf" },url: "turma-c/disciplina-empreendedorismo-2.pdf" },
+      { icone: "📘", texto: "Direito Empresarial, Trabalhista e Tributário", url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" },
+      { icone: "📘", texto: "Curso de Administração Pública", url: "turma-c/curso-de-administracao-publica_1.pdf" },
+      { icone: "📘", texto: "Disciplina Empreendedorismo 1", url: "turma-c/disciplina-empreendedorismo-1.pdf" },
+      { icone: "📘", texto: "Disciplina Empreendedorismo 2", url: "turma-c/disciplina-empreendedorismo-2.pdf" },
+      { icone: "📘", texto: "Gestão de Pessoas", url: "turma-c/gestao-de-pessoas.pdf" },
+      { icone: "📘", texto: "Terceiro Setor", url: "turma-c/terceiro-setor_curso-tecnico-de-administracao.pdf" },
       { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
     ] },
   { icone: "🚀", nome: "Turma D", tema: "Empreendedorismo e carreira",
