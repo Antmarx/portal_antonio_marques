@@ -28,9 +28,8 @@ const TURMAS = [
       { Icone: "💡", Texto: "Empreendedorismo 2", URL: "Turma-A/disciplina-empreendedorismo-2.pdf" },
       { Icone: "⚖️", Texto: "Direito Empresarial, Trabalhista e Tributário", URL: "Turma-A/direito-empresarial-trabalhista-e-tributario.pdf" },
       { Texto: "Slides da aula", URL: "" },
-       { Texto: "Slides da aula", URL: "" },
-      { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" }        { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" }
-    ] },
+        { Icone: "🍔", Texto: "Simulador: A Cantina do Técnico", URL: "Turma-A/simulador-cantina.html" } 
+        ]},
   { Icone: "🤝", Nome: "Turma B", Tema: "2º ano ADM Integral",
     Links: [
         { Texto: "Página da turma", URL: "" },
