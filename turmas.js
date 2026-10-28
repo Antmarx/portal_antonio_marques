@@ -16,7 +16,7 @@
 // Arquivos próprios: suba na pasta "materiais" do GitHub e use o caminho, ex.: "materiais/apostila.pdf".
 // Use nomes sem espaços e sem acentos. Link com url: "" (vazio) não aparece.
 const TURMAS = [
-  { icone: "📊", nome: "Turma A", tema: "Planejamento e organização",
+  { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
@@ -25,14 +25,14 @@ const TURMAS = [
       { texto: "Quiz",              url: "" },
       { icone: "🍔", texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html" }
     ] },
-  { icone: "🤝", nome: "Turma B", tema: "Liderança e trabalho em equipe",
+  { icone: "🤝", nome: "Turma B", tema: "2º ano ADM Integral",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
       { texto: "Material em PDF",   url: "" },
       { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
-    { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. EJATEC",
+    { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
@@ -44,7 +44,7 @@ const TURMAS = [
       { icone: "📘", texto: "Terceiro Setor", url: "turma-c/terceiro-setor_curso-tecnico-de-administracao.pdf" },
       { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
     ] },
-  { icone: "🚀", nome: "Turma D", tema: "Empreendedorismo e carreira",
+  { icone: "🚀", nome: "Turma D", tema: "4º Mod. ADM. EJATEC",
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
