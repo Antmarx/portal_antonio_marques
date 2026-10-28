@@ -47,7 +47,7 @@ const TURMAS = [
     ] }
 ];
 
-// ================= BIBLIOTECA DE MATERIAIS (links ilimitados) =================
+//================= BIBLIOTECA DE MATERIAIS (links ilimitados) =================
 // Uma linha por material. O portal reconhece o tipo pelo endereço (vídeo, PDF, imagem, YouTube, Drive...).
 // Campos:  texto (nome)  url (endereço)  area (ex.: "Contabilidade")  descricao (opcional)
 //          imagem (capa opcional, ex.: "imagens/capa1.jpg")  destaque: true (aparece em Destaques)
