@@ -95,4 +95,4 @@ TURMAS.forEach(t => (t.links || []).forEach(l => {
 const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de terceiros, podem conter publicidade e não são de responsabilidade do professor. Confira preços e condições no site de destino.";
 
 // Texto da seção "Sobre o professor" (apague as aspas internas se quiser esconder a seção)
-const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio.";
+const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio. http://lattes.cnpq.br/6776837697626675";
