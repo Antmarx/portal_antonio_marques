@@ -1,10 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const link = document.createElement("h2"); // cria um título grande
-  link.innerHTML = '<a href="http://lattes.cnpq.br/6776837697626675" target="_blank" style="color:blue; text-decoration:underline;">📄 Currículo Lattes de Antonio Marques</a>';
-  
-  document.body.insertBefore(link, document.body.firstChild);
+  const banner = document.createElement("div");
+  banner.style.backgroundColor = "yellow";   // fundo chamativo
+  banner.style.padding = "15px";
+  banner.style.textAlign = "center";
+  banner.style.fontSize = "22px";
+  banner.style.fontWeight = "bold";
+
+  banner.innerHTML = `
+    <a href="http://lattes.cnpq.br/6776837697626675" 
+       target="_blank" 
+       style="color:black; text-decoration:none;">
+       📄 Currículo Lattes de Antonio Marques
+    </a>
+  `;
+
+  document.body.insertBefore(banner, document.body.firstChild);
 });
 
+  
 
   // Insere no topo da página
   document.body.insertBefore(link, document.body.firstChild);
