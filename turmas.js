@@ -98,7 +98,7 @@ const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de t
 // LATTES_PDF é o nome do PDF do currículo, enviado para a raiz do repositório (ao lado do index.html).
 // Deixe "" para esconder o botão do PDF.
 const LATTES_URL = "https://lattes.cnpq.br/6776837697626675";
-const LATTES_PDF = "curriculo-lattes.pdf";
+const LATTES_PDF = encodeURI("currículo_do_sistema_de_currículos_lattes-(antonio_marques_de_frança).pdf");
 
 // Texto da seção "Sobre o professor" (apague as aspas internas se quiser esconder a seção)
 const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio.";
