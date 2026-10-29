@@ -34,7 +34,13 @@ const TURMAS = [
     links: [
       { texto: "Página da turma", url: "" },
       { texto: "Vídeo aula", url: "" },
-      { texto: "Material em PDF", url: "" },
+      { icone: "📘", texto: "Desvendando os Sistemas de Informação", url: "turma-b/desvendando-os-sistemas-de-informacao.pdf" },
+      { icone: "📗", texto: "Empreendedorismo (2º Módulo)", url: "turma-b/empreendedorismo-2-mod.pdf" },
+      { icone: "📗", texto: "Empreendedorismo: Livro Didático (1º Módulo)", url: "turma-b/empreendedorismo-livro-didatico-1-modulo.pdf" },
+      { icone: "💰", texto: "Gestão Financeira", url: "turma-b/gestao-financeira.pdf" },
+      { icone: "🧮", texto: "Matemática Financeira", url: "turma-b/matematica-financeira.pdf" },
+      { icone: "🎯", texto: "Planejamento Estratégico 1", url: "turma-b/planejamento-estrategico1.pdf" },
+      { icone: "🎯", texto: "Planejamento Estratégico 2", url: "turma-b/planejamento-estrategico2.pdf" },
       { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
   { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
@@ -53,7 +59,9 @@ const TURMAS = [
     links: [
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
-      { texto: "Material em PDF",   url: "" }
+      { icone: "📒", texto: "Contabilidade Geral", url: "turma-d/contabilidade-geral.pdf" },
+      { icone: "💰", texto: "Gestão Financeira", url: "turma-d/gestao-financeira.pdf" },
+      { icone: "🧮", texto: "Matemática Financeira", url: "turma-d/matematica-financeira.pdf" }
     ] }
 ];
 
