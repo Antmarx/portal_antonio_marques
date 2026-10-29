@@ -1,9 +1,10 @@
-// Adiciona link para o Currículo Lattes no início da página
 document.addEventListener("DOMContentLoaded", function() {
-  const link = document.createElement("a");
-  link.href = "http://lattes.cnpq.br/6776837697626675";
-  link.target = "_blank";
-  link.textContent = "📄 Currículo Lattes de Antonio Marques";
+  const link = document.createElement("h2"); // cria um título grande
+  link.innerHTML = '<a href="http://lattes.cnpq.br/6776837697626675" target="_blank" style="color:blue; text-decoration:underline;">📄 Currículo Lattes de Antonio Marques</a>';
+  
+  document.body.insertBefore(link, document.body.firstChild);
+});
+
 
   // Insere no topo da página
   document.body.insertBefore(link, document.body.firstChild);
