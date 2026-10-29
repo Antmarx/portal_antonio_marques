@@ -1,49 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const banner = document.createElement("div");
-  banner.style.backgroundColor = "yellow";   // fundo chamativo
-  banner.style.padding = "15px";
-  banner.style.textAlign = "center";
-  banner.style.fontSize = "22px";
-  banner.style.fontWeight = "bold";
-
-  banner.innerHTML = `
-    <a href="http://lattes.cnpq.br/6776837697626675"
-       target="_blank"
-       style="color:black; text-decoration:none;">
-       📄 Currículo Lattes de Antonio Marques
-    </a>
-  `;
-
-  document.body.insertBefore(banner, document.body.firstChild);
-});
-
-  banner.innerHTML = `
-    <a href="http://lattes.cnpq.br/6776837697626675"
-       target="_blank"
-       style="color:black; text-decoration:none;">
-       📄 Currículo Lattes de Antonio Marques
-    </a>
-  `;
-
-  document.body.insertBefore(banner, document.body.firstChild);
-});
-
-  banner.innerHTML = `
-    <a href="http://lattes.cnpq.br/6776837697626675" 
-       target="_blank" 
-       style="color:black; text-decoration:none;">
-       📄 Currículo Lattes de Antonio Marques
-    </a>
-  `;
-
-  document.body.insertBefore(banner, document.body.firstChild);
-});
-
-  
-
-  // Insere no topo da página
-  document.body.insertBefore(link, document.body.firstChild);
-});
 // ÁREA DO PROFESSOR: edite aqui as turmas (botões) e os materiais de cada uma.
 // Você pode ter QUANTAS turmas quiser: copie um bloco { icone... } inteiro, cole embaixo
 // e ponha vírgula no bloco de cima (o último bloco fica sem vírgula).
@@ -141,4 +95,4 @@ TURMAS.forEach(t => (t.links || []).forEach(l => {
 const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de terceiros, podem conter publicidade e não são de responsabilidade do professor. Confira preços e condições no site de destino.";
 
 // Texto da seção "Sobre o professor" (apague as aspas internas se quiser esconder a seção)
-const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio. http://lattes.cnpq.br/6776837697626675";
+const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio.";
