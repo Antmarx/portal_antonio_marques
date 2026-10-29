@@ -7,6 +7,28 @@ document.addEventListener("DOMContentLoaded", function() {
   banner.style.fontWeight = "bold";
 
   banner.innerHTML = `
+    <a href="http://lattes.cnpq.br/6776837697626675"
+       target="_blank"
+       style="color:black; text-decoration:none;">
+       📄 Currículo Lattes de Antonio Marques
+    </a>
+  `;
+
+  document.body.insertBefore(banner, document.body.firstChild);
+});
+
+  banner.innerHTML = `
+    <a href="http://lattes.cnpq.br/6776837697626675"
+       target="_blank"
+       style="color:black; text-decoration:none;">
+       📄 Currículo Lattes de Antonio Marques
+    </a>
+  `;
+
+  document.body.insertBefore(banner, document.body.firstChild);
+});
+
+  banner.innerHTML = `
     <a href="http://lattes.cnpq.br/6776837697626675" 
        target="_blank" 
        style="color:black; text-decoration:none;">
