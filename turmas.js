@@ -94,5 +94,11 @@ TURMAS.forEach(t => (t.links || []).forEach(l => {
 // Aviso mostrado quando houver links marcados com promo: true
 const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de terceiros, podem conter publicidade e não são de responsabilidade do professor. Confira preços e condições no site de destino.";
 
+// Currículo Lattes: o endereço aparece no cabeçalho e na seção "Sobre o professor".
+// LATTES_PDF é o nome do PDF do currículo, enviado para a raiz do repositório (ao lado do index.html).
+// Deixe "" para esconder o botão do PDF.
+const LATTES_URL = "https://lattes.cnpq.br/6776837697626675";
+const LATTES_PDF = "curriculo-lattes.pdf";
+
 // Texto da seção "Sobre o professor" (apague as aspas internas se quiser esconder a seção)
 const SOBRE = "Professor Antonio Marques. Materiais, vídeos, atividades e quizzes para as turmas de Administração do Ensino Médio.";
