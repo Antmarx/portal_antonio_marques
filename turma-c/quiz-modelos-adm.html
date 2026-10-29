@@ -57,7 +57,11 @@ h3{margin:18px 0 8px}
   <div id="app"></div>
 </div>
 <script>
-var API="https://script.google.com/macros/s/AKfycbxrGWs-65aKCTS83NwSPVH_z_lgg3Z0T0pmf3zjVDzZv9ouhtibQGVfcs9NwmsjkwvJ/exec";
+/* ENVIO DOS RESULTADOS -> script "Controle de atividades online Administração" (Google Apps Script)
+   TURMA e ATIVIDADE definem o nome da guia na planilha e da subpasta no Drive: "Turma C - Quiz Modelos de Administração Pública" */
+var API="https://script.google.com/macros/s/AKfycbz7oOfJZc4sgKtVmfbNFXtHAL8Bn5wdg3no-UKBDjZReFyx3E2nrxjrE1cpFT8LZQqv/exec";
+var TURMA="Turma C";
+var ATIVIDADE="Quiz Modelos de Administração Pública";
 var DRIVE="";
 var NQ=8, MODS=["Gerencial","Burocrático","Patrimonialista","Nenhum dos modelos"];
 function caso(t,m,d,e){var w=MODS.filter(function(x){return x!==m});return [t,m,w,d,e]}
@@ -119,7 +123,7 @@ function enviar_(tipo){var b=$("img"),bt=$("bt");bt.disabled=true;b.innerHTML="�
 if(!window.html2canvas){b.innerHTML="Não foi possível gerar a imagem. Tire um print da tela e envie pela pasta do Drive.";bt.disabled=false;return}
 html2canvas($("cartao"),{scale:2,backgroundColor:"#ffffff"}).then(function(c){var u=c.toDataURL("image/png"),nome=tipo+"_"+S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
 var pre='<img src="'+u+'" alt="Resultado" style="max-width:100%;border-radius:10px;border:1px solid var(--bd);margin-top:8px">';
-fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({nome:nome,imagem:u},S.pl))}).then(function(){b.innerHTML='<div class="msg">✅ <b>Envio '+tipo+' realizado!</b> O resultado foi enviado para a pasta do professor como <b>'+esc(nome)+'.png</b>.'+pre+"</div>";bt.disabled=false;bt.textContent="📤 Reenviar ("+tipo+")"}).catch(function(){b.innerHTML='<div class="msg">⚠️ Não foi possível enviar automaticamente. Salve a imagem abaixo (segure/botão direito) e envie pela pasta do Drive.'+pre+"</div>";bt.disabled=false})
+fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({nome:nome,imagem:u,turma:TURMA,atividade:ATIVIDADE},S.pl))}).then(function(){b.innerHTML='<div class="msg">✅ <b>Envio '+tipo+' realizado!</b> O resultado foi enviado para a pasta do professor como <b>'+esc(nome)+'.png</b>.'+pre+"</div>";bt.disabled=false;bt.textContent="📤 Reenviar ("+tipo+")"}).catch(function(){b.innerHTML='<div class="msg">⚠️ Não foi possível enviar automaticamente. Salve a imagem abaixo (segure/botão direito) e envie pela pasta do Drive.'+pre+"</div>";bt.disabled=false})
 }).catch(function(){b.innerHTML="Falha ao gerar a imagem. Tire um print da tela.";bt.disabled=false})}
 function fonte(d){var s=parseFloat(getComputedStyle(document.body).fontSize);document.body.style.fontSize=Math.min(26,Math.max(13,s+d*2))+"px"}
 function ler(){if(!window.speechSynthesis)return;speechSynthesis.cancel();var q=S.q[S.i],t=$("qt")&&q?q.t+". "+q.o.map(function(o,k){return "Alternativa "+"ABCD"[k]+": "+o}).join(". "):$("app").innerText;var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}
