@@ -1,3 +1,13 @@
+// Adiciona link para o Currículo Lattes no início da página
+document.addEventListener("DOMContentLoaded", function() {
+  const link = document.createElement("a");
+  link.href = "http://lattes.cnpq.br/6776837697626675";
+  link.target = "_blank";
+  link.textContent = "📄 Currículo Lattes de Antonio Marques";
+
+  // Insere no topo da página
+  document.body.insertBefore(link, document.body.firstChild);
+});
 // ÁREA DO PROFESSOR: edite aqui as turmas (botões) e os materiais de cada uma.
 // Você pode ter QUANTAS turmas quiser: copie um bloco { icone... } inteiro, cole embaixo
 // e ponha vírgula no bloco de cima (o último bloco fica sem vírgula).
