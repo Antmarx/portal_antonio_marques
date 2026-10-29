@@ -207,6 +207,7 @@
     font-weight: 800; text-decoration: none; color: #12102e; background: var(--ciano);
   }
   .v-botao[hidden] { display: none; }
+  button.v-botao { border: 0; cursor: pointer; font-family: inherit; font-size: 1rem; }
   .v-botao.v-baixar { background: var(--ambar); }
   html.calmo dialog { box-shadow: none; }
   html.contraste .v-botao { color: #000; }
@@ -327,6 +328,7 @@
       <div>
         <h1>Professor Antonio Marques</h1>
         <p class="sub">Atividades e projetos para as turmas de Administração do Ensino Médio.</p>
+        <p style="margin:14px 0 0"><a class="v-botao" id="lnkLattes" target="_blank" rel="noopener" hidden>🎓 Currículo Lattes</a></p>
       </div>
     </header>
 
@@ -359,7 +361,13 @@
       <p class="b-aviso" id="bAviso" hidden></p>
     </section>
 
-    <section class="painel" id="sobre" hidden><h2>Sobre o professor</h2><p id="sobreTxt"></p></section>
+    <section class="painel" id="sobre" hidden><h2>Sobre o professor</h2><p id="sobreTxt"></p>
+      <div class="v-acoes" id="sobreCv" style="justify-content:flex-start;margin-top:16px" hidden>
+        <button type="button" class="v-botao" id="cvLer" hidden>📄 Ler currículo em PDF</button>
+        <a class="v-botao v-baixar" id="cvBaixar" download hidden>⬇ Baixar PDF</a>
+        <a class="v-botao" id="cvLattes" target="_blank" rel="noopener" hidden>🎓 Plataforma Lattes</a>
+      </div>
+    </section>
 
 
     <dialog id="janela" aria-labelledby="j-titulo">
@@ -383,6 +391,24 @@
   </main>
 
 <script src="turmas.js"></script>
+<script>
+  // Currículo Lattes: endereço e PDF vêm do turmas.js (LATTES_URL e LATTES_PDF)
+  (function () {
+    var url = (typeof LATTES_URL !== 'undefined' && LATTES_URL) ? LATTES_URL : '';
+    var pdf = (typeof LATTES_PDF !== 'undefined' && LATTES_PDF) ? LATTES_PDF : '';
+    var $ = function (id) { return document.getElementById(id); };
+    if (url) {
+      $('lnkLattes').href = url; $('lnkLattes').hidden = false;
+      $('cvLattes').href = url; $('cvLattes').hidden = false;
+    }
+    if (pdf) {
+      $('cvLer').hidden = false;
+      $('cvLer').onclick = function () { abrirLink({ texto: 'Currículo Lattes', url: pdf, t: 'pdf', icone: '🎓' }); };
+      $('cvBaixar').href = pdf; $('cvBaixar').hidden = false;
+    }
+    if (url || pdf) $('sobreCv').hidden = false;
+  })();
+</script>
 <script>
   // monta as turmas a partir da lista TURMAS (só o professor edita)
   const janela = document.getElementById('janela');
