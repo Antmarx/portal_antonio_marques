@@ -65,20 +65,23 @@ const TURMAS = [
 //          baixar: true (força download)  legenda: "materiais/aula.vtt" (vídeo)
 // Capa automática: YouTube e Google Drive. Nos demais, use "imagem" ou fica o ícone.
 // Linha com url: "" não aparece. Para adicionar: copie uma linha, cole embaixo, vírgula na anterior.
-const BIBLIOTECA = [
-  { texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html",
-    area: "Administração Pública", categoria: "Quiz", destaque: true, icone: "🧠",
-    descricao: "Patrimonialista, burocrático e gerencial." },
-  { texto: "Simulador: A Cantina do Técnico", url: "turma-a/simulador-cantina.html",
-    area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "🍔",
-    descricao: "16 decisões em 3 níveis sobre o plano de negócios da cantina. 1º ano integral." },
-  { texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html",
-    area: "Empreendedorismo", categoria: "Simulador", destaque: true, icone: "♻️",
-    descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." },
-  { texto: "Vídeo aula (exemplo)",   url: "", area: "Administração" },
-  { texto: "Apostila em PDF (exemplo)", url: "", area: "Contabilidade" },
-  { texto: "Indicação de livro ou produto (exemplo)", url: "", area: "Administração", promo: true }
-];
+// A BIBLIOTECA é montada sozinha a partir das TURMAS acima: todo material com url preenchida
+// entra aqui, agrupado pela turma (campo "area" = nome da turma). Para novos materiais,
+// basta acrescentar o link na turma certa; não precisa repetir nesta seção.
+// Extras opcionais (destaque, categoria, descricao) por endereço:
+const BIBLIOTECA_EXTRAS = {
+  "turma-c/quiz-modelos-adm.html":      { categoria: "Quiz", destaque: true, descricao: "Patrimonialista, burocrático e gerencial." },
+  "turma-a/simulador-cantina.html":     { categoria: "Simulador", destaque: true, descricao: "16 decisões em 3 níveis sobre o plano de negócios da cantina. 1º ano integral." },
+  "turma-b/simulador-cooperativa.html": { categoria: "Simulador", destaque: true, descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." }
+};
+const BIBLIOTECA = [];
+TURMAS.forEach(t => (t.links || []).forEach(l => {
+  if (!l.url) return;
+  BIBLIOTECA.push(Object.assign(
+    { texto: l.texto, url: l.url, icone: l.icone, area: t.nome, descricao: t.tema },
+    BIBLIOTECA_EXTRAS[l.url] || {}
+  ));
+}));
 
 // Aviso mostrado quando houver links marcados com promo: true
 const AVISO_PROMO = "Links marcados como Indicação levam a sites externos de terceiros, podem conter publicidade e não são de responsabilidade do professor. Confira preços e condições no site de destino.";
