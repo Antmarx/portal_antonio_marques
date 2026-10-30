@@ -61,7 +61,8 @@ const TURMAS = [
       { texto: "Vídeo aula",        url: "" },
       { icone: "📒", texto: "Contabilidade Geral", url: "turma-d/contabilidade-geral.pdf" },
       { icone: "💰", texto: "Gestão Financeira", url: "turma-d/gestao-financeira.pdf" },
-      { icone: "🧮", texto: "Matemática Financeira", url: "turma-d/matematica-financeira.pdf" }
+      { icone: "🧮", texto: "Matemática Financeira", url: "turma-d/matematica-financeira.pdf" },
+      { icone: "📊", texto: "Quiz: Contabilidade Geral", url: "turma-d/quiz-contabilidade.html" }
     ] }
 ];
 
@@ -80,7 +81,8 @@ const TURMAS = [
 const BIBLIOTECA_EXTRAS = {
   "turma-c/quiz-modelos-adm.html":      { categoria: "Quiz", destaque: true, descricao: "Patrimonialista, burocrático e gerencial." },
   "turma-a/simulador-cantina.html":     { categoria: "Simulador", destaque: true, descricao: "16 decisões em 3 níveis sobre o plano de negócios da cantina. 1º ano integral." },
-  "turma-b/simulador-cooperativa.html": { categoria: "Simulador", destaque: true, descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." }
+  "turma-b/simulador-cooperativa.html": { categoria: "Simulador", destaque: true, descricao: "16 decisões em 3 níveis sobre o plano de negócios da cooperativa. 2º ano integral." },
+  "turma-d/quiz-contabilidade.html":    { categoria: "Quiz", destaque: true, descricao: "2 quizzes de 8 questões: conceitos e casos práticos. 4º módulo." }
 };
 const BIBLIOTECA = [];
 TURMAS.forEach(t => (t.links || []).forEach(l => {
