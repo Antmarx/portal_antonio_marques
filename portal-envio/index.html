@@ -516,7 +516,36 @@
   }
   montarTurmas();
 
-  // fecha a janela ao clicar fora dela
+  montarTurmas(); // mostra primeiro a lista fixa do turmas.js
+
+// ===== LISTA AUTOMÁTICA: planilha -> portal =====
+const LISTA_URL = 'COLE_AQUI_O_ENDERECO_DO_SCRIPT_TERMINADO_EM_/exec';
+
+function letraTurma(nome) {
+  const m = (nome || '').match(/turma\s*([a-d])/i);
+  return m ? m[1].toLowerCase() : '';
+}
+
+async function carregarLiberados() {
+  try {
+    const r = await fetch(LISTA_URL + '?acao=lista', { cache: 'no-store' });
+    const d = await r.json();
+    const lista = Array.isArray(d) ? d : (d.itens || d.lista || []);
+    lista.forEach(function (a) {
+      if (String(a.estado || '').toLowerCase() !== 'liberado') return;
+      const letra = String(a.turma || '').trim().slice(-1).toLowerCase();
+      const t = TURMAS.find(function (x) { return letraTurma(x.nome) === letra; });
+      if (!t || !a.arquivo) return;
+      const url = a.arquivo.indexOf('/') > -1 ? a.arquivo : 'turma-' + letra + '/' + a.arquivo;
+      t.links = t.links || [];
+      if (!t.links.some(function (l) { return (l.url || '').trim() === url; })) {
+        t.links.push({ icone: '🧠', texto: a.atividade || a.arquivo, url: url });
+      }
+    });
+  } catch (e) { /* se o script falhar, o portal continua com a lista fixa */ }
+  montarTurmas();
+}
+carregarLiberados();
   janela.addEventListener('click', function (e) { if (e.target === janela) janela.close(); });
 
   function mudarLayout() {
