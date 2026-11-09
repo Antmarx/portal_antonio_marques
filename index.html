@@ -542,7 +542,39 @@
     });
   }
   montarTurmas();
+// ===== LISTA AUTOMÁTICA: planilha -> portal =====
+const LISTA_URL = 'https://script.google.com/macros/s/AKfycbz7oOfJZc4sgKtVmfbNFXtHAL8Bn5wdg3no-UKBDjZReFyx3E2nrxjrE1cpFT8LZQqv/exec';
 
+function letraTurma(nome) {
+  const m = (nome || '').match(/turma\s*([a-d])/i);
+  return m ? m[1].toLowerCase() : '';
+}
+
+async function carregarLiberados() {
+  try {
+    const r = await fetch(LISTA_URL + '?acao=lista', { cache: 'no-store' });
+    const d = await r.json();
+    console.log('Lista recebida do script:', d);
+    const lista = Array.isArray(d) ? d : (d.itens || d.lista || []);
+    lista.forEach(function (a) {
+      if (String(a.estado || '').trim().toLowerCase() !== 'liberado') return;
+      const letra = String(a.turma || '').trim().slice(-1).toLowerCase();
+      const t = TURMAS.find(function (x) { return letraTurma(x.nome) === letra; });
+      if (!t || !a.arquivo) { console.warn('Item ignorado:', a); return; }
+      const url = a.arquivo.indexOf('/') > -1
+        ? a.arquivo
+        : 'turma-' + letra + '/' + a.arquivo;
+      t.links = t.links || [];
+      if (!t.links.some(function (l) { return (l.url || '').trim() === url; })) {
+        t.links.push({ icone: '🧠', texto: a.titulo || a.atividade || a.arquivo, url: url });
+      }
+    });
+  } catch (e) {
+    console.error('Falha ao carregar a lista do script:', e);
+  }
+  montarTurmas();
+}
+carregarLiberados();
   // fecha a janela ao clicar fora dela
   janela.addEventListener('click', function (e) { if (e.target === janela) janela.close(); });
 
