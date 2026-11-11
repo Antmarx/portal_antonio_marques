@@ -57,6 +57,8 @@ const TURMAS = [
       { icone: "📘", texto: "Disciplina Empreendedorismo 2", url: "turma-c/disciplina-empreendedorismo-2.pdf" },
       { icone: "📘", texto: "Gestão de Pessoas", url: "turma-c/gestao-de-pessoas.pdf" },
       { icone: "📘", texto: "Terceiro Setor", url: "turma-c/terceiro-setor_curso-tecnico-de-administracao.pdf" },
+      { icone: "🤝", texto: "Quiz: Gestão de Pessoas", url: "turma-c/quiz-gestao-de-pessoas-turma-c.html" },
+      { icone: "⚖️", texto: "Quiz: Direito Empresarial, Trabalhista e Tributário", url: "turma-c/quiz-direito-turma-c.html" }, 
       { icone: "🧠", texto: "Quiz: Modelos de Administração Pública", url: "turma-c/quiz-modelos-adm.html" }
     ] },
   { icone: "🚀", nome: "Turma D", tema: "4º Mod. ADM. EJATEC",
