@@ -41,6 +41,9 @@ const TURMAS = [
       { icone: "🧮", texto: "Matemática Financeira", url: "turma-b/matematica-financeira.pdf" },
       { icone: "🎯", texto: "Planejamento Estratégico 1", url: "turma-b/planejamento-estrategico1.pdf" },
       { icone: "🎯", texto: "Planejamento Estratégico 2", url: "turma-b/planejamento-estrategico2.pdf" },
+      { icone: "🧮", texto: "Quiz: Matemática Financeira", url: "turma-b/quiz-matematica-financeira-turma-b.html" },
+      { icone: "📊", texto: "Quiz: Gestão Financeira", url: "turma-b/quiz-gestao-financeira-turma-b.html" },
+      { icone: "💻", texto: "Quiz: Sistemas de Informação", url: "turma-b/quiz-sistemas-de-informacao-turma-b.html" },
       { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
   { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
