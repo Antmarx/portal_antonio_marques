@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>📈 Quiz – Matemática Financeira</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--pri:#4c5fd5;--txt:#2d3748;--mut:#4a5568;--bg:#f7fafc;--bd:#cbd5e0;--ok:#2f855a;--err:#c53030;--card:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;padding:16px;display:flex;justify-content:center;color:var(--txt);font-size:16px}
+body.contraste{--card:#000;--txt:#fff;--mut:#ffe600;--bg:#111;--bd:#fff;--pri:#ffe600}
+body.contraste .btn{color:#000}
+body.contraste .btn.sec{background:#fff;color:#000}
+:focus-visible{outline:3px solid #f6ad00;outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:10px 14px;z-index:100;border-radius:8px}
+.skip:focus{left:8px;top:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:850px;width:100%;background:var(--card);border-radius:24px;padding:28px 30px;box-shadow:0 25px 60px rgba(0,0,0,.6);margin:10px 0;height:fit-content}
+.head{text-align:center;border-bottom:3px solid var(--pri);padding-bottom:14px;margin-bottom:16px}
+.head h1{font-size:1.5em}.head p{color:var(--mut);font-size:.9em;margin-top:4px}
+.autoria{background:linear-gradient(135deg,#ebf4ff,#e0e7ff);border:2px solid #4c5fd5;border-radius:14px;padding:10px 14px;text-align:center;margin-bottom:14px;color:#2d3748;font-size:.9em}
+.autoria b span{color:#3b4cc0}
+.bar{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.bar button,.bar a{background:var(--bg);color:var(--txt);border:2px solid var(--bd);border-radius:22px;padding:8px 14px;min-height:44px;cursor:pointer;font-size:.88em;font-family:inherit;display:inline-flex;align-items:center}
+.bar button[aria-pressed="true"]{border-color:var(--pri);background:var(--pri);color:#fff}
+body.contraste .bar button[aria-pressed="true"]{color:#000}
+.vol{display:none;align-items:center;gap:6px;font-size:.85em;color:var(--txt)}
+.vol input{width:110px;height:28px;accent-color:var(--pri)}
+.steps{display:flex;gap:8px;margin-bottom:16px}
+.step{flex:1;text-align:center;padding:8px;border-radius:12px;border:2px solid var(--bd);font-size:.85em;color:var(--mut)}
+.step.on{border-color:var(--pri);background:var(--pri);color:#fff;font-weight:700}.step.done{border-color:var(--ok);color:var(--ok);font-weight:700}
+body.contraste .step.on{color:#000}
+label.f{display:block;font-weight:600;font-size:.95em;margin:12px 0 4px}
+input[type=text],input[type=email]{width:100%;padding:14px;min-height:52px;border:2px solid var(--bd);border-radius:12px;font-size:1em;background:var(--bg);color:var(--txt)}
+.erro{color:var(--err);font-weight:700;margin-top:8px;min-height:1.2em}
+body.contraste .erro{color:#ff8a8a}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:14px;padding:14px 24px;min-height:52px;font-size:1em;font-weight:700;cursor:pointer;margin:6px 6px 0 0;font-family:inherit}
+.btn.sec{background:#4a5568}.btn.ok{background:var(--ok);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
+.prog{height:12px;background:var(--bd);border-radius:8px;overflow:hidden;margin:6px 0 16px}.prog i{display:block;height:100%;background:var(--pri)}
+.q{font-size:1.15em;font-weight:700;line-height:1.5;margin-bottom:14px}
+.op{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:var(--txt);border:2px solid var(--bd);border-radius:14px;padding:14px 16px;min-height:58px;margin-bottom:10px;cursor:pointer;background:var(--bg)}
+.op.sel{border-color:var(--pri);border-width:3px;background:#e0e7ff;color:#2d3748;font-weight:600}
+.op.sel::after{content:"✔";margin-left:auto;font-weight:700}
+.dica{display:none;background:#fffbea;border-left:5px solid #b7791f;padding:10px 12px;border-radius:8px;margin:8px 0;font-size:.92em;color:#744210}
+.atalhos{font-size:.8em;color:var(--mut);margin-top:12px}
+.cartao{border:3px solid var(--pri);border-radius:18px;padding:20px;background:#fff;color:#2d3748;margin:14px 0}
+.cartao h2{text-align:center;font-size:1.15em;margin-bottom:10px}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;color:#fff;font-weight:700;font-size:.85em}
+.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed #a0aec0;font-size:.95em}.row b{text-align:right;word-break:break-word}
+.gab{border:2px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:.95em}
+.gab.c{border-color:var(--ok)}.gab.e{border-color:var(--err)}
+.gab .ex{color:var(--mut);margin-top:6px}
+.msg{background:var(--bg);border:2px dashed var(--pri);border-radius:14px;padding:14px;margin-top:12px;font-size:.92em;line-height:1.6}
+.msg img{max-width:100%;border-radius:10px;border:1px solid var(--bd);margin:8px 0}
+.rev{position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;min-height:90px;margin:10px 0}
+.marca{position:absolute;inset:-40%;display:flex;flex-direction:column;justify-content:space-around;transform:rotate(-20deg);pointer-events:none;z-index:2;opacity:.16;font-weight:700;font-size:.9em;line-height:2.6;white-space:nowrap;text-align:center;color:var(--txt)}
+.mrev{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.nq{min-width:52px;min-height:48px;border:2px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--txt);font:inherit;font-weight:700;cursor:pointer;padding:0 12px}
+.nq.atual{border-color:var(--pri);border-width:3px}.nq.c{border-color:var(--ok)}.nq.e{border-color:var(--err)}
+.rvinfo{font-size:.92em;color:var(--mut);line-height:1.5}
+.sit{font-weight:400;display:block;margin-bottom:10px;line-height:1.55}
+h3{margin:18px 0 8px}
+@media(max-width:560px){.wrap{padding:18px 14px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Ir para o conteúdo</a>
+<div class="wrap" id="root">
+  <header class="head"><h1>📈 Matemática Financeira</h1><p><b>Escola Estadual Monsenhor Paiva</b> · Vera Cruz – RN</p><p>Curso Técnico de Administração (EJATEC) · Matemática Financeira · 1º Módulo</p></header>
+  <div class="autoria"><b>✍️ Criado por <span>Professor Antonio Marques</span></b><br>♿ Tecnologia Assistiva · feedback imediato e autonomia para o aluno</div>
+  <div class="bar" role="toolbar" aria-label="Recursos de acessibilidade e áudio">
+    <a href="../" style="margin-right:auto;text-decoration:none">← Voltar ao portal</a>
+    <button type="button" onclick="fonte(1)" aria-label="Aumentar a letra">A+</button>
+    <button type="button" onclick="fonte(-1)" aria-label="Diminuir a letra">A−</button>
+    <button type="button" id="btCon" aria-pressed="false" onclick="contraste()">◐ Alto contraste</button>
+    <button type="button" onclick="ler()">🔊 Ler em voz alta</button>
+    <button type="button" id="btMus" aria-pressed="false" onclick="musica()">🎵 Música: desligada</button>
+    <label class="vol" id="volLbl">Volume <input type="range" id="vol" min="0" max="100" value="40" aria-label="Volume da música"></label>
+  </div>
+  <div id="status" class="sr" role="status" aria-live="polite"></div>
+  <main id="app" tabindex="-1"></main>
+</div>
+<audio id="trilha" loop preload="none"></audio>
+<script>
+/* ENVIO DOS RESULTADOS -> script "Controle de atividades online Administração" (Google Apps Script)
+   TURMA e ATIVIDADE definem o nome da guia na planilha e da subpasta no Drive: "Turma D - Quiz Matemática Financeira" */
+var API="https://script.google.com/macros/s/AKfycbz7oOfJZc4sgKtVmfbNFXtHAL8Bn5wdg3no-UKBDjZReFyx3E2nrxjrE1cpFT8LZQqv/exec";
+var TURMA="Turma D";
+var ATIVIDADE="Quiz Matemática Financeira";
+var DRIVE="";
+var MUSICA="trilha_mp3.mp3";   /* arquivo de áudio na mesma pasta deste HTML */
+var NQ=10;
+
+/* Banco de questões (15 por fase; sorteio de 10 por fase), codificado para não ficar legível no código-fonte. Gabarito legível: arquivo do professor. */
+var BANCO=JSON.parse(new TextDecoder("utf-8").decode(Uint8Array.from(atob("eyIxIjogW1siVW0gY29tZXJjaWFudGUgZGUgVmVyYSBDcnV6IHByZWNpc2EgcmVub3ZhciBvIGVzdG9xdWUgZSBjb21wYXJhIGR1YXMgb2ZlcnRhczogQmFuY28gQSBjb2JyYSAzJSBhbyBtw6pzIGUgQmFuY28gQiBjb2JyYSA0MCUgYW8gYW5vLnx8fFBvciBxdWUgYSBNYXRlbcOhdGljYSBGaW5hbmNlaXJhIMOpIMO6dGlsIG5lc3NhIGRlY2lzw6NvPyIsICJQb3JxdWUgcGVybWl0ZSBjb21wYXJhciB0YXhhcyBkZSBwZXLDrW9kb3MgZGlmZXJlbnRlcyBlIGRlc2NvYnJpciBvIGN1c3RvIHJlYWwgZG8gY3LDqWRpdG8iLCBbIlBvcnF1ZSBpbmRpY2Egc2VtcHJlIG8gYmFuY28gY29tIGEgbWVub3IgdGF4YSBlc2NyaXRhLCBzZW0gY29uc2lkZXJhciBvIHBlcsOtb2RvIiwgIlBvcnF1ZSBnYXJhbnRlIHF1ZSBvIGJhbmNvIGFwcm92ZSBvIGVtcHLDqXN0aW1vIHBlZGlkbyBwZWxvIGNvbWVyY2lhbnRlIiwgIlBvcnF1ZSBtb3N0cmEgcXVlIDMlIGFvIG3DqnMgZSA0MCUgYW8gYW5vIHPDo28gc2VtcHJlIHZhbG9yZXMgaWd1YWlzIl0sICJQZW5zZSBlbSBjb21wYXJhciB0YXhhcyBjb20gcGVyw61vZG9zIGRpZmVyZW50ZXMuIiwgIkEgTWF0ZW3DoXRpY2EgRmluYW5jZWlyYSBlc3R1ZGEgYXMgcmVsYcOnw7VlcyBlbnRyZSBjYXBpdGFsLCB0ZW1wbyBlIGp1cm9zIGUgcGVybWl0ZSBjb21wYXJhciBwcm9wb3N0YXMgZGUgY3LDqWRpdG8gY29tIHByZWNpc8Ojby4iXSwgWyJVbSBhbHVubyB2w6ogYXMgc2lnbGFzIFBWIGUgRlYgZW0gdW0gZW51bmNpYWRvIGRlIE1hdGVtw6F0aWNhIEZpbmFuY2VpcmEufHx8TyBxdWUgZWxhcyByZXByZXNlbnRhbT8iLCAiUFYgw6kgbyBjYXBpdGFsICh2YWxvciBwcmVzZW50ZSkgZSBGViDDqSBvIG1vbnRhbnRlICh2YWxvciBmdXR1cm8pIiwgWyJQViDDqSBvIG1vbnRhbnRlICh2YWxvciBmdXR1cm8pIGUgRlYgw6kgbyBjYXBpdGFsICh2YWxvciBwcmVzZW50ZSkiLCAiUFYgw6kgYSB0YXhhIGRlIGp1cm9zIGUgRlYgw6kgbyB0ZW1wbyBkYSBvcGVyYcOnw6NvIGZpbmFuY2VpcmEiLCAiUFYgc8OjbyBvcyBqdXJvcyBkYSBvcGVyYcOnw6NvIGUgRlYgw6kgbyBkZXNjb250byBhcGxpY2FkbyBhbyB0w610dWxvIl0sICJQViB2ZW0gZGUgUHJlc2VudCBWYWx1ZTsgRlYsIGRlIEZ1dHVyZSBWYWx1ZS4iLCAiQyBvdSBQViDDqSBvIGNhcGl0YWwgKHZhbG9yIHByZXNlbnRlKSwgbyB2YWxvciBpbmljaWFsIGRhIG9wZXJhw6fDo28uIE0gb3UgRlYgw6kgbyBtb250YW50ZSAodmFsb3IgZnV0dXJvKSwgbyB2YWxvciBmaW5hbCBhcMOzcyBhIGluY2lkw6puY2lhIGRvcyBqdXJvcy4iXSwgWyJVbWEgbG9qYSBhcGxpY291IFIkIDIuMDAwLDAwIGUsIGFvIGZpbmFsIGRvIHByYXpvLCByZXNnYXRvdSBSJCAyLjQwMCwwMC58fHxRdWFsIGZvaSBvIHZhbG9yIGRvcyBqdXJvcz8iLCAiUiQgNDAwLDAwLCBwb2lzIEogPSBNIOKIkiBDIiwgWyJSJCAyLjQwMCwwMCwgcXVlIMOpIG8gcHLDs3ByaW8gdmFsb3IgZG8gbW9udGFudGUgcmVzZ2F0YWRvIiwgIlIkIDQuNDAwLDAwLCBvYnRpZG8gc29tYW5kbyBvIGNhcGl0YWwgZSBvIG1vbnRhbnRlIiwgIlIkIDEuNjAwLDAwLCBvYnRpZG8gc3VidHJhaW5kbyBvcyBqdXJvcyBkbyBjYXBpdGFsIGFwbGljYWRvIl0sICJKdXJvcyA9IE1vbnRhbnRlIOKIkiBDYXBpdGFsLiIsICJKID0gMi40MDAg4oiSIDIuMDAwID0gUiQgNDAwLDAwLiBPIG1vbnRhbnRlIMOpIGEgc29tYSBkbyBjYXBpdGFsIGNvbSBvcyBqdXJvcyAoTSA9IEMgKyBKKS4iXSwgWyJVbSBwcm9kdXRvciB2YWkgY2FsY3VsYXIganVyb3Mgc2ltcGxlcyBjb20gdGF4YSBkZSAyJSBhbyBtw6pzIHBhcmEgdW0gZW1wcsOpc3RpbW8gZGUgMiBhbm9zLnx8fFF1YWwgdmFsb3IgZGUgbiBkZXZlIHVzYXIgbmEgZsOzcm11bGEsIHBhcmEgYSB0YXhhIGUgbyB0ZW1wbyBlc3RhcmVtIG5hIG1lc21hIHVuaWRhZGU/IiwgIjI0IG1lc2VzIiwgWyIyIG1lc2VzIiwgIjEyIG1lc2VzIiwgIjQ4IG1lc2VzIl0sICJBIHRheGEgw6kgbWVuc2FsLCBlbnTDo28gbyB0ZW1wbyB0YW1iw6ltIHByZWNpc2EgZXN0YXIgZW0gbWVzZXMuIiwgIkEgdGF4YSBlIG8gcGVyw61vZG8gcHJlY2lzYW0gZXN0YXIgbmEgbWVzbWEgdW5pZGFkZSBkZSB0ZW1wby4gQ29tbyBhIHRheGEgw6kgYW8gbcOqcywgMiBhbm9zIGNvcnJlc3BvbmRlbSBhIG4gPSAyNCBtZXNlcy4iXSwgWyJVbWEgcHJvZHV0b3JhIGRlIGZhcmluaGEgZGUgbWFuZGlvY2EgZmluYW5jaWEgUiQgMi4wMDAsMDAgYSAzJSBhbyBtw6pzLCBlbSBqdXJvcyBzaW1wbGVzLCBwb3IgNCBtZXNlcy58fHxRdWFsIMOpIG8gbW9udGFudGUgYSBwYWdhcj8iLCAiUiQgMi4yNDAsMDAsIHBvaXMgb3MganVyb3Mgc8OjbyBSJCAyNDAsMDAiLCBbIlIkIDI0MCwwMCwgcXVlIGNvcnJlc3BvbmRlIGFwZW5hcyBhb3MganVyb3MgZGEgb3BlcmHDp8OjbyIsICJSJCAyLjI1MSwwMiwgdmFsb3IgcXVlIHNlcmlhIG9idGlkbyBlbSBqdXJvcyBjb21wb3N0b3MiLCAiUiQgMi4wNjAsMDAsIHF1ZSBjb3JyZXNwb25kZSBhb3MganVyb3MgZGUgdW0gw7puaWNvIG3DqnMiXSwgIkogPSBDIMOXIGkgw5cgbiwgZSBkZXBvaXMgTSA9IEMgKyBKLiIsICJKID0gMi4wMDAgw5cgMCwwMyDDlyA0ID0gUiQgMjQwLDAwLiBNID0gMi4wMDAgKyAyNDAgPSBSJCAyLjI0MCwwMC4gT3MgUiQgMi4yNTEsMDIgc2VyaWFtIGVtIGp1cm9zIGNvbXBvc3Rvcy4iXSwgWyJVbSBjb21lcmNpYW50ZSBpbnZlc3RlIFIkIDEuNTAwLDAwIGEgMiUgYW8gbcOqcywgZW0ganVyb3Mgc2ltcGxlcywgcG9yIDYgbWVzZXMufHx8UXVhbCBzZXLDoSBvIG1vbnRhbnRlPyIsICJSJCAxLjY4MCwwMCwgcG9pcyBNID0gMS41MDAgw5cgKDEgKyAwLDAyIMOXIDYpIiwgWyJSJCAxODAsMDAsIHF1ZSBjb3JyZXNwb25kZSBhcGVuYXMgYW9zIGp1cm9zIHJlY2ViaWRvcyIsICJSJCAxLjY4OSwyNCwgdmFsb3IgcXVlIHNlcmlhIG9idGlkbyBlbSBqdXJvcyBjb21wb3N0b3MiLCAiUiQgMS41MzAsMDAsIHF1ZSBjb3JyZXNwb25kZSBhbyByZW5kaW1lbnRvIGRlIHVtIMO6bmljbyBtw6pzIl0sICJNID0gQyDDlyAoMSArIGkgw5cgbikuIiwgIk0gPSAxLjUwMCDDlyAoMSArIDAsMTIpID0gUiQgMS42ODAsMDAuIE9zIGp1cm9zIGZvcmFtIFIkIDE4MCwwMCBlIG8gbW9udGFudGUgaW5jbHVpIG8gY2FwaXRhbC4iXSwgWyJSJCAzLjAwMCwwMCBmb3JhbSBhcGxpY2Fkb3MgYSAyLDUlIGFvIG3DqnMsIGVtIGp1cm9zIHNpbXBsZXMsIGUgZ2VyYXJhbSBSJCA0NTAsMDAgZGUganVyb3MufHx8UXVhbnRvIHRlbXBvIGR1cm91IGEgYXBsaWNhw6fDo28/IiwgIjYgbWVzZXMsIHBvaXMgbiA9IDQ1MCDDtyAoMy4wMDAgw5cgMCwwMjUpIiwgWyI0IG1lc2VzLCBwb2lzIG4gPSA0NTAgw7cgKDMuMDAwIMOXIDAsMDM3NSkiLCAiNSBtZXNlcywgcG9pcyBuID0gNDUwIMO3ICgzLjAwMCDDlyAwLDAzKSIsICIxNSBtZXNlcywgcG9pcyBuID0gNDUwIMO3IDMuMDAwIMOXIDEwMCJdLCAibiA9IEogw7cgKEMgw5cgaSkuIiwgIm4gPSA0NTAgw7cgKDMuMDAwIMOXIDAsMDI1KSA9IDQ1MCDDtyA3NSA9IDYgbWVzZXMuIl0sIFsiRW0gdW0gZmluYW5jaWFtZW50byBhIGp1cm9zIHNpbXBsZXMgZGUgMiUgYS5tLiBwb3IgNCBtZXNlcywgb3MganVyb3Mgc29tYXJhbSBSJCAyNDAsMDAufHx8UXVhbCBmb2kgbyBjYXBpdGFsIGZpbmFuY2lhZG8/IiwgIlIkIDMuMDAwLDAwLCBwb2lzIEMgPSAyNDAgw7cgKDAsMDIgw5cgNCkiLCBbIlIkIDEyLjAwMCwwMCwgcG9pcyBDID0gMjQwIMO3IDAsMDIsIHNlbSBjb25zaWRlcmFyIG8gdGVtcG8iLCAiUiQgMS45MjAsMDAsIHBvaXMgQyA9IDI0MCDDlyAwLDAyIMOXIDQsIG11bHRpcGxpY2FuZG8gdHVkbyIsICJSJCA5NjAsMDAsIHBvaXMgQyA9IDI0MCDDlyA0LCBpZ25vcmFuZG8gYSB0YXhhIGRlIGp1cm9zIl0sICJDID0gSiDDtyAoaSDDlyBuKS4iLCAiQyA9IDI0MCDDtyAoMCwwMiDDlyA0KSA9IDI0MCDDtyAwLDA4ID0gUiQgMy4wMDAsMDAuIl0sIFsiUiQgMi4wMDAsMDAgcmVuZGVyYW0gUiQgMTYwLDAwIGRlIGp1cm9zIHNpbXBsZXMgZW0gNCBtZXNlcy58fHxRdWFsIGZvaSBhIHRheGEgbWVuc2FsPyIsICIyJSBhbyBtw6pzLCBwb2lzIGkgPSAxNjAgw7cgKDIuMDAwIMOXIDQpIiwgWyI4JSBhbyBtw6pzLCBwb2lzIGkgPSAxNjAgw7cgMi4wMDAsIHNlbSBkaXZpZGlyIHBlbG8gdGVtcG8iLCAiMzIlIGFvIG3DqnMsIHBvaXMgaSA9IDE2MCDDlyA0IMO3IDIwIiwgIjAsNSUgYW8gbcOqcywgcG9pcyBpID0gMTYwIMO3ICgyLjAwMCDDlyAxNikiXSwgImkgPSBKIMO3IChDIMOXIG4pLiIsICJpID0gMTYwIMO3ICgyLjAwMCDDlyA0KSA9IDE2MCDDtyA4LjAwMCA9IDAsMDIsIG91IHNlamEsIDIlIGEubS4iXSwgWyJVbSBjb21lcmNpYW50ZSB2w6ogcXVlLCBubyByZWdpbWUgZGUganVyb3Mgc2ltcGxlcywgb3MganVyb3MgZGUgUiQgMS4wMDAsMDAgYSAyJSBhbyBtw6pzIHPDo28gZGUgUiQgMjAsMDAgZW0gdG9kb3Mgb3MgbWVzZXMufHx8Q29tbyBvcyBqdXJvcyBjcmVzY2VtIG5lc3NlIHJlZ2ltZT8iLCAiRGUgZm9ybWEgbGluZWFyLCBwb2lzIGluY2lkZW0gc2VtcHJlIHNvYnJlIG8gY2FwaXRhbCBpbmljaWFsIiwgWyJEZSBmb3JtYSBleHBvbmVuY2lhbCwgcG9pcyBpbmNpZGVtIHNvYnJlIG8gbW9udGFudGUgZG8gbcOqcyBhbnRlcmlvciIsICJEZSBmb3JtYSBkZWNyZXNjZW50ZSwgcG9pcyBkaW1pbnVlbSBhIGNhZGEgbm92byBtw6pzIGRlIGFwbGljYcOnw6NvIiwgIkRlIGZvcm1hIGlycmVndWxhciwgcG9pcyBtdWRhbSBjb25mb3JtZSBvIG3DqnMgZSBvIHZhbG9yIGRvIGVzdG9xdWUiXSwgIk8gbWVzbW8gdmFsb3Igw6kgYWRpY2lvbmFkbyBhIGNhZGEgcGVyw61vZG8uIiwgIk5vcyBqdXJvcyBzaW1wbGVzLCBvcyBqdXJvcyBzw6NvIGNhbGN1bGFkb3Mgc2VtcHJlIHNvYnJlIG8gY2FwaXRhbCBpbmljaWFsLCBwb3IgaXNzbyBvIG1lc21vIHZhbG9yIMOpIGFkaWNpb25hZG8gYSBjYWRhIHBlcsOtb2RvIChjcmVzY2ltZW50byBsaW5lYXIpLiJdLCBbIlVtYSBsb2phIGRlIGNvbmZlY8Onw7VlcyBkZSBWZXJhIENydXogaW52ZXN0ZSBSJCA1LjAwMCwwMCBhIDIlIGFvIG3DqnMsIGVtIGp1cm9zIGNvbXBvc3RvcywgcG9yIDMgbWVzZXMufHx8UXVhbCDDqSBvIG1vbnRhbnRlPyIsICJSJCA1LjMwNiwwNCwgcG9pcyBNID0gNS4wMDAgw5cgKDEsMDIpwrMiLCBbIlIkIDUuMzAwLDAwLCB2YWxvciBxdWUgc2VyaWEgb2J0aWRvIGVtIGp1cm9zIHNpbXBsZXMiLCAiUiQgNS4xMDAsMDAsIHZhbG9yIG9idGlkbyBhcMOzcyBhcGVuYXMgbyBwcmltZWlybyBtw6pzIiwgIlIkIDUuNjMwLDgxLCB2YWxvciBxdWUgc2VyaWEgb2J0aWRvIGVtIHNlaXMgbWVzZXMiXSwgIk0gPSBDIMOXICgxICsgaSnigb8uIiwgIk0gPSA1LjAwMCDDlyAxLDAywrMgPSBSJCA1LjMwNiwwNCwgZSBvcyBqdXJvcyBzw6NvIFIkIDMwNiwwNC4gRW0ganVyb3Mgc2ltcGxlcyBzZXJpYW0gUiQgNS4zMDAsMDAuIl0sIFsiTmEgdGFiZWxhIGRhIGxvamEgZGUgY29uZmVjw6fDtWVzLCBvcyBqdXJvcyBkbyBtw6pzIGZvcmFtIFIkIDEwMCwwMCwgZGVwb2lzIFIkIDEwMiwwMCBlIGRlcG9pcyBSJCAxMDQsMDQufHx8UG9yIHF1ZSBvcyBqdXJvcyBhdW1lbnRhcmFtIGEgY2FkYSBtw6pzPyIsICJQb3JxdWUgYSB0YXhhIGluY2lkZSBzb2JyZSBvIG1vbnRhbnRlIGRvIG3DqnMgYW50ZXJpb3IgKGp1cm9zIHNvYnJlIGp1cm9zKSIsIFsiUG9ycXVlIGEgdGF4YSBkZSBqdXJvcyBkbyBiYW5jbyBzb2JlIHVtIHBvdWNvIHRvZG9zIG9zIG1lc2VzIiwgIlBvcnF1ZSBvcyBqdXJvcyBzw6NvIHNlbXByZSBjYWxjdWxhZG9zIHNvYnJlIG8gY2FwaXRhbCBpbmljaWFsIiwgIlBvcnF1ZSBhIGxvamEgZmF6IHVtIG5vdm8gZGVww7NzaXRvIGRlIFIkIDIsMDAgYSBjYWRhIG3DqnMiXSwgIk5vIGNvbXBvc3RvLCBvcyBqdXJvcyBkZSBjYWRhIHBlcsOtb2RvIGVudHJhbSBubyBjYXBpdGFsLiIsICJOb3MganVyb3MgY29tcG9zdG9zLCBvcyBqdXJvcyBkZSBjYWRhIHBlcsOtb2RvIHPDo28gaW5jb3Jwb3JhZG9zIGFvIGNhcGl0YWwgZSBnZXJhbSBub3ZvcyBqdXJvcyBubyBwZXLDrW9kbyBzZWd1aW50ZTogw6kgbyBlZmVpdG8gZG9zIGp1cm9zIHNvYnJlIGp1cm9zLiJdLCBbIlVtIHByb2R1dG9yIGRlIGFiYWNhdGUgYXBsaWNhIHVtIGNhcGl0YWwgYSAxMiUgYW8gYW5vLCBlbSBqdXJvcyBjb21wb3N0b3MsIHBvciAyIGFub3MgZSByZXNnYXRhIFIkIDEyLjU0NCwwMC58fHxRdWFsIGZvaSBvIGNhcGl0YWwgaW5pY2lhbD8iLCAiUiQgMTAuMDAwLDAwLCBwb2lzIDEyLjU0NCDDtyAoMSwxMinCsiIsIFsiUiQgMTEuMjAwLDAwLCBwb2lzIDEyLjU0NCDDtyAxLDEyLCBjb25zaWRlcmFuZG8gYXBlbmFzIHVtIGFubyIsICJSJCAxMC4xMTYsMTMsIHBvaXMgMTIuNTQ0IMO3IDEsMjQsIHRyYXRhbmRvIGNvbW8ganVyb3Mgc2ltcGxlcyIsICJSJCA5LjUzMyw0NCwgcG9pcyAxMi41NDQgw5cgMCw3NiwgZGVzY29udGFuZG8gMjQlIGRvIG1vbnRhbnRlIl0sICJDID0gTSDDtyAoMSArIGkp4oG/LiIsICIxMi41NDQgw7cgKDEsMTIpwrIgPSAxMi41NDQgw7cgMSwyNTQ0ID0gUiQgMTAuMDAwLDAwLiJdLCBbIlVtYSBwb3VwYWRvcmEgZGUgVmVyYSBDcnV6IHByZXRlbmRlIGRlaXhhciBvIGRpbmhlaXJvIGFwbGljYWRvIHBvciBtdWl0b3MgYW5vcy58fHxRdWFsIHJlZ2ltZSBjcmVzY2UgbWFpcyByw6FwaWRvIG5vIGxvbmdvIHByYXpvPyIsICJKdXJvcyBjb21wb3N0b3MsIHF1ZSBjcmVzY2VtIGRlIGZvcm1hIGV4cG9uZW5jaWFsIGUgcmVuZGVtIG1haXMgbm8gbG9uZ28gcHJhem8iLCBbIkp1cm9zIHNpbXBsZXMsIHF1ZSBjcmVzY2VtIGRlIGZvcm1hIGxpbmVhciBlIHJlbmRlbSBtYWlzIG5vIGxvbmdvIHByYXpvIiwgIk9zIGRvaXMgcmVuZGVtIHNlbXByZSBvIG1lc21vIHZhbG9yLCBlbSBxdWFscXVlciBwcmF6byBkZSBhcGxpY2HDp8OjbyIsICJKdXJvcyBzaW1wbGVzLCBwb2lzIHPDsyBpbmNpZGVtIHNvYnJlIG8gbW9udGFudGUgYWN1bXVsYWRvIGRlIGNhZGEgcGVyw61vZG8iXSwgIkp1cm9zIHNvYnJlIGp1cm9zIGZhemVtIGEgZGlmZXJlbsOnYSBjb20gbyBwYXNzYXIgZG8gdGVtcG8uIiwgIk5vIGxvbmdvIHByYXpvLCBvcyBqdXJvcyBjb21wb3N0b3MgY3Jlc2NlbSBtYWlzIHLDoXBpZG8gcXVlIG9zIHNpbXBsZXMuIFBvciBpc3NvIHPDo28gdXNhZG9zIGVtIGZpbmFuY2lhbWVudG9zLCBpbnZlc3RpbWVudG9zIGUgcG91cGFuw6dhLiJdLCBbIlVtIGNvbWVyY2lhbnRlIGd1YXJkb3UgUiQgMS4wMDAsMDAsIGUgbyBsaXZybyByZWdpc3Ryb3UgcXVlIG8gbW9udGFudGUgYXDDs3MgNSBtZXNlcywgYSAyJSBhLm0uIGVtIGp1cm9zIHNpbXBsZXMsIGZvaSBkZSBSJCAxLjEwMCwwMC58fHxRdWFsIGZvaSBvIHZhbG9yIGRvcyBqdXJvcz8iLCAiUiQgMTAwLDAwLCBwb2lzIDEuMDAwIMOXIDAsMDIgw5cgNSIsIFsiUiQgMjAsMDAsIHF1ZSBzw6NvIG9zIGp1cm9zIGRlIGFwZW5hcyB1bSBtw6pzIiwgIlIkIDEuMTAwLDAwLCBxdWUgw6kgbyBtb250YW50ZSBlIG7Do28gb3MganVyb3MiLCAiUiQgMTIwLDAwLCB2YWxvciBvYnRpZG8gcGFyYSBzZWlzIG1lc2VzIGRlIGFwbGljYcOnw6NvIl0sICJKdXJvcyBzaW1wbGVzOiBKID0gQyDDlyBpIMOXIG4uIiwgIkogPSAxLjAwMCDDlyAwLDAyIMOXIDUgPSBSJCAxMDAsMDAsIG91IHNlamEsIFIkIDIwLDAwIHBvciBtw6pzIGR1cmFudGUgNSBtZXNlcy4iXSwgWyJBIE1hdGVtw6F0aWNhIEZpbmFuY2VpcmEgZXN0dWRhIGFzIHJlbGHDp8O1ZXMgZW50cmUgdHLDqnMgZWxlbWVudG9zLnx8fFF1YWlzIHPDo28gZWxlcz8iLCAiQ2FwaXRhbCwgdGVtcG8gZSBqdXJvcyIsIFsiUmVjZWl0YSwgY3VzdG8gZSBsdWNybyIsICJBdGl2bywgcGFzc2l2byBlIHBhdHJpbcO0bmlvIGzDrXF1aWRvIiwgIk9mZXJ0YSwgZGVtYW5kYSBlIHByZcOnbyJdLCAiQ2FwaXRhbCwgdGVtcG8gZSBqdXJvcy4iLCAiQSBNYXRlbcOhdGljYSBGaW5hbmNlaXJhIGVzdHVkYSBhcyByZWxhw6fDtWVzIGVudHJlIGNhcGl0YWwsIHRlbXBvIGUganVyb3MsIGFqdWRhbmRvIGEgYW5hbGlzYXIgZW1wcsOpc3RpbW9zLCBpbnZlc3RpbWVudG9zIGUgZmluYW5jaWFtZW50b3MuIl1dLCAiMiI6IFtbIlVtIGNvbnRyYXRvIGRlIGZpbmFuY2lhbWVudG8gaW5mb3JtYSB0YXhhIGRlIDI0JSBhbyBhbm8sIGNhcGl0YWxpemFkYSBtZW5zYWxtZW50ZS58fHxRdWFsIMOpIGEgdGF4YSBtZW5zYWwgY29ycmVzcG9uZGVudGU/IiwgIjIlIGFvIG3DqnMsIHBvaXMgMjQlIMO3IDEyIG1lc2VzIiwgWyIyNCUgYW8gbcOqcywgcG9pcyBhIHRheGEgZG8gY29udHJhdG8gdmFsZSBwYXJhIHF1YWxxdWVyIHBlcsOtb2RvIiwgIjEyJSBhbyBtw6pzLCBwb2lzIDI0JSDDtyAyIHBlcsOtb2RvcyIsICIwLDIlIGFvIG3DqnMsIHBvaXMgMjQlIMO3IDEyMCJdLCAiRGl2aWRhIGEgdGF4YSBub21pbmFsIGFudWFsIHBlbG8gbsO6bWVybyBkZSBjYXBpdGFsaXphw6fDtWVzIG5vIGFuby4iLCAiQSB0YXhhIG5vbWluYWwgZGUgMjQlIGEuYS4gY2FwaXRhbGl6YWRhIG1lbnNhbG1lbnRlIGVxdWl2YWxlIGEgMjQlIMO3IDEyID0gMiUgYS5tLiJdLCBbIlVtIGNvbWVyY2lhbnRlIGRlIFZlcmEgQ3J1eiByZWNlYmUgdW1hIHByb3Bvc3RhIGRlIDI0JSBhbyBhbm8gY29tIGNhcGl0YWxpemHDp8OjbyBtZW5zYWwufHx8UXVhbCDDqSBhIHRheGEgZWZldGl2YSBhbnVhbD8iLCAiMjYsODIlIGFvIGFubywgcG9pcyAoMSwwMinCucKyIOKIkiAxIiwgWyIyNCwwMCUgYW8gYW5vLCBwb2lzIGEgZWZldGl2YSBzZW1wcmUgw6kgaWd1YWwgw6Agbm9taW5hbCIsICI0Miw1OCUgYW8gYW5vLCBwb2lzIMOpIGEgZWZldGl2YSBkZSB1bWEgbm9taW5hbCBkZSAzNiUiLCAiMTIsNjglIGFvIGFubywgcG9pcyDDqSBhIGVmZXRpdmEgZGUgdW1hIG5vbWluYWwgZGUgMTIlIl0sICJpZWYgPSAoMSArIGlub20vaynhtY8g4oiSIDEsIGNvbSBrID0gMTIuIiwgIigxLDAyKcK5wrIg4oiSIDEgPSAwLDI2ODIsIG91IDI2LDgyJSBhLmEuIEEgZWZldGl2YSDDqSBtYWlvciBxdWUgYSBub21pbmFsIHBvcnF1ZSBvcyBqdXJvcyBzw6NvIGNhcGl0YWxpemFkb3MgdG9kbyBtw6pzLiJdLCBbIkFvIGNvbXBhcmFyIGRvaXMgZmluYW5jaWFtZW50b3MgZGUgbWVyY2Fkb3JpYXMsIHVtIGNvbWVyY2lhbnRlIG9saGEgYXBlbmFzIGEgdGF4YSBub21pbmFsIGRlIGNhZGEgY29udHJhdG8ufHx8TyBxdWUgbyBsaXZybyByZWNvbWVuZGEgZXhpZ2lyPyIsICJBIHRheGEgZWZldGl2YSBhbnVhbCwgcXVlIHJldmVsYSBvIGN1c3RvIHJlYWwgZG8gY3LDqWRpdG8iLCBbIkEgdGF4YSBub21pbmFsLCBxdWUgbW9zdHJhIG8gY3VzdG8gcmVhbCBkbyBjcsOpZGl0byBwYXJhIG8gY29tZXJjaWFudGUiLCAiQSBtZW5vciB0YXhhIG1lbnNhbCBlc2NyaXRhLCBzZW0gdmVyaWZpY2FyIGEgY2FwaXRhbGl6YcOnw6NvIiwgIkEgdGF4YSBkZSBqdXJvcyBzaW1wbGVzLCBxdWUgdmFsZSBwYXJhIHRvZGFzIGFzIHByb3Bvc3RhcyJdLCAiTyBjdXN0byByZWFsIGRlcGVuZGUgZGEgY2FwaXRhbGl6YcOnw6NvLiIsICJOdW5jYSB1c2UgYXBlbmFzIGEgdGF4YSBub21pbmFsOiBleGlqYSBhIHRheGEgZWZldGl2YSBhbnVhbCwgcXVlIHJldmVsYSBvIGN1c3RvIHJlYWwgZG8gY3LDqWRpdG8gZSBldml0YSBzdXJwcmVzYXMgbm8gZmx1eG8gZGUgY2FpeGEuIl0sIFsiVW0gcHJvZHV0b3IgZGVzY29udGEgdW1hIGR1cGxpY2F0YSBubyBiYW5jbyBhbnRlcyBkbyB2ZW5jaW1lbnRvIGUgcmVjZWJlIG1lbm9zIHF1ZSBvIHZhbG9yIGVzY3JpdG8gbm8gdMOtdHVsby58fHxPIHF1ZSDDqSBvIGRlc2NvbnRvPyIsICJBIGRpZmVyZW7Dp2EgZW50cmUgbyB2YWxvciBub21pbmFsIGRvIHTDrXR1bG8gZSBvIHZhbG9yIHJlY2ViaWRvIG5hIGFudGVjaXBhw6fDo28iLCBbIk8gdmFsb3IgdG90YWwgcXVlIG8gYmFuY28gY29icmEgcG9yIGFubyBwZWxhIG1hbnV0ZW7Dp8OjbyBkYSBjb250YSBjb3JyZW50ZSIsICJPcyBqdXJvcyBxdWUgbyBwcm9kdXRvciByZWNlYmUgcG9yIGFwbGljYXIgbyBkaW5oZWlybyBhdMOpIG8gdmVuY2ltZW50byIsICJBIHRheGEgcXVlIG8gY29tcHJhZG9yIGRhIG1lcmNhZG9yaWEgcGFnYSBhbyBwYWdhciBhIHByYXpvIl0sICJBbnRlY2lwYXIgbyBwYWdhbWVudG8gZGUgdW0gdMOtdHVsbyBmYXogbyB2YWxvciByZWNlYmlkbyBmaWNhciBtZW5vci4iLCAiTyBkZXNjb250byDDqSBhIGFudGVjaXBhw6fDo28gZG8gcGFnYW1lbnRvIGRlIHVtIHTDrXR1bG8gZGUgY3LDqWRpdG8gKG5vdGEgcHJvbWlzc8OzcmlhLCBkdXBsaWNhdGEsIGNoZXF1ZSkuIE8gdmFsb3IgcmVjZWJpZG8gw6kgbWVub3IgcXVlIG8gbm9taW5hbCwgZSBlc3NhIGRpZmVyZW7Dp2Egw6kgbyBkZXNjb250by4iXSwgWyJVbSBhdmljdWx0b3IgdGVtIHVtYSBub3RhIHByb21pc3PDs3JpYSBkZSBSJCA4LjAwMCwwMCBhIHZlbmNlciBlbSAyIG1lc2VzLiBPIGJhbmNvIGNvYnJhIDIsNSUgYS5tLiAoZGVzY29udG8gY29tZXJjaWFsKS58fHxRdWFsIMOpIG8gdmFsb3IgbMOtcXVpZG8gcmVjZWJpZG8/IiwgIlIkIDcuNjAwLDAwLCBwb2lzIG8gZGVzY29udG8gw6kgUiQgNDAwLDAwIiwgWyJSJCA0MDAsMDAsIHF1ZSDDqSBhcGVuYXMgbyB2YWxvciBkbyBkZXNjb250byBjb2JyYWRvIiwgIlIkIDguNDAwLDAwLCBxdWUgw6kgbyB2YWxvciBub21pbmFsIG1haXMgbyBkZXNjb250byIsICJSJCA3LjYxOSwwNSwgcXVlIHNlcmlhIG8gdmFsb3Igbm8gZGVzY29udG8gcmFjaW9uYWwiXSwgIkRjID0gTiDDlyBpIMOXIG47IFBWID0gTiDiiJIgRGMuIiwgIkRjID0gOC4wMDAgw5cgMCwwMjUgw5cgMiA9IFIkIDQwMCwwMC4gUFYgPSA4LjAwMCDiiJIgNDAwID0gUiQgNy42MDAsMDAuIl0sIFsiVW1hIGR1cGxpY2F0YSBkZSBSJCA2LjAwMCwwMCB2ZW5jZSBlbSAzIG1lc2VzIGUgc2Vyw6EgZGVzY29udGFkYSBhIDEsOCUgYS5tLiAoZGVzY29udG8gY29tZXJjaWFsKS58fHxRdWFsIMOpIG8gdmFsb3IgZG8gZGVzY29udG8/IiwgIlIkIDMyNCwwMCwgcG9pcyA2LjAwMCDDlyAwLDAxOCDDlyAzIiwgWyJSJCAxMDgsMDAsIHF1ZSDDqSBvIGRlc2NvbnRvIGRlIGFwZW5hcyB1bSBtw6pzIiwgIlIkIDUuNjc2LDAwLCBxdWUgw6kgbyB2YWxvciBsw61xdWlkbyByZWNlYmlkbyIsICJSJCA0MzIsMDAsIHF1ZSBzZXJpYSBvIGRlc2NvbnRvIGRlIHF1YXRybyBtZXNlcyJdLCAiRGMgPSBOIMOXIGkgw5cgbi4iLCAiRGMgPSA2LjAwMCDDlyAwLDAxOCDDlyAzID0gUiQgMzI0LDAwLiBPIHZhbG9yIGzDrXF1aWRvIMOpIDYuMDAwIOKIkiAzMjQgPSBSJCA1LjY3NiwwMC4iXSwgWyJVbSBjb21lcmNpYW50ZSBkZXNjb250YSB1bWEgZHVwbGljYXRhIGRlIFIkIDQuMDAwLDAwIGNvbSB2ZW5jaW1lbnRvIGVtIDYwIGRpYXMsIGEgMiUgYS5tLiwgdXNhbmRvIG8gZGVzY29udG8gcmFjaW9uYWwufHx8UXVhbCDDqSBvIHZhbG9yIHJlY2ViaWRvPyIsICJSJCAzLjg0NiwxNSwgcG9pcyA0LjAwMCDDtyAoMSArIDAsMDIgw5cgMikiLCBbIlIkIDMuODQwLDAwLCBxdWUgw6kgbyB2YWxvciBubyBkZXNjb250byBjb21lcmNpYWwiLCAiUiQgMy45MjAsMDAsIHF1ZSBzZXJpYSBvIHZhbG9yIHBhcmEgdW0gw7puaWNvIG3DqnMiLCAiUiQgNC4xNjAsMDAsIHF1ZSDDqSBvIHZhbG9yIG5vbWluYWwgYWNyZXNjaWRvIGRlIDQlIl0sICJQViA9IE4gw7cgKDEgKyBpIMOXIG4pLiIsICJQViA9IDQuMDAwIMO3IDEsMDQgPSBSJCAzLjg0NiwxNSwgZSBvIGRlc2NvbnRvIHJhY2lvbmFsIMOpIFIkIDE1Myw4NS4iXSwgWyJOYSBkdXBsaWNhdGEgZGUgUiQgNC4wMDAsMDAgKDYwIGRpYXMsIDIlIGEubS4pLCBvIGRlc2NvbnRvIGNvbWVyY2lhbCBmb2kgUiQgMTYwLDAwIGUgbyByYWNpb25hbCwgUiQgMTUzLDg1Lnx8fE8gcXVlIHNlIGNvbmNsdWkgc29icmUgb3MgZG9pcyBkZXNjb250b3M/IiwgIk8gcmFjaW9uYWwgw6kgbWVub3IsIHBvaXMgaW5jaWRlIHNvYnJlIG8gdmFsb3IgYXR1YWwgZSBuw6NvIHNvYnJlIG8gdmFsb3Igbm9taW5hbCIsIFsiTyBjb21lcmNpYWwgw6kgbWVub3IsIHBvaXMgaW5jaWRlIHNvYnJlIG8gdmFsb3IgYXR1YWwgZG8gdMOtdHVsbyIsICJPcyBkb2lzIGRlc2NvbnRvcyBzw6NvIHNlbXByZSBpZ3VhaXMsIG5hIG1lc21hIG9wZXJhw6fDo28iLCAiTyByYWNpb25hbCDDqSBtYWlvciwgcG9pcyBpbmNpZGUgc29icmUgbyB2YWxvciBub21pbmFsIGRvIHTDrXR1bG8iXSwgIkNvbWVyY2lhbDogc29icmUgbyB2YWxvciBub21pbmFsLiBSYWNpb25hbDogc29icmUgbyB2YWxvciBhdHVhbC4iLCAiTyBkZXNjb250byByYWNpb25hbCDDqSBtZW5vciBxdWUgbyBjb21lcmNpYWwgbmEgbWVzbWEgb3BlcmHDp8OjbyAoUiQgMTUzLDg1IGNvbnRyYSBSJCAxNjAsMDApLCBwb2lzIGluY2lkZSBzb2JyZSBvIHZhbG9yIGF0dWFsLiJdLCBbIlVtIGNvbWVyY2lhbnRlIHBvc3N1aSB1bSB0w610dWxvIGRlIFIkIDEwLjAwMCwwMCBxdWUgdmVuY2UgZW0gNCBtZXNlcy4gTyBiYW5jbyBhcGxpY2EgMyUgYS5tLiBlbSBkZXNjb250byBjb21wb3N0by58fHxRdWFsIMOpIG8gdmFsb3IgcmVjZWJpZG8gaG9qZT8iLCAiUiQgOC44ODQsODcsIHBvaXMgMTAuMDAwIMO3ICgxLDAzKeKBtCIsIFsiUiQgOC44MDAsMDAsIHF1ZSDDqSBvIHZhbG9yIG5vIGRlc2NvbnRvIHNpbXBsZXMgY29tZXJjaWFsIiwgIlIkIDguOTI4LDU3LCBxdWUgw6kgbyB2YWxvciBubyBkZXNjb250byBzaW1wbGVzIHJhY2lvbmFsIiwgIlIkIDExLjI1NSwwOSwgcXVlIHNlcmlhIG8gdmFsb3Igb2J0aWRvIGFvIG11bHRpcGxpY2FyIHBvciAoMSwwMynigbQiXSwgIlBWID0gTiDDtyAoMSArIGkp4oG/LiIsICIoMSwwMynigbQgPSAxLDEyNTUwOSwgZSAxMC4wMDAgw7cgMSwxMjU1MDkgPSBSJCA4Ljg4NCw4Ny4gTyBkZXNjb250byDDqSBSJCAxLjExNSwxMy4iXSwgWyJObyB0w610dWxvIGRlIFIkIDEwLjAwMCwwMCBhIDMlIGEubS4gcG9yIDQgbWVzZXMsIG8gZGVzY29udG8gc2ltcGxlcyBmb2kgUiQgMS4yMDAsMDAgZSBvIGNvbXBvc3RvLCBSJCAxLjExNSwxMy58fHxPIHF1ZSBzZSBjb25jbHVpPyIsICJPIGRlc2NvbnRvIGNvbXBvc3RvIGZvaSBSJCA4NCw4NyBtZW5vciwgcG9pcyBpbmNpZGUgc29icmUgdmFsb3JlcyBhdHVhbGl6YWRvcyIsIFsiTyBkZXNjb250byBjb21wb3N0byBmb2kgUiQgODQsODcgbWFpb3IsIHBvaXMgaW5jaWRlIHNvYnJlIG8gdmFsb3Igbm9taW5hbCIsICJPcyBkb2lzIGRlc2NvbnRvcyBmb3JhbSBpZ3VhaXMsIHBvaXMgYSB0YXhhIGUgbyBwcmF6byBzw6NvIG9zIG1lc21vcyIsICJPIGRlc2NvbnRvIGNvbXBvc3RvIGZvaSBSJCAxLjIwMCwwMCwgcG9pcyBzZWd1ZSBhIGzDs2dpY2EgbGluZWFyIl0sICJDb21wYXJlIG9zIGRvaXMgdmFsb3JlcyBkZSBkZXNjb250bzogMS4yMDAsMDAgZSAxLjExNSwxMy4iLCAiMS4yMDAsMDAg4oiSIDEuMTE1LDEzID0gUiQgODQsODcuIE8gZGVzY29udG8gY29tcG9zdG8gw6kgbWVub3IgcGFyYSBvIG1lc21vIHByYXpvLCBlIHF1YW50byBtYWlvciBvIHByYXpvLCBtYWlvciBhIGRpZmVyZW7Dp2EuIl0sIFsiVW0gY29tZXJjaWFudGUgYXBsaWNhIFIkIDEuMDAwLDAwIGEgMyUgYW8gbcOqcywgZW0gY2FwaXRhbGl6YcOnw6NvIGNvbXBvc3RhLCBwb3IgNCBtZXNlcy58fHxRdWFsIMOpIG8gbW9udGFudGU/IiwgIlIkIDEuMTI1LDUxLCBwb2lzIDEuMDAwIMOXICgxLDAzKeKBtCIsIFsiUiQgMS4xMjAsMDAsIHF1ZSDDqSBvIG1vbnRhbnRlIGVtIGNhcGl0YWxpemHDp8OjbyBzaW1wbGVzIiwgIlIkIDEuMTI3LDUwLCBxdWUgw6kgbyBtb250YW50ZSBlbSBjYXBpdGFsaXphw6fDo28gY29udMOtbnVhIGEgMTIlIGEuYS4iLCAiUiQgMS4wMzAsMDAsIHF1ZSDDqSBvIG1vbnRhbnRlIGFww7NzIGFwZW5hcyB1bSBtw6pzIl0sICJNID0gQyDDlyAoMSArIGkp4oG/LiIsICIxLjAwMCDDlyAxLDAz4oG0ID0gUiQgMS4xMjUsNTEuIE5hIGNhcGl0YWxpemHDp8OjbyBzaW1wbGVzIHNlcmlhbSBSJCAxLjEyMCwwMC4iXSwgWyJVbSBwcm9mZXNzb3IgZXhwbGljYSBxdWUgZXhpc3RlIHVtIGNhc28gdGXDs3JpY28gZW0gcXVlIG9zIGp1cm9zIHPDo28gaW5jb3Jwb3JhZG9zIGFvIGNhcGl0YWwgYSB0b2RvIGluc3RhbnRlLnx8fENvbW8gc2UgY2hhbWEgZXNzZSByZWdpbWU/IiwgIkNhcGl0YWxpemHDp8OjbyBjb250w61udWEsIHVzYWRhIGVtIG1vZGVsb3MgbWF0ZW3DoXRpY29zIGF2YW7Dp2Fkb3MiLCBbIkNhcGl0YWxpemHDp8OjbyBzaW1wbGVzLCBlbSBxdWUgb3MganVyb3MgbsOjbyBzZSBpbmNvcnBvcmFtIGFvIGNhcGl0YWwiLCAiQ2FwaXRhbGl6YcOnw6NvIGFudGVjaXBhZGEsIGVtIHF1ZSBvcyBqdXJvcyBzw6NvIGNvYnJhZG9zIG5vIGluw61jaW8iLCAiQ2FwaXRhbGl6YcOnw6NvIHBvc3RlY2lwYWRhLCBlbSBxdWUgb3MganVyb3Mgc8OjbyBjb2JyYWRvcyBubyBmaW5hbCJdLCAiUGVuc2UgZW0gY2FwaXRhbGl6YcOnw6NvIGFjb250ZWNlbmRvIGNvbnRpbnVhbWVudGUuIiwgIkEgY2FwaXRhbGl6YcOnw6NvIGNvbnTDrW51YSDDqSB1bSBjYXNvIHRlw7NyaWNvIGVtIHF1ZSBhIGNhcGl0YWxpemHDp8OjbyBvY29ycmUgY29udGludWFtZW50ZSwgdXNhZGEgZW0gbW9kZWxvcyBhdmFuw6dhZG9zIChleC46IE0gPSAxLjAwMCDDlyBlXigwLDEyKSDiiYggUiQgMS4xMjcsNTApLiJdLCBbIlVtIGZpbmFuY2lhbWVudG8gZGUgUiQgNS4wMDAsMDAgY29icmEgb3MganVyb3Mgbm8gZmluYWwgZGUgY2FkYSBtw6pzLnx8fENvbW8gw6kgY2hhbWFkYSBlc3NhIGZvcm1hIGRlIGNvYnJhbsOnYT8iLCAiUG9zdGVjaXBhZGEsIHF1ZSDDqSBvIHBhZHLDo28gbm9zIGJhbmNvcyBicmFzaWxlaXJvcyIsIFsiQW50ZWNpcGFkYSwgcXVlIGNvYnJhIG9zIGp1cm9zIG5vIGluw61jaW8gZGUgY2FkYSBwZXLDrW9kbyIsICJDb250w61udWEsIHF1ZSBjb2JyYSBvcyBqdXJvcyBhIGNhZGEgaW5zdGFudGUgZG8gZGlhIiwgIlNpbXBsZXMsIHF1ZSBjb2JyYSBqdXJvcyBhcGVuYXMgbm8gw7psdGltbyBtw6pzIGRvIGNvbnRyYXRvIl0sICJQb3N0ID0gZGVwb2lzIGRvIHBlcsOtb2RvLiIsICJOYSBmb3JtYSBwb3N0ZWNpcGFkYSBvcyBqdXJvcyBzw6NvIGNvYnJhZG9zIG5vIGZpbmFsIGRvIHBlcsOtb2RvLiDDiSBvIHBhZHLDo28gbmEgbWFpb3JpYSBkYXMgb3BlcmHDp8O1ZXMgYmFuY8OhcmlhcyBkbyBCcmFzaWwuIl0sIFsiVW1hIGxvamEgZGUgY29uZmVjw6fDtWVzIGNvbXBhcmEgZHVhcyBwcm9wb3N0YXMgZGUgY3LDqWRpdG8gcGFyYSBjb21wcmFyIG3DoXF1aW5hcyBkZSBjb3N0dXJhLiBSZWNlYmVyIFIkIDEuMDAwLDAwIGhvamUgb3UgUiQgMS4xMDIsNTAgZGFxdWkgYSAyIG1lc2VzLCBhIDUlIGEubS4sIHPDo28gb3DDp8O1ZXMgZXF1aXZhbGVudGVzLnx8fFBvciBxdWUgb3MgZG9pcyB2YWxvcmVzIHPDo28gZXF1aXZhbGVudGVzPyIsICJQb3JxdWUsIGxldmFkb3Mgw6AgbWVzbWEgZGF0YSBjb20gYSBtZXNtYSB0YXhhLCBkw6NvIG8gbWVzbW8gdmFsb3I6IDEuMDAwIMOXICgxLDA1KcKyID0gMS4xMDIsNTAiLCBbIlBvcnF1ZSAxLjEwMiw1MCDDqSBzZW1wcmUgbWFpb3IgcXVlIDEuMDAwLCBlbnTDo28gbyB0ZW1wbyBuw6NvIGltcG9ydGEiLCAiUG9ycXVlIG9zIGRvaXMgdmFsb3JlcyB0w6ptIG8gbWVzbW8gbsO6bWVybyBkZSBkw61naXRvcyBlIGEgbWVzbWEgdGF4YSIsICJQb3JxdWUgMS4wMDAgKyA1JSArIDUlID0gMS4xMDAsIHZhbG9yIHByw7N4aW1vIGRlIDEuMTAyLDUwIl0sICJMZXZlIG9zIGRvaXMgdmFsb3JlcyBwYXJhIGEgbWVzbWEgZGF0YSBmb2NhbC4iLCAiRG9pcyBjYXBpdGFpcyBzw6NvIGVxdWl2YWxlbnRlcyBxdWFuZG8sIGxldmFkb3Mgw6AgbWVzbWEgZGF0YSBmb2NhbCBlIMOgIG1lc21hIHRheGEsIHByb2R1emVtIG8gbWVzbW8gdmFsb3IuIEFzc2ltOiAxLjAwMCDDlyAoMSwwNSnCsiA9IFIkIDEuMTAyLDUwLiJdLCBbIlVtIGNvbWVyY2lhbnRlIHF1ZXIgc2FiZXIgcXVhbnRvIFIkIDIuMDAwLDAwIGRlIGhvamUgdmFsZXLDo28gZGFxdWkgYSAyIG1lc2VzLCBhIDUlIGFvIG3DqnMsIGVtIHJlZ2ltZSBjb21wb3N0by58fHxRdWFsIMOpIG8gdmFsb3IgZXF1aXZhbGVudGU/IiwgIlIkIDIuMjA1LDAwLCBwb2lzIDIuMDAwIMOXICgxLDA1KcKyIiwgWyJSJCAyLjIwMCwwMCwgcXVlIHNlcmlhIG8gdmFsb3IgZW0ganVyb3Mgc2ltcGxlcyIsICJSJCAyLjEwMCwwMCwgcXVlIMOpIG8gdmFsb3IgYXDDs3MgYXBlbmFzIHVtIG3DqnMiLCAiUiQgMi4wMTAsMDAsIHF1ZSBzZXJpYSBvIHZhbG9yIGNvbSBhcGVuYXMgMCw1JSBkZSB0YXhhIl0sICJNdWx0aXBsaXF1ZSBwb3IgKDEgKyBpKSBlbGV2YWRvIGFvIG7Dum1lcm8gZGUgbWVzZXMuIiwgIjIuMDAwIMOXIDEsMDXCsiA9IDIuMDAwIMOXIDEsMTAyNSA9IFIkIDIuMjA1LDAwLiJdXX0="),function(c){return c.charCodeAt(0)})));
+
+function novoEstado(){return{nome:"",email:"",n:1,q:[],r:[],i:0,res:{1:null,2:null},ativo:false,vistas:{1:{},2:{}}}}
+var S=novoEstado();
+var avisoPend=false,musicaOn=false;
+
+function $(i){return document.getElementById(i)}
+function enun(t){var p=t.split("|||");return p.length>1?'<span class="sit">'+esc(p[0])+'</span><b>'+esc(p[1])+'</b>':esc(t)}
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
+function emb(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function falar(m){var s=$("status");s.textContent="";setTimeout(function(){s.textContent=m},60)}
+function foco(id){var e=$(id);if(e&&e.focus)e.focus()}
+function reduzido(){return window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches}
+function reinicios(){try{return parseInt(sessionStorage.getItem("reiniciosMF"),10)||0}catch(e){return 0}}
+
+function steps(){var h='<div class="steps" aria-label="Etapas do quiz">';[1,2].forEach(function(n){var c=S.res[n]?"done":(S.n===n?"on":"");h+='<div class="step '+c+'">'+(S.res[n]?"✅ ":"")+"Fase "+n+" · "+(n===1?"Juros Simples e Compostos":"Taxas, Descontos e Capitalização")+"</div>"});return h+"</div>"}
+
+function inicio(){
+  $("app").innerHTML='<form onsubmit="comecar();return false" novalidate>'+
+  '<label class="f" for="nm">👤 Nome completo</label><input type="text" id="nm" autocomplete="name" placeholder="Digite seu nome completo">'+
+  '<label class="f" for="em">📧 E-mail</label><input type="email" id="em" autocomplete="email" placeholder="seu.email@exemplo.com">'+
+  '<p class="erro" id="err" role="alert"></p>'+
+  '<div class="msg">📋 Questões baseadas no livro didático de <b>Matemática Financeira – 1º Módulo</b>. São <b>2 fases de 10 questões</b> (Fase 1: conceitos e siglas, juros simples com as variáveis isoladas, juros compostos e comparação entre os regimes; Fase 2: taxa nominal e efetiva, descontos simples comercial e racional, desconto composto, regimes de capitalização e equivalência de capitais), com situações do dia a dia de Vera Cruz para você analisar e escolher a melhor resposta. <b>Use papel e calculadora se precisar.</b> Questões e alternativas são embaralhadas a cada tentativa. A <b>Fase 2 só libera após concluir a Fase 1</b>. Ao final de cada quiz você revisa as questões <b>uma por vez</b>, escolhendo o número no menu (acerto ou erro e comentário), pode refazer e enviar o resultado ao professor. <b>Só vale o resultado enviado</b>; a revisão é pessoal e leva o seu nome como marca d&#8217;água.<br>🎵 <b>Trilha sonora opcional:</b> use o botão <b>Música</b> no alto da página para ligar ou desligar.<br>⚠️ <b>Não saia da página durante o quiz:</b> se trocar de aba, minimizar ou abrir outro aplicativo, você volta à tela de login e <b>recomeça tudo</b>, com novas questões.</div>'+
+  '<button class="btn" type="submit">▶ Iniciar Fase 1</button></form>';
+}
+function comecar(){
+  var n=$("nm").value.trim(),e=$("em").value.trim();
+  if(n.length<3||e.indexOf("@")<1||e.indexOf(".")<0){$("err").textContent="Preencha o nome completo e um e-mail válido.";falar("Preencha o nome completo e um e-mail válido.");foco(n.length<3?"nm":"em");return}
+  S.nome=n;S.email=e;iniciar(1);
+}
+
+/* Sorteio: prioriza questões ainda não vistas; só repete quando o banco se esgota */
+function sortear(n){
+  var pool=BANCO[n].map(function(x,i){return i}),v=S.vistas[n];
+  var novas=emb(pool.filter(function(i){return !v[i]})),sel;
+  if(novas.length>=NQ){sel=novas.slice(0,NQ)}
+  else{var resto=emb(pool.filter(function(i){return v[i]})).slice(0,NQ-novas.length);sel=novas.concat(resto);S.vistas[n]={}}
+  sel.forEach(function(i){S.vistas[n][i]=1});
+  return emb(sel).map(function(i){var x=BANCO[n][i];return{t:x[0],o:emb([x[1]].concat(x[2])),c:x[1],d:x[3],e:x[4]}});
+}
+function iniciar(n){S.n=n;S.q=sortear(n);S.r=[];S.i=0;S.ativo=true;quest()}
+
+function quest(){
+  var q=S.q[S.i],p=Math.round(S.i/NQ*100);
+  var h=steps()+'<div style="color:var(--mut);font-size:.9em">Fase '+S.n+' · Questão '+(S.i+1)+' de '+NQ+'</div><div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+p+'" aria-label="Progresso do quiz"><i style="width:'+p+'%"></i></div><h2 class="q" id="qt" tabindex="-1">'+enun(q.t)+'</h2><div role="radiogroup" aria-labelledby="qt" id="ops">';
+  q.o.forEach(function(o,k){var on=S.r[S.i]===o;h+='<button type="button" class="op'+(on?" sel":"")+'" role="radio" aria-checked="'+on+'" onclick="escolher('+k+')"><b>'+"ABCD"[k]+")</b><span>"+esc(o)+"</span></button>"});
+  h+='</div><div class="dica" id="dc" role="note">💡 '+esc(q.d)+'</div>';
+  h+='<button type="button" class="btn sec" id="bd" aria-expanded="false" aria-controls="dc" onclick="dica()">💡 Dica</button> ';
+  if(S.i>0)h+='<button type="button" class="btn sec" onclick="S.i--;quest()">← Anterior</button> ';
+  h+='<button type="button" class="btn" id="bn" '+(S.r[S.i]===undefined?"disabled":"")+' onclick="prox()">'+(S.i===NQ-1?"Finalizar ✔":"Próxima →")+"</button>";
+  h+='<p class="atalhos">⌨️ Atalhos: teclas 1 a 4 (ou A a D) escolhem a resposta; seta → avança; seta ← volta.</p>';
+  $("app").innerHTML=h;foco("qt");
+}
+function escolher(k){
+  S.r[S.i]=S.q[S.i].o[k];
+  var bs=document.querySelectorAll("#ops .op");
+  for(var j=0;j<bs.length;j++){var on=(j===k);bs[j].classList.toggle("sel",on);bs[j].setAttribute("aria-checked",on?"true":"false")}
+  $("bn").disabled=false;falar("Alternativa "+"ABCD"[k]+" selecionada.");
+}
+function dica(){var d=$("dc"),b=$("bd"),ver=d.style.display!=="block";d.style.display=ver?"block":"none";b.setAttribute("aria-expanded",ver?"true":"false");if(ver)falar("Dica: "+S.q[S.i].d)}
+function prox(){if(S.i<NQ-1){S.i++;quest()}else fim()}
+
+function status(p){return p>=70?["Meta atingida","#2f855a"]:p>=50?["Quase lá – revise e refaça","#c05621"]:["Refazer recomendado","#c53030"]}
+function fim(){
+  S.ativo=false;
+  var a=0,it=S.q.map(function(q,i){var ok=S.r[i]===q.c;if(ok)a++;return{t:q.t,r:S.r[i],c:q.c,e:q.e,ok:ok}});
+  S.res[S.n]={a:a,t:NQ,p:Math.round(a/NQ*100),it:it,dt:new Date().toLocaleString("pt-BR")};
+  resultado(S.n);
+}
+function resultado(n){
+  S.n=n;var r=S.res[n],st=status(r.p);
+  var h=steps()+'<h2 class="q" id="rt" tabindex="-1">🏁 Fase '+n+' concluída: '+r.a+" / "+r.t+" ("+r.p+'%) <span class="tag" style="background:'+st[1]+'">'+st[0]+'</span></h2><h3>📖 Revisão individual</h3><p class="rvinfo">Escolha o número da questão para ver se você acertou ou errou e ler o comentário. A revisão é pessoal: <b>só vale o resultado enviado ao professor</b>.</p>';
+  h+=menuRev(n)+'<div id="rev" class="rev" aria-live="polite"><p class="rvinfo">Nenhuma questão selecionada.</p></div>';
+  h+='<button type="button" class="btn sec" onclick="iniciar('+n+')">🔄 Refazer Fase '+n+" (novas questões)</button> ";
+  if(n===1)h+='<button type="button" class="btn ok" onclick="iniciar(2)">➡ Ir para a Fase 2</button>';
+  h+='<h3>📤 Enviar resultado</h3><button type="button" class="btn" onclick="envio(\'PARCIAL\')">📸 Enviar PARCIAL (Fase 1)</button> ';
+  h+=S.res[1]&&S.res[2]?'<button type="button" class="btn ok" onclick="envio(\'TOTAL\')">📸 Enviar TOTAL (Fase 1 + 2)</button>':'<button type="button" class="btn" disabled>📸 Enviar TOTAL (conclua os 2 quizzes)</button>';
+  h+='<div id="envio"></div>';
+  $("app").innerHTML=h;window.scrollTo(0,0);foco("rt");
+}
+
+function menuRev(n){var r=S.res[n],h='<nav class="mrev" aria-label="Escolher a questão para revisar">';r.it.forEach(function(x,i){h+='<button type="button" class="nq" id="nq'+i+'" aria-label="Questão '+(i+1)+'" onclick="verQ('+n+','+i+')">'+(i+1)+"</button>"});return h+"</nav>"}
+function marca(){var t=esc(S.nome+" · "+TURMA+" · "+new Date().toLocaleDateString("pt-BR")),h='<div class="marca" aria-hidden="true">';for(var k=0;k<14;k++)h+="<span>"+t+"</span>";return h+"</div>"}
+function verQ(n,i){
+  var x=S.res[n].it[i],b=$("nq"+i),bs=document.querySelectorAll(".nq");
+  for(var j=0;j<bs.length;j++){bs[j].removeAttribute("aria-current");bs[j].classList.remove("atual")}
+  b.classList.add("atual");b.setAttribute("aria-current","true");b.classList.add(x.ok?"c":"e");b.textContent=(i+1)+(x.ok?" ✅":" ❌");
+  $("rev").innerHTML=marca()+'<div class="gab '+(x.ok?"c":"e")+'"><b>'+(x.ok?"✅ Você acertou":"❌ Você errou")+" · Questão "+(i+1)+'</b><p style="margin:8px 0">'+enun(x.t)+"</p>Sua resposta: "+esc(x.r)+(x.ok?"":"<br>Resposta correta: <b>"+esc(x.c)+"</b>")+'<div class="ex">📌 '+esc(x.e)+"</div></div>";
+  falar((x.ok?"Você acertou. ":"Você errou. ")+x.e);
+}
+function codigo(s){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);return(h1>>>0).toString(36).toUpperCase().padStart(6,"0").slice(-6)}
+function linha(k,v){return '<div class="row"><span>'+k+"</span><b>"+v+"</b></div>"}
+function envio(tipo){
+  var r1=S.res[1],r2=S.res[2],tot=tipo==="TOTAL",a=tot?r1.a+r2.a:r1.a,t=tot?2*NQ:NQ,p=Math.round(a/t*100),st=status(p),sd="Reinícios por saída da página: "+reinicios();
+  S.pl={tipo:tipo,aluno:S.nome,email:S.email,dt:new Date().toLocaleString("pt-BR"),q1:r1.a+" / "+NQ+"",q2:tot?r2.a+" / "+NQ+"":"—",total:a+" / "+t,perc:p+"%",status:st[0],saidas:sd};S.pl.codigo=codigo([S.nome,S.email,tipo,a,t,S.pl.dt].join("|"));
+  var h='<div class="cartao" id="cartao"><h2>📈 Matemática Financeira — Turma D<br><span class="tag" style="background:'+(tot?"#2f855a":"#c05621")+'">ENVIO '+tipo+(tot?" · Fase 1 + Fase 2":" · somente Fase 1")+"</span></h2>"+
+  linha("👤 Aluno",esc(S.nome))+linha("📧 E-mail",esc(S.email))+linha("📅 Data/hora",S.pl.dt)+
+  linha("Fase 1 – Juros Simples e Compostos",r1.a+" / "+NQ+" ("+r1.p+"%)")+linha("Fase 2 – Taxas, Descontos e Capitalização",tot?r2.a+" / "+NQ+" ("+r2.p+"%)":"não enviado neste envio")+
+  linha("🏆 Nota "+(tot?"total":"parcial"),"<b>"+a+" / "+t+" ("+p+"%)</b>")+linha("Status",st[0])+linha("🚪 Reinícios por saída da página",reinicios())+linha("🔐 Código de verificação",S.pl.codigo)+"</div>";
+  h+='<button type="button" class="btn ok" id="bt" onclick="enviar_(\''+tipo+'\')">📤 Enviar para a pasta do Drive ('+tipo+')</button><div id="img" role="status" aria-live="polite"></div><div class="msg">O envio é feito automaticamente para a pasta do professor, com o nome <b>'+tipo+'_'+esc(S.nome.replace(/\s+/g,"_"))+'</b>. Se falhar, a imagem será exibida para você salvar.<br>'+(DRIVE?'<a href="'+DRIVE+'" target="_blank" rel="noopener"><button class="btn sec" type="button">📁 Abrir pasta do Drive (alternativa manual)</button></a>':"")+'</div>';
+  $("envio").innerHTML=h;$("cartao").scrollIntoView({behavior:reduzido()?"auto":"smooth"});
+}
+function enviar_(tipo){
+  var b=$("img"),bt=$("bt");bt.disabled=true;b.innerHTML="⏳ Gerando imagem e enviando…";
+  if(!window.html2canvas){b.innerHTML="Não foi possível gerar a imagem. Tire um print da tela e envie pela pasta do Drive.";bt.disabled=false;return}
+  html2canvas($("cartao"),{scale:2,backgroundColor:"#ffffff"}).then(function(c){
+    var u=c.toDataURL("image/png"),nome=tipo+"_"+S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+    var pre='<img src="'+u+'" alt="Cartão de resultado" style="max-width:100%;border-radius:10px;border:1px solid var(--bd);margin-top:8px">';
+    fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({nome:nome,imagem:u,turma:TURMA,atividade:ATIVIDADE},S.pl))})
+    .then(function(){b.innerHTML='<div class="msg">✅ <b>Envio '+tipo+' realizado!</b> O resultado foi enviado para a pasta do professor como <b>'+esc(nome)+'.png</b>.'+pre+"</div>";bt.disabled=false;bt.textContent="📤 Reenviar ("+tipo+")"})
+    .catch(function(){b.innerHTML='<div class="msg">⚠️ Não foi possível enviar automaticamente. Salve a imagem abaixo (segure/botão direito) e envie pela pasta do Drive.'+pre+"</div>";bt.disabled=false})
+  }).catch(function(){b.innerHTML="Falha ao gerar a imagem. Tire um print da tela.";bt.disabled=false})
+}
+
+/* ---------- Acessibilidade ---------- */
+function fonte(d){var s=parseFloat(getComputedStyle(document.body).fontSize);document.body.style.fontSize=Math.min(26,Math.max(13,s+d*2))+"px"}
+function contraste(){var on=document.body.classList.toggle("contraste");$("btCon").setAttribute("aria-pressed",on?"true":"false")}
+function ler(){
+  if(!window.speechSynthesis)return;speechSynthesis.cancel();
+  var t;
+  if(S.ativo&&$("qt")){var q=S.q[S.i];t=q.t.replace("|||",". ")+". "+q.o.map(function(o,k){return "Alternativa "+"ABCD"[k]+": "+o}).join(". ")}
+  else t=$("app").innerText;
+  var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";
+  u.onstart=function(){baixar(true)};u.onend=u.onerror=function(){baixar(false)};
+  speechSynthesis.speak(u);
+}
+
+/* ---------- Música (trilha opcional) ---------- */
+function volume(){return (+$("vol").value)/100}
+function baixar(on){if(musicaOn)$("trilha").volume=on?volume()*0.25:volume()}
+function atualizaMus(){var b=$("btMus");b.setAttribute("aria-pressed",musicaOn?"true":"false");b.textContent=musicaOn?"🎵 Música: ligada":"🎵 Música: desligada";$("volLbl").style.display=musicaOn?"inline-flex":"none"}
+function musica(){
+  var a=$("trilha");
+  if(!musicaOn){
+    if(!a.getAttribute("src"))a.src=MUSICA;
+    a.volume=volume();musicaOn=true;atualizaMus();
+    var pr=a.play();
+    if(pr&&pr.catch)pr.catch(function(){musicaOn=false;atualizaMus();falar("Não foi possível tocar a música.")});
+    falar("Música ligada.");
+  }else{pararMusica();falar("Música desligada.")}
+}
+function pararMusica(){var a=$("trilha");try{a.pause()}catch(e){}musicaOn=false;atualizaMus()}
+$("vol").addEventListener("input",function(){if(musicaOn)$("trilha").volume=volume()});
+$("trilha").addEventListener("error",function(){if(musicaOn){musicaOn=false;atualizaMus();falar("Arquivo de música não encontrado.")}});
+
+/* ---------- Aviso (janela de diálogo) ---------- */
+function aviso(m){
+  var a=$("av");if(a)a.remove();
+  a=document.createElement("div");a.id="av";a.setAttribute("role","alertdialog");a.setAttribute("aria-modal","true");a.setAttribute("aria-labelledby","avt");
+  a.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99";
+  a.innerHTML='<div class="wrap" style="max-width:440px;text-align:center"><p id="avt" style="font-size:1.1em;line-height:1.5">'+m+'</p><button type="button" class="btn" id="avb" onclick="fecharAviso()">Entendi</button></div>';
+  document.body.appendChild(a);foco("avb");
+}
+function fecharAviso(){var a=$("av");if(a)a.remove();foco("nm")}
+
+/* ---------- Saiu da página: volta ao login e recomeça tudo ---------- */
+function reiniciarTudo(){
+  try{speechSynthesis.cancel()}catch(e){}
+  pararMusica();
+  try{sessionStorage.setItem("reiniciosMF",String(reinicios()+1))}catch(e){}
+  S=novoEstado();inicio();
+}
+document.addEventListener("visibilitychange",function(){
+  if(document.hidden){if(S.ativo){reiniciarTudo();avisoPend=true}}
+  else if(avisoPend){avisoPend=false;aviso("🔄 Você saiu da página durante o quiz. Por isso, <b>tudo foi reiniciado</b>: faça o login novamente. As questões serão sorteadas de novo.")}
+});
+
+/* Revisão: sem menu de contexto/cópia (desestímulo; não é barreira total) */
+["contextmenu","copy","cut","dragstart"].forEach(function(ev){document.addEventListener(ev,function(e){if(e.target&&e.target.closest&&e.target.closest(".rev"))e.preventDefault()})});
+
+/* ---------- Atalhos de teclado ---------- */
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"&&$("av")){fecharAviso();return}
+  if(e.ctrlKey||e.altKey||e.metaKey||$("av"))return;
+  var t=e.target&&e.target.tagName;if(t==="INPUT"||t==="TEXTAREA"||t==="SELECT")return;
+  if(!S.ativo||!$("ops"))return;
+  var k=(e.key||"").toLowerCase(),idx=-1;
+  if(k.length===1&&"1234".indexOf(k)>-1)idx=+k-1;else if(k.length===1&&"abcd".indexOf(k)>-1)idx=k.charCodeAt(0)-97;
+  if(idx>=0){escolher(idx);var b=document.querySelectorAll("#ops .op")[idx];if(b)b.focus();e.preventDefault();return}
+  if(e.key==="ArrowRight"&&!$("bn").disabled){prox();e.preventDefault()}
+  else if(e.key==="ArrowLeft"&&S.i>0){S.i--;quest();e.preventDefault()}
+});
+
+inicio();
+</script>
+</body>
+</html>
