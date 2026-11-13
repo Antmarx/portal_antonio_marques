@@ -283,28 +283,37 @@
   html.leitura body { letter-spacing: .03em; word-spacing: .1em; line-height: 1.7; }
 
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .b-sub { margin: 0 0 12px; font-family: 'Sora', Arial, sans-serif; font-size: 1.15rem; color: var(--rosa); }
-  .b-busca { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
-  .b-busca input { flex: 1 1 240px; min-height: 46px; padding: 0 16px; font: inherit; color: #fff; background: rgba(255,255,255,.12); border: 2px solid var(--ciano); border-radius: 14px; }
-  .b-busca input::placeholder { color: #d9d4f2; }
-  .b-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .b-chip { min-height: 40px; padding: 0 16px; font: inherit; font-weight: 800; font-size: .95rem; color: #fff; background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.4); border-radius: 999px; cursor: pointer; }
-  .b-chip[aria-pressed="true"] { background: var(--ciano); color: #0a0a22; border-color: var(--ciano); }
-  .b-conta { margin: 0 0 14px; color: #e6e1ff; }
-  .b-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin-bottom: 22px; }
-  .b-card { --cor: var(--ciano); display: flex; flex-direction: column; overflow: hidden; color: #fff; text-decoration: none; background: rgba(10,8,34,.78); border: 2px solid var(--cor); border-radius: 18px; transition: transform .2s ease, box-shadow .2s ease; }
-  .b-card.c-1 { --cor: var(--lilas); } .b-card.c-2 { --cor: var(--ambar); } .b-card.c-3 { --cor: var(--rosa); }
-  .b-card:hover, .b-card:focus-visible { transform: translateY(-4px); box-shadow: 0 0 26px var(--cor); }
-  .b-capa { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: linear-gradient(135deg, rgba(107,233,255,.25), rgba(208,140,255,.3)); }
-  .b-capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .b-corpo { padding: 12px 14px 16px; }
-  .b-tag { display: inline-block; margin-bottom: 8px; padding: 3px 10px; font-size: .78rem; font-weight: 800; color: #12102e; background: var(--cor); border-radius: 999px; }
-  .b-corpo strong { display: block; font-size: 1.05rem; line-height: 1.25; }
-  .b-corpo small { display: block; margin-top: 6px; opacity: .85; }
-  .b-aviso { padding: 12px 16px; border-left: 6px solid var(--ambar); background: rgba(255,255,255,.08); border-radius: 10px; }
-  html.calmo .b-card:hover { transform: none; box-shadow: none; }
-  html.contraste .b-card { background: #000; } html.contraste .b-busca input { background: #000; }
-  html.contraste .b-chip { background: #000; border-color: #fff; } html.contraste .b-chip[aria-pressed="true"] { background: #ffee00; color: #000; }
+  /* ===== BIBLIOTECA (início) ===== */
+  .b-sub { margin: 0 0 8px; font-family: 'Sora', Arial, sans-serif; font-size: 1rem; color: var(--rosa); }
+  .b-wrap { display: grid; grid-template-columns: 215px minmax(0, 1fr); gap: 16px; height: min(560px, 78vh); }
+  .b-lado { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; padding: 2px 4px 2px 2px; }
+  .b-rot { margin-top: 6px; font-size: .8rem; font-weight: 800; letter-spacing: .03em; color: var(--ambar); }
+  .b-lado input, .b-lado select { width: 100%; min-height: 42px; font: inherit; font-size: .92rem; }
+  .b-lado input { padding: 0 12px; color: #fff; background: rgba(255,255,255,.12); border: 2px solid var(--ciano); border-radius: 14px; }
+  .b-lado input::placeholder { color: #d9d4f2; }
+  .b-limpar { margin-top: 8px; min-height: 38px; font: inherit; font-weight: 800; font-size: .88rem; color: #fff; background: transparent; border: 2px solid rgba(255,255,255,.4); border-radius: 12px; cursor: pointer; }
+  .b-limpar:hover, .b-limpar:focus-visible { border-color: var(--ciano); outline: none; }
+  .b-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .b-dest { flex: none; margin-bottom: 10px; }
+  .b-faixa { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  .b-conta { flex: none; margin: 0 0 8px; font-size: .88rem; color: #e6e1ff; }
+  .b-lista { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 6px; }
+  .b-item { --cor: var(--ciano); display: flex; align-items: center; gap: 12px; padding: 8px 12px; color: #fff; text-decoration: none; background: rgba(10,8,34,.78); border: 1px solid rgba(255,255,255,.18); border-left: 5px solid var(--cor); border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease; }
+  .b-item.c-1 { --cor: var(--lilas); } .b-item.c-2 { --cor: var(--ambar); } .b-item.c-3 { --cor: var(--rosa); }
+  .b-item:hover, .b-item:focus-visible { transform: translateX(3px); box-shadow: 0 0 14px var(--cor); outline: none; }
+  .b-ico { flex: none; width: 1.8rem; text-align: center; font-size: 1.35rem; }
+  .b-txt { flex: 1; min-width: 0; }
+  .b-txt strong { display: block; font-size: .95rem; line-height: 1.25; overflow-wrap: anywhere; }
+  .b-txt small { display: block; margin-top: 2px; font-size: .78rem; opacity: .8; }
+  .b-ir { flex: none; color: var(--cor); font-weight: 800; }
+  .b-dchip { flex: none; display: inline-flex; align-items: center; gap: 6px; max-width: 260px; padding: 6px 12px; color: #fff; font-size: .85rem; font-weight: 800; text-decoration: none; background: rgba(255,195,107,.15); border: 2px solid var(--ambar); border-radius: 999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .b-dchip:hover, .b-dchip:focus-visible { background: var(--ambar); color: #12102e; outline: none; }
+  .b-aviso { margin: 12px 0 0; padding: 10px 14px; font-size: .85rem; border-left: 6px solid var(--ambar); background: rgba(255,255,255,.08); border-radius: 10px; }
+  html.calmo .b-item:hover { transform: none; box-shadow: none; }
+  html.contraste .b-item, html.contraste .b-lado input { background: #000; }
+  html.contraste .b-dchip { background: #000; border-color: #ffee00; }
+  @media (max-width: 760px) { .b-wrap { grid-template-columns: 1fr; height: auto; } .b-lado { overflow: visible; } .b-lista { max-height: 420px; } }
+  /* ===== BIBLIOTECA (fim) ===== */
 
   @media (max-width: 760px) {
     body { padding: 18px 12px 40px; }
@@ -347,20 +356,35 @@
       <div id="container" class="grid"></div>
     </section>
 
+    <!-- ===== BIBLIOTECA (início) ===== -->
     <section class="painel" id="biblioteca" hidden>
       <h2>Biblioteca de materiais</h2>
-      <div id="destaques" hidden><h3 class="b-sub">⭐ Destaques</h3><div class="b-grid" id="gDestaques"></div></div>
-      <div class="b-busca">
-        <label class="sr" for="bBusca">Buscar material por palavra-chave</label>
-        <input type="search" id="bBusca" placeholder="🔎 Buscar por palavra-chave">
-        <label class="sr" for="bArea">Filtrar por área</label>
-        <select id="bArea"><option value="">Todas as áreas</option></select>
+      <div class="b-wrap">
+        <div class="b-lado">
+          <label class="b-rot" for="bBusca">Buscar</label>
+          <input type="search" id="bBusca" placeholder="🔎 Palavra-chave">
+          <label class="b-rot" for="bArea">Turma</label>
+          <select id="bArea"><option value="">Todas as turmas</option></select>
+          <label class="b-rot" for="bTipo">Tipo</label>
+          <select id="bTipo"><option value="">Todos os tipos</option></select>
+          <label class="b-rot" for="bOrdem">Ordem</label>
+          <select id="bOrdem">
+            <option value="turma">Ordem da turma</option>
+            <option value="az">A a Z</option>
+            <option value="za">Z a A</option>
+            <option value="num">Numérica (01, 02…)</option>
+          </select>
+          <button type="button" class="b-limpar" id="bLimpar">Limpar filtros</button>
+        </div>
+        <div class="b-main">
+          <div class="b-dest" id="destaques" hidden><h3 class="b-sub">⭐ Destaques</h3><div class="b-faixa" id="gDestaques"></div></div>
+          <p class="b-conta" id="bConta" aria-live="polite"></p>
+          <div class="b-lista" id="gResultados"></div>
+        </div>
       </div>
-      <div class="b-chips" id="bChips" role="group" aria-label="Filtrar por tipo"></div>
-      <p class="b-conta" id="bConta" aria-live="polite"></p>
-      <div class="b-grid" id="gResultados"></div>
       <p class="b-aviso" id="bAviso" hidden></p>
     </section>
+    <!-- ===== BIBLIOTECA (fim) ===== -->
 
     <section class="painel" id="sobre" hidden><h2>Sobre o professor</h2><p id="sobreTxt"></p>
       <div class="v-acoes" id="sobreCv" style="justify-content:flex-start;margin-top:16px" hidden>
@@ -597,12 +621,21 @@ carregarLiberados();
 </script>
 
 <script>
+// ===== BIBLIOTECA (início) =====
 (function () {
   const $ = id => document.getElementById(id);
   const LAB = { video: 'Vídeo', youtube: 'Vídeo', audio: 'Áudio', pdf: 'PDF', imagem: 'Imagem', arquivo: 'Documento', drive: 'Drive', pagina: 'Página' };
   const norm = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const itens = (typeof BIBLIOTECA !== 'undefined' ? BIBLIOTECA : []).filter(l => l && l.url && l.url.trim()).map(l => {
-    l.url = l.url.trim(); l.t = tipoDe(l);
+  const cmpTxt = (a, b) => a.texto.localeCompare(b.texto, 'pt', { numeric: true, sensitivity: 'base' });
+  // número no início do nome do arquivo (ex.: 01-introducao.pdf -> 1)
+  function numeroDe(url) {
+    let base = url.split('?')[0].split('#')[0].split('/').pop();
+    try { base = decodeURIComponent(base); } catch (e) {}
+    const m = base.match(/^\s*(\d+)/);
+    return m ? parseInt(m[1], 10) : null;
+  }
+  const itens = (typeof BIBLIOTECA !== 'undefined' ? BIBLIOTECA : []).filter(l => l && l.url && l.url.trim()).map((l, i) => {
+    l.url = l.url.trim(); l.t = tipoDe(l); l._i = i; l.num = numeroDe(l.url);
     l.cat = l.promo ? 'Indicação' : (l.categoria || LAB[l.t] || 'Página');
     if (!l.texto) l.texto = l.url.split('/').pop();
     return l;
@@ -611,52 +644,60 @@ carregarLiberados();
   if (!itens.length) return;
   $('biblioteca').hidden = false;
   const cats = itens.map(l => l.cat).filter((c, i, a) => a.indexOf(c) === i);
-  const areas = itens.map(l => l.area).filter((c, i, a) => c && a.indexOf(c) === i).sort();
-  let q = '', cat = '', area = '';
+  const areas = itens.map(l => l.area).filter((c, i, a) => c && a.indexOf(c) === i);
+  let q = '', cat = '', area = '', ordem = 'turma';
 
-  function capa(l) {
-    if (l.imagem) return l.imagem;
-    if (l.t === 'youtube' && ytId(l.url)) return 'https://i.ytimg.com/vi/' + ytId(l.url) + '/hqdefault.jpg';
-    if (l.t === 'drive' && driveId(l.url)) return 'https://drive.google.com/thumbnail?id=' + driveId(l.url) + '&sz=w400';
-    return '';
-  }
-  function card(l) {
-    const a = document.createElement('a'); a.className = 'b-card c-' + (cats.indexOf(l.cat) % 4); a.href = l.url;
+  // abre o material: página externa em nova aba; o resto na janela do portal
+  function ligar(a, l) {
+    a.href = l.url;
     if (l.t === 'pagina' && !l.baixar) { a.target = '_blank'; a.rel = 'noopener' + (l.promo ? ' sponsored' : ''); }
     else a.onclick = e => { e.preventDefault(); abrirLink(l); };
-    const th = document.createElement('div'); th.className = 'b-capa';
-    const icone = () => { th.textContent = l.icone || ICONES[l.t]; };
-    const src = capa(l);
-    if (src) { const im = document.createElement('img'); im.src = src; im.alt = ''; im.loading = 'lazy'; im.onerror = () => { th.textContent = ''; icone(); }; th.appendChild(im); } else icone();
-    const b = document.createElement('div'); b.className = 'b-corpo';
-    const tg = document.createElement('span'); tg.className = 'b-tag'; tg.textContent = l.cat + (l.area ? ' · ' + l.area : '');
-    const s = document.createElement('strong'); s.textContent = l.texto;
-    const d = document.createElement('small'); d.textContent = l.promo ? 'Link externo (abre em nova aba)' : (l.baixar ? 'Baixa o arquivo' : DICAS[l.t]);
-    b.append(tg, s, d);
-    if (l.descricao) { const p = document.createElement('small'); p.textContent = l.descricao; b.appendChild(p); }
-    a.append(th, b); return a;
   }
-  function preencher(el, lista) { el.textContent = ''; lista.forEach(l => el.appendChild(card(l))); }
-
+  function linha(l) {
+    const a = document.createElement('a'); a.className = 'b-item c-' + (Math.max(0, areas.indexOf(l.area)) % 4);
+    ligar(a, l);
+    if (l.descricao) a.title = l.descricao;
+    const ic = document.createElement('span'); ic.className = 'b-ico'; ic.textContent = l.icone || ICONES[l.t]; ic.setAttribute('aria-hidden', 'true');
+    const tx = document.createElement('span'); tx.className = 'b-txt';
+    const s = document.createElement('strong'); s.textContent = l.texto;
+    const sm = document.createElement('small'); sm.textContent = l.cat + (l.area ? ' · ' + l.area : '');
+    tx.append(s, sm);
+    const ir = document.createElement('span'); ir.className = 'b-ir'; ir.textContent = '›'; ir.setAttribute('aria-hidden', 'true');
+    a.append(ic, tx, ir); return a;
+  }
+  function chipDestaque(l) {
+    const a = document.createElement('a'); a.className = 'b-dchip'; ligar(a, l);
+    a.title = (l.descricao ? l.descricao + ' · ' : '') + (l.area || '');
+    a.textContent = (l.icone || ICONES[l.t]) + ' ' + l.texto; return a;
+  }
+  function ordenar(lista) {
+    const r = lista.slice();
+    if (ordem === 'az') r.sort(cmpTxt);
+    else if (ordem === 'za') r.sort((a, b) => cmpTxt(b, a));
+    else if (ordem === 'num') r.sort((a, b) => (a.num !== null && b.num !== null) ? (a.num - b.num || cmpTxt(a, b)) : (a.num !== null ? -1 : (b.num !== null ? 1 : cmpTxt(a, b))));
+    else r.sort((a, b) => a._i - b._i);
+    return r;
+  }
   function render() {
-    const f = itens.filter(l => (!cat || l.cat === cat) && (!area || l.area === area) && (!q || norm([l.texto, l.descricao, l.area, l.cat].join(' ')).indexOf(q) > -1));
+    const f = ordenar(itens.filter(l => (!cat || l.cat === cat) && (!area || l.area === area) && (!q || norm([l.texto, l.descricao, l.area, l.cat].join(' ')).indexOf(q) > -1)));
     const dst = itens.filter(l => l.destaque);
     $('destaques').hidden = !!(q || cat || area) || !dst.length;
-    preencher($('gDestaques'), dst); preencher($('gResultados'), f);
-    $('bConta').textContent = f.length ? f.length + (f.length === 1 ? ' material encontrado' : ' materiais encontrados') : 'Nenhum material encontrado. Tente outra palavra ou limpe os filtros.';
-    Array.prototype.forEach.call($('bChips').children, b => b.setAttribute('aria-pressed', (b.dataset.cat || '') === cat));
+    $('gDestaques').textContent = ''; dst.forEach(l => $('gDestaques').appendChild(chipDestaque(l)));
+    $('gResultados').textContent = ''; f.forEach(l => $('gResultados').appendChild(linha(l)));
+    $('bConta').textContent = f.length ? f.length + (f.length === 1 ? ' material' : ' materiais') : 'Nenhum material encontrado. Tente outra palavra ou limpe os filtros.';
   }
-  ['', ...cats].forEach(c => {
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'b-chip'; b.dataset.cat = c;
-    b.textContent = c || 'Todos'; b.onclick = () => { cat = c; render(); }; $('bChips').appendChild(b);
-  });
+  cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; $('bTipo').appendChild(o); });
   if (areas.length) areas.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; $('bArea').appendChild(o); });
-  else $('bArea').hidden = true;
+  else $('bArea').disabled = true;
   $('bBusca').oninput = e => { q = norm(e.target.value.trim()); render(); };
   $('bArea').onchange = e => { area = e.target.value; render(); };
+  $('bTipo').onchange = e => { cat = e.target.value; render(); };
+  $('bOrdem').onchange = e => { ordem = e.target.value; render(); };
+  $('bLimpar').onclick = () => { q = ''; cat = ''; area = ''; ordem = 'turma'; $('bBusca').value = ''; $('bArea').value = ''; $('bTipo').value = ''; $('bOrdem').value = 'turma'; render(); };
   if (itens.some(l => l.promo)) { $('bAviso').textContent = (typeof AVISO_PROMO !== 'undefined' && AVISO_PROMO) || 'Links marcados como Indicação levam a sites externos.'; $('bAviso').hidden = false; }
   render();
 })();
+// ===== BIBLIOTECA (fim) =====
 </script>
   <button type="button" id="btnAcess" aria-expanded="false" aria-controls="painelAcess">♿ Acessibilidade</button>
   <div id="painelAcess" role="region" aria-label="Opções de acessibilidade" hidden>
