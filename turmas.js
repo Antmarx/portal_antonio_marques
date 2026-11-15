@@ -65,6 +65,7 @@ const TURMAS = [
     ] },
   { icone: "🚀", nome: "Turma D", tema: "4º Mod. ADM. EJATEC",
     links: [
+      { icone: "🧠", texto: "Genius Interdisciplinar · 4º Módulo", url: "turma-d/genius-turma-d-4modulo-ejatec.html" },
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
       { icone: "📒", texto: "Contabilidade Geral", url: "turma-d/contabilidade-geral.pdf" },
