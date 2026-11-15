@@ -33,6 +33,7 @@ const TURMAS = [
     ] },
   { icone: "🤝", nome: "Turma B", tema: "2º ano ADM Integral",
     links: [
+      { icone: "🎮", texto: "Genius Interdisciplinar", url: "turma-b/genius-turma-b-2ano-integral.html" },
       { texto: "Página da turma", url: "" },
       { texto: "Vídeo aula", url: "" },
       { icone: "📘", texto: "Desvendando os Sistemas de Informação", url: "turma-b/desvendando-os-sistemas-de-informacao.pdf" },
