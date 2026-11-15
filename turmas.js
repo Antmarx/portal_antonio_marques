@@ -18,6 +18,7 @@
 const TURMAS = [
   { icone: "📊", nome: "Turma A", tema: "1º ano ADM Integral",
     links: [
+      { icone: "🎮", texto: "Genius Interdisciplinar", url: "turma-a/genius-turma-a-1ano-integral.html" },
       { texto: "Página da turma", url: "" },
       { icone: "🎬", texto: "Vídeo aula: A ciência por trás da gestão das empresas modernas", url: "turma-a/a_ci%C3%AAncia_por_tr%C3%A1s_da_gest%C3%A3o_das_empresas_modernas.mp4" },
       { icone: "📘", texto: "Fundamentos da Administração (Parte 1)", url: "turma-a/fundamentos-da-administracao.pdf" },
