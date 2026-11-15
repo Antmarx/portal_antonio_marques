@@ -51,6 +51,7 @@ const TURMAS = [
     ] },
   { icone: "💡", nome: "Turma C", tema: "2º e 3º Mod. ADM. EJATEC",
     links: [
+      { Icone: "🧠", Texto: "Genius Interdisciplinar · 2º e 3º Módulos", URL: "turma-c/genius-turma-c-2e3modulo-ejatec.html" },
       { texto: "Página da turma",   url: "" },
       { texto: "Vídeo aula",        url: "" },
       { icone: "📘", texto: "Direito Empresarial, Trabalhista e Tributário", url: "turma-c/direito-empresarial-trabalhista-e-tributario.pdf" },
