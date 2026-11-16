@@ -42,10 +42,10 @@ const TURMAS = [
       { icone: "💰", texto: "Gestão Financeira", url: "turma-b/gestao-financeira.pdf" },
       { icone: "🧮", texto: "Matemática Financeira", url: "turma-b/matematica-financeira.pdf" },
       { icone: "🎯", texto: "Planejamento Estratégico 1", url: "turma-b/planejamento-estrategico1.pdf" },
+      { icone: "🎯", texto: "Planejamento Estratégico 2", url: "materiais/NOME-DO-PDF-2.pdf" },
       { icone: "🎯", texto: "Quiz: Planejamento Estratégico", url: "turma-b/quiz-planejamento-estrategico-turma-b.html" },
       { icone: "🧮", texto: "Quiz: Matemática Financeira", url: "turma-b/quiz-matematica-financeira-turma-b.html" },
       { icone: "📊", texto: "Quiz: Gestão Financeira", url: "turma-b/quiz-gestao-financeira-turma-b.html" },
-      { icone: "🎯", texto: "Planejamento Estratégico 3", url: "turma-b/NOME-DO-ARQUIVO.pdf" },
       { icone: "💻", texto: "Quiz: Sistemas de Informação", url: "turma-b/quiz-sistemas-de-informacao-turma-b.html" },
       { icone: "♻️", texto: "Simulador: Cooperativa Escolar de Recicláveis", url: "turma-b/simulador-cooperativa.html" }
     ] },
