@@ -565,6 +565,26 @@
       container.appendChild(card);
     });
   }
+  // ===== CONTROLE DE LIBERAÇÃO: quiz e simulador só aparecem se a planilha liberar =====
+  function urlControlada(arquivo, turma) {
+    const letra = String(turma || '').trim().slice(-1).toLowerCase();
+    return String(arquivo).indexOf('/') > -1 ? String(arquivo) : 'turma-' + letra + '/' + arquivo;
+  }
+  function fecharControlados(liberadas) {
+    TURMAS.forEach(function (t) {
+      t.links = (t.links || []).filter(function (l) {
+        const controlado = /^\s*((quiz|simulador)\s*:|genius\b)/i.test(l.texto || '');
+        return !controlado || liberadas[(l.url || '').trim()];
+      });
+    });
+  }
+  // a Biblioteca e os Destaques também não mostram quiz/simulador fechado
+  if (typeof BIBLIOTECA !== 'undefined') {
+    for (let i = BIBLIOTECA.length - 1; i >= 0; i--) {
+      if (/^\s*((quiz|simulador)\s*:|genius\b)/i.test(BIBLIOTECA[i].texto || '')) BIBLIOTECA.splice(i, 1);
+    }
+  }
+  fecharControlados({}); // começa fechado; a planilha reabre só os liberados
   montarTurmas();
 // ===== LISTA AUTOMÁTICA: planilha -> portal =====
 const LISTA_URL = 'https://script.google.com/macros/s/AKfycbz7oOfJZc4sgKtVmfbNFXtHAL8Bn5wdg3no-UKBDjZReFyx3E2nrxjrE1cpFT8LZQqv/exec';
@@ -580,6 +600,14 @@ async function carregarLiberados() {
     const d = await r.json();
     console.log('Lista recebida do script:', d);
     const lista = Array.isArray(d) ? d : (d.itens || d.lista || []);
+    const liberadas = {};
+    lista.forEach(function (a) {
+      if (String(a.estado || '').trim().toLowerCase() !== 'liberado' || !a.arquivo) return;
+      liberadas[urlControlada(a.arquivo, a.turma)] = true;
+    });
+    TURMAS.forEach(function (t) { t.links = (t.links || []).filter(function (l) {
+      return !/^\s*((quiz|simulador)\s*:|genius\b)/i.test(l.texto || '') || liberadas[(l.url || '').trim()];
+    }); });
     lista.forEach(function (a) {
       if (String(a.estado || '').trim().toLowerCase() !== 'liberado') return;
       const letra = String(a.turma || '').trim().slice(-1).toLowerCase();
