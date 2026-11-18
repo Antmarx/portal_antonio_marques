@@ -227,18 +227,15 @@ function enviar(){
   if(!window.html2canvas){m.textContent="⚠️ Não foi possível gerar a imagem do cartão. Tire um print e entregue ao professor.";b.disabled=false;return}
   html2canvas($("cartao"),{scale:2}).then(function(cv){
     var u=cv.toDataURL("image/png"),nome=S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
-    return fetch(API,{method:"POST",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},
+    return fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify({turma:TURMA,atividade:ATIVIDADE,nome:nome,imagem:u,aluno:S.nome,email:S.email,dt:res.dt,tipo:"FINAL",q1:S.ot+" / "+NQ,q2:"N1 "+S.lv[0]+"/50 | N2 "+S.lv[1]+"/50 | N3 "+S.lv[2]+"/60",total:S.p+" / "+MAXP,perc:res.perc+"%",status:res.st,saidas:"Dicas: "+S.dc})
-    }).then(function(r){return r.json()}).then(function(j){
-      if(!j||!j.ok)throw new Error((j&&(j.erro||j.error))||"sem confirmação");
-      m.textContent="✅ Recebido pelo professor como "+nome+".png";b.disabled=false;b.textContent="📤 Reenviar";
+    }).then(function(){
+      m.textContent="📨 Pedido enviado como "+nome+".png (sem confirmação do servidor). Avise o professor para conferir.";b.disabled=false;b.textContent="📤 Reenviar";
     });
   }).catch(function(e){
-    m.textContent="⚠️ O envio não foi confirmado ("+e.message+"). Tente de novo; se persistir, tire um print do cartão e entregue ao professor.";
-    b.disabled=false;
+    m.textContent="⚠️ Não foi possível enviar ("+e.message+"). Tire um print do cartão e entregue ao professor.";b.disabled=false;
   });
 }
-
 // ===== TRILHA SONORA OPCIONAL =====
 // Vazio = trilha suave gerada pelo próprio navegador. Para usar uma música sua, coloque o arquivo na mesma pasta e escreva aqui, ex.: "trilha.mp3"
 var MUSICA_URL="";
