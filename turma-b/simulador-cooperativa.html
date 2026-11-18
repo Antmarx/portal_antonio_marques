@@ -224,6 +224,11 @@ function fim(){
 function enviar(){
   var b=$("bEnv"),m=$("envMsg"),r=S.res;b.disabled=true;m.textContent="Enviando…";
   html2canvas($("cartao"),{scale:2}).then(function(cv){
+    ...
+  }).catch(function(){m.textContent="⚠️ Não foi possível enviar. Tire um print do cartão acima e entregue ao professor.";b.disabled=false})
+}
+  var b=$("bEnv"),m=$("envMsg"),r=S.res;b.disabled=true;m.textContent="Enviando…";
+  html2canvas($("cartao"),{scale:2}).then(function(cv){
     var u=cv.toDataURL("image/png"),nome=S.nome.replace(/\s+/g,"_")+"_"+new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
     return fetch(API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify({turma:TURMA,atividade:ATIVIDADE,nome:nome,imagem:u,aluno:S.nome,email:S.email,dt:r.dt,tipo:"FINAL",q1:S.ot+" / "+NQ,q2:"N1 "+S.lv[0]+"/50 | N2 "+S.lv[1]+"/50 | N3 "+S.lv[2]+"/60",total:S.p+" / "+MAXP,perc:r.perc+"%",status:r.st,saidas:"Dicas: "+S.dc})
